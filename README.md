@@ -11,13 +11,16 @@ Sistema Web de Seguimiento y Evaluación de Ayudantes DISC
 <p align="center"><a href="https://laravel.com"><img src="https://www.netskope.com/wp-content/uploads/2018/01/rat-blog.jpg" width="200"></a></p>
 
 [comment]:<TODO: Definir Roles>
+[comment]:<Quedan: Encargado SQA y Encargado Bases de Datos>
 
 
 ### Roles
-- , luis.rojas04@alumnos.ucn.cl
-- , joel.gomez@alumnos.ucn.cl.
-- , noah.faundez@alumnos.ucn.cl.
 - , felipe.aguilera@alumnos.ucn.cl.
-- , gustavo.szigethi@alumnos.ucn.cl.
+-Encargado SQA , noah.faundez@alumnos.ucn.cl.
+-Documentador técnico , joel.gomez@alumnos.ucn.cl.
 - , bastian.rios@alumnos.ucn.cl
+-Lider de programación , luis.rojas04@alumnos.ucn.cl 
+-Jefe de equipo , gustavo.szigethi@alumnos.ucn.cl.
+
+
 
