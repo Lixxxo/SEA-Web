@@ -37,3 +37,6 @@ Para refrescar las tablas:
 
 ` php artisan migrate:refresh `
 
+Para iniciar servidor:
+
+` php artisan serve --port=8080 `
