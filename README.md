@@ -10,9 +10,6 @@ Sistema Web de Seguimiento y Evaluación de Ayudantes DISC
 ## Rat Code Team
 <p align="center"><a href="https://laravel.com"><img src="https://www.netskope.com/wp-content/uploads/2018/01/rat-blog.jpg" width="200"></a></p>
 
-[comment]:<TODO: Definir Roles>
-[comment]:<Quedan: Encargado SQA y Encargado Bases de Datos>
-
 
 ### Roles
 - Encargado BD felipe.aguilera@alumnos.ucn.cl.
@@ -28,4 +25,16 @@ Sistema Web de Seguimiento y Evaluación de Ayudantes DISC
 - Jefe de equipo , gustavo.szigethi@alumnos.ucn.cl.
 
 
+## INSTRUCCIONES
+Crear una base de datos llamada sea-web
+en 
+- phpmyadmin [http://localhost/phpmyadmin]
+
+Para crear las tablas en la base de datos:
+
+` php artisan migrate ` 
+
+Para refrescar las tablas:
+
+` php artisan migrate:refresh `
 
