@@ -28,8 +28,7 @@ Sistema Web de Seguimiento y Evaluación de Ayudantes DISC
 ## INSTRUCCIONES
 Crear una base de datos llamada sea-web
 en 
-- phpmyadmin [http://localhost/phpmyadmin]
-
+- [phpmyadmin] (http://localhost/phpmyadmin)
 Para crear las tablas en la base de datos:
 
 ` php artisan migrate ` 
