@@ -1,3 +1,20 @@
+<!--Cambiar esta view dependiendo del rol de auth
+
+    por ejemplo
+
+    auth->admin(){
+        yield('admin')
+    }else{
+        yield('encargado docente')
+    }else{
+        yield('Estudiante')
+        // (dentro de estudiante poner otro yield para que se muestren las funciones 
+        // en caso de que sea ayudante)
+    }
+
+
+-->
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
