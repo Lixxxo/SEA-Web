@@ -1,32 +1,29 @@
-<!--Cambiar esta view dependiendo del rol de auth
+@extends('layouts.base')
+@section('contenido')
+<!--TODO: Un navbar responsivo con cada componente dependiendo del Auth:user()->role logeado-->
+<a href="/">Home</a>
+<form method="POST" action="{{ route('logout') }}">
+    @csrf
 
-    por ejemplo
+    <x-jet-dropdown-link href="{{ route('logout') }}"
+             onclick="event.preventDefault();
+                    this.closest('form').submit();">
+        {{ __('Cerrar Sesión') }}
+    </x-jet-dropdown-link>
+</form>
+<br>
+<!--TODO: Crear Componentes pesonalizados en cada caso-->
+@if (Auth::user()->role == "Administrador") 
+    Cosas de Administrador
+    Cosas de Encargado Docente
+    Cosas de Ayudante
+@elseif (Auth::user()->role == "Encargado Docente") 
+    Cosas de Encargado Docente
+@elseif (Auth::user()->role == "Ayudante") 
+    Cosas de Ayudante
+    Cosas de Estudiante
+@else
+    Cosas De Estudiante
+@endif
 
-    auth->admin(){
-        yield('admin')
-    }else{
-        yield('encargado docente')
-    }else{
-        yield('Estudiante')
-        // (dentro de estudiante poner otro yield para que se muestren las funciones 
-        // en caso de que sea ayudante)
-    }
-
-
--->
-
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-jet-welcome />
-            </div>
-        </div>
-    </div>
-</x-app-layout>
+@endsection
