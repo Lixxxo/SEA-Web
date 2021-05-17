@@ -9,7 +9,7 @@
                 @auth
                     <a href="{{ url('/dashboard') }}" >Dashboard</a>
                 @else
-                    <a href="{{ route('login') }}" >Log in</a>
+                    <a href="{{ route('login') }}" >Login</a>
 
                 @endauth
             </div>

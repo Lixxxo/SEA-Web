@@ -14,7 +14,13 @@
 <br>
 <!--TODO: Crear Componentes pesonalizados en cada caso-->
 @if (Auth::user()->role == "Administrador") 
-    Cosas de Administrador
+    <!--Cosas de Administrador-->
+    <div>
+        <h2>
+            Administrar usuarios
+        </h2>
+        <!--acá los x-jet compompnents-->
+    </div>
     Cosas de Encargado Docente
     Cosas de Ayudante
 @elseif (Auth::user()->role == "Encargado Docente") 
