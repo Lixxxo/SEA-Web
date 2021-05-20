@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/import_data', 'App\Http\Controllers\ImportDataController@indexUsers');
+Route::post('/import_data/import', 'App\Http\Controllers\ImportDataController@import');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
