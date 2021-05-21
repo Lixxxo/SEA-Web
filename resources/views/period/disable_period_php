@@ -1,0 +1,5 @@
+@extends('layouts.base')
+@section('contenido')
+Vista para deshabilitar un periodo academico
+
+@endsection

@@ -13,13 +13,18 @@
 </form>
 <br>
 <!--TODO: Crear Componentes pesonalizados en cada caso-->
-@if (Auth::user()->role == "Administrador") 
+@if (Auth::user()->role == "Administrador")
     Cosas de Administrador
     Cosas de Encargado Docente
     Cosas de Ayudante
-@elseif (Auth::user()->role == "Encargado Docente") 
+@elseif (Auth::user()->role == "Encargado Docente")
     Cosas de Encargado Docente
-@elseif (Auth::user()->role == "Ayudante") 
+    <div class>
+        <a href="http://127.0.0.1:8000/dashboard/enable_period">Habilitar periodo academico</a>
+        <br>
+        <a href="http://127.0.0.1:8000/dashboard/disable_period">Deshabilitar periodo academico</a>
+    </div>
+@elseif (Auth::user()->role == "Ayudante")
     Cosas de Ayudante
     Cosas de Estudiante
 @else
