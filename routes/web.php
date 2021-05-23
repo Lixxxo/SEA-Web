@@ -17,6 +17,13 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/dashboard/enable_period', function () {
+    return view('period.enable_period');
+});
+
+Route::get('/dashboard/disable_period', function () {
+    return view('period.disable_period');
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
