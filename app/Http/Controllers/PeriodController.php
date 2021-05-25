@@ -13,5 +13,13 @@ class PeriodController extends Controller
         return view('period.edit_period', ['period_list' => $period_list]);
     }
 
+    public function disable_period(Request $request, $period){
+
+    }
+
+    public function enable_period(){
+
+    }
+
 
 }

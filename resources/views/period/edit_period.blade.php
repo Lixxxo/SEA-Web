@@ -46,6 +46,7 @@
             <tr>
                 <th>Código</th>
                 <th>Descripción</th>
+                <th>Estado</th>
             </tr>
         </thead>
 
@@ -54,6 +55,15 @@
             <tr>
                 <td>{{$period->Codigo}}</td>
                 <td>{{$period->Descripcion}}</td>
+                <td>
+                    @if ($period->Estado)
+                        Habilitado
+                    @else
+                        Deshabilitado
+                    @endif
+
+
+                </td>
             </tr>
 
             @endforeach
