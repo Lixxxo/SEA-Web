@@ -14,9 +14,16 @@ class PeriodController extends Controller
         return view('period.edit_period', ['period_list' => $period_list]);
     }
 
-    public function edit($code){
-        $period = Period::findOrFail($code);
-        return view('/dashboard/periods');
+    public static function edit(Request $request){
+        $code = $request->only('Codigo');
+        //Period::update('update periods set Estado = 0 where Codigo = ?', [$code]);
+        //return redirect('/dashboard/periods');
+
+        //$period = Period::findOrFail(request()->Codigo);
+        //return response()->json($code);
+        Period::find($code);
+        Period::update('update periods set Estado = 0 where Codigo = 202020');
+        //return view('/dashboard/periods');
         //$code = $request->only('Codigo');
         //$period = Period::findOrFail($code);
         //Period::
