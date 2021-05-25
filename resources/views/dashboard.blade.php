@@ -20,9 +20,7 @@
 @elseif (Auth::user()->role == "Encargado Docente")
     Cosas de Encargado Docente
     <div class>
-        <a href="/dashboard/enable_period">Habilitar periodo academico</a>
-        <br>
-        <a href="/dashboard/disable_period">Deshabilitar periodo academico</a>
+        <a href="/dashboard/edit_period">Ver periodos</a>
     </div>
 @elseif (Auth::user()->role == "Ayudante")
     Cosas de Ayudante

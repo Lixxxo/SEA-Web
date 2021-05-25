@@ -18,6 +18,7 @@ class CreatePeriodsTable extends Migration
             $table->timestamps();
             $table->string('Codigo');
             $table->string('Descripcion');
+            $table->boolean('Estado');
         });
     }
 
