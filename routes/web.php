@@ -17,11 +17,9 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/dashboard/edit_period','App\Http\Controllers\PeriodController@enable');
-
-Route::get('/dashboard/disable_period', function () {
-    return view('period.disable_period');
-});
+Route::get('/dashboard/periods','App\Http\Controllers\PeriodController@show');
+Route::post('/dashboard/edit_period', 'App\Http\Controllers\PeriodController@store');
+Route::post('/dashboard/edit', 'App\Http\Controllers\PeriodController@edit');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

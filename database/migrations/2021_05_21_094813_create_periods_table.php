@@ -15,10 +15,9 @@ class CreatePeriodsTable extends Migration
     {
         Schema::create('periods', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('Codigo');
-            $table->string('Descripcion');
-            $table->boolean('Estado');
+            $table->string('Descripcion')->nullable();
+            $table->boolean('Estado')->nullable()->default(true);
         });
     }
 
