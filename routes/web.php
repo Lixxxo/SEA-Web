@@ -17,9 +17,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/dashboard/enable_period', function () {
-    return view('period.enable_period');
-});
+Route::get('/dashboard/enable_period','App\Http\Controllers\PeriodController@enable');
 
 Route::get('/dashboard/disable_period', function () {
     return view('period.disable_period');
