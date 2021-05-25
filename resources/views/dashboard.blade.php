@@ -24,6 +24,8 @@
     Cosas de Ayudante
 @elseif (Auth::user()->role == "Encargado Docente") 
     Cosas de Encargado Docente
+    <br>
+    <a href = "{{ url('/import_data') }}"> Carga masiva de estudiantes</a>
 @elseif (Auth::user()->role == "Ayudante") 
     Cosas de Ayudante
     Cosas de Estudiante
