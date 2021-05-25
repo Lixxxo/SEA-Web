@@ -8,9 +8,27 @@ Vista para habilitar un periodo academico.
         <input placeholder="Ej: 202110" id="code" name="code" type="text">
 
     </form>
-    @foreach ($period_list as $period)
-    <h6>{{$period->Codigo}}</h6>
-    @endforeach
+
+
+
+    <table class="table table-dark table-striped mt-4">
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach ($period_list as $period)
+            <tr>
+                <td>{{$period->Codigo}}</td>
+                <td>{{$period->Descripcion}}</td>
+            </tr>
+
+            @endforeach
+        </tbody>
+    </table>
 </div>
 
 <br>
