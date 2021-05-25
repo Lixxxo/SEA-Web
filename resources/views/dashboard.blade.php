@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('contenido')
-<!--TODO: Un navbar responsivo con cada componente dependiendo del Auth:user()->role logeado-->
+
 <a href="/">Home</a>
 <form method="POST" action="{{ route('logout') }}">
     @csrf
@@ -12,9 +12,14 @@
     </x-jet-dropdown-link>
 </form>
 <br>
-<!--TODO: Crear Componentes pesonalizados en cada caso-->
+
 @if (Auth::user()->role == "Administrador") 
-    Cosas de Administrador
+    <!--Cosas de Administrador-->
+    <div>
+        <a href="dashboard/users">
+            <h3>Administrar usuarios</h2>
+        </a>    
+    </div>
     Cosas de Encargado Docente
     Cosas de Ayudante
 @elseif (Auth::user()->role == "Encargado Docente") 
