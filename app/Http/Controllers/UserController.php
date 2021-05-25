@@ -56,8 +56,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $usuario = Usuario::find($id);
-        return view('usuario.edit',['usuario' => $usuario]);
+        $user = User::find($id);
+        return view('Admin.adm001.edit',['user' => $user]);
     }
 
     /**
@@ -69,23 +69,21 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        echo $request;
-        $usuario = Usuario::find($id);
-        $usuario->rut = $request->get('rut');
-        $usuario->nombre_completo = $request->get('nombre_completo');
-        $usuario->email = $request->get('email');
-        $usuario->clave = $request->get('clave');
-        $usuario->rol = $request->get('rol');
+        $user = User::find($id);
+        $user->rut = $request->get('rut');
+        $user->name = $request->get('full_name');
+        $user->email = $request->get('email');
+        $user->password = $request->get('password');
+        // TODO: cifrar contraseña antes de guardarla
+        $user->role = $request->get('role');
 
-        if($request->get('estado') === 'on'){
-            $usuario->estado = 1;
+        if($request->get('enabled') === 'on'){
+            $user->enabled = 1;
         }else{
-            $usuario->estado = 0;
+            $user->enabled = 0;
         }
-        
-        $usuario->save();
-
-        return redirect('/usuarios');
+        $user->save();
+        return redirect('/dashboard/users');
     }
 
 }

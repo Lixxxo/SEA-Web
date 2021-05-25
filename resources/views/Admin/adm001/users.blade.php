@@ -24,7 +24,7 @@
                     <td>{{$user->email}}</td>
                     <td>{{$user->password}}</td>
                     <td>{{$user->role}}</td>
-                    @if ($user->status === 1)
+                    @if ($user->enabled === 1)
                         <td>Habilitado</td>
                     @else
                         <td>Deshabilitado</td>
