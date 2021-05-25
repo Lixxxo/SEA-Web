@@ -16,10 +16,9 @@
 @if (Auth::user()->role == "Administrador") 
     <!--Cosas de Administrador-->
     <div>
-
         <a href="dashboard/users">
-            <h2>Administrar usuarios</h2>
-        </a>
+            <h3>Administrar usuarios</h2>
+        </a>    
     </div>
     Cosas de Encargado Docente
     Cosas de Ayudante
