@@ -18,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard/periods','App\Http\Controllers\PeriodController@show');
-Route::post('/dashboard/edit_period', 'App\Http\Controllers\PeriodController@store');
+Route::post('/dashboard/enable_period', 'App\Http\Controllers\PeriodController@store');
 Route::post('/dashboard/edit', 'App\Http\Controllers\PeriodController@edit');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

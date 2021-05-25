@@ -6,7 +6,7 @@
            <div style="display: table-row; height: 100px;">
                <div style="width: 50%; display: table-cell; ">
                 <div class="small">
-                    <form action="/dashboard/edit_period/" method="post">
+                    <form action="/dashboard/enable_period/" method="post">
                         @csrf
                         <h2>Habilitar periodo</h2>
                         <h6>Codigo</h6>
