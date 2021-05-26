@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Throwable;
+use Hash;
 
 class UserImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError
 {
@@ -22,7 +23,7 @@ class UserImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError
             'rut' => $row['rut'],
             'name' => $row['name'],
             'email' => $row['email'],
-            'password' => substr($row['rut'], 0, -2),
+            'password' => Hash::make(substr($row['rut'], 0, -2)),
             'role' => 'Estudiante'
         ]);
     }

@@ -42,9 +42,9 @@
         <!--Estado-->
         <div class="form-check form-switch">
             
-            @if ($user->enabled === 1)
+            @if ($user->enabled)
                 <input class="form-check-input" type="checkbox" 
-                    id="status" name = "status" checked>                   
+                    id="enabled" name = "enabled" checked>                   
             @else
                 <input class="form-check-input" type="checkbox" 
                     id="enabled" name = "enabled" >
@@ -57,6 +57,6 @@
     </form>
 
     <script>
-        var stateValue = $("enabled").is(":checked") ? $("enabled").val() : null;
+        var stateValue = $("enabled").is("checked") ? true : false;
     </script>
 @endsection
