@@ -1,17 +1,18 @@
 @extends('layouts.base')
 @section('contenido')
-
-<a href="/">Home</a>
-<form method="POST" action="{{ route('logout') }}">
-    @csrf
-
-    <x-jet-dropdown-link href="{{ route('logout') }}"
-             onclick="event.preventDefault();
-                    this.closest('form').submit();">
-        {{ __('Cerrar Sesión') }}
-    </x-jet-dropdown-link>
-</form>
-<br>
+@auth
+    <div>   
+        <a href="/">Home</a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                    <x-jet-dropdown-link href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                            this.closest('form').submit();">
+                    {{ __('Cerrar Sesión') }}
+                </x-jet-dropdown-link>
+            </form>
+    </div>
+@endauth
 
 @if (Auth::user()->role == "Administrador") 
     <!--Cosas de Administrador-->
@@ -20,17 +21,29 @@
             <h3>Administrar usuarios</h2>
         </a>    
     </div>
-    Cosas de Encargado Docente
-    Cosas de Ayudante
-@elseif (Auth::user()->role == "Encargado Docente") 
-    Cosas de Encargado Docente
-    <br>
-    <a href = "{{ url('/import_data') }}"> Carga masiva de estudiantes</a>
+    <!--Cosas de Encargado Docente-->
+    
+    <div>
+        <a href="/dashboard/import_data">
+            <h3> Carga masiva de estudiantes</h2>
+        </a>    
+    </div>
+    <div>
+        Futuras historias de usuario para Ayudante
+    </div>
+    
+@elseif (Auth::user()->role == "Encargado Docente")
+
+    <div>
+        <a href="/dashboard/import_data">
+            <h3> Carga masiva de estudiantes</h2>
+        </a>    
+    </div>
 @elseif (Auth::user()->role == "Ayudante") 
-    Cosas de Ayudante
-    Cosas de Estudiante
+    Futuras historias de usuario para Ayudante
+    Futuras historias de usuario para Estudiante
 @else
-    Cosas De Estudiante
+    Futuras historias de usuario para Estudiante
 @endif
 
 @endsection
