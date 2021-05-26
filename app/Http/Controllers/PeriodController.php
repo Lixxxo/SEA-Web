@@ -12,13 +12,39 @@ class PeriodController extends Controller
         return view('period.edit_period', ['period_list' => $period_list]);
     }
 
-    public function store(Request $request){
-        $datos_periodo = request()->except('_token');
-        Period::insert($datos_periodo);
+    public function has_enabled_period(){
+        foreach (Period::all() as $period){
+            if ($period->enabled == 1){
+                return true;
+            }
+        }
+        return false;
+    }
 
-        $period_list = Period::all();
+    public function store(Request $request){
+        if ($this->has_enabled_period()){
+            return redirect('/dashboard/periods');
+        }
+        $period_data = request()->except('_token');
+        $code = $request->code;
+        $period = Period::where('code',$code)->first();
+        if ($period != null ){
+            if ($period->enabled === 0){
+                $period->enabled = 1;
+                $period->description = $request->description;
+                $period->save();
+            }
+        }
+        else{
+            Period::insert($period_data);
+
+            //$period_list = Period::all();
+            //$period->save();
+
+        }
 
         return redirect('/dashboard/periods');
+
     }
     /**
      * Update the specified resource in storage.
@@ -30,8 +56,17 @@ class PeriodController extends Controller
     public function update(Request $request){
         $code = $request->code;
         $period = Period::where('code',$code)->first();
-        $period->enabled = 0;
-        $period->save();
+
+        if ($period != null){
+            if ($period->enabled === 1){
+                $period->enabled = 0;
+            }
+            else{
+                //$period->enabled = 1;
+                //$period->description = $request->description;
+            }
+            $period->save();
+        }
         return redirect('/dashboard/periods');
     }
 }

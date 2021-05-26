@@ -10,22 +10,22 @@
                         @csrf
                         <h2>Habilitar periodo</h2>
                         <h6>Codigo</h6>
-                        <input placeholder="Ej: 202110" id="code" name="code" type="text">
+                        <input placeholder="Ej: 202110" id="code" name="code" type="number" minlength="6" maxlength="6" min="202010" max="300020" required >
                         <h6>Descripcion</h6>
-                        <input placeholder="Ej: primer semestre año 2020" id="description" name="description" type="text">
+                        <input size="25" placeholder="Ej: primer semestre año 2020" id="description" name="description" type="text">
                         <br>
                         <input type="submit" value="Habilitar periodo">
                     </form>
                 </div>
             </div>
             <div style="display: table-cell;">
-                <div>
+                <div class="small">
                     <form action={{route('dashboard_edit')}} method="post">
                         @csrf
 
                         <h2>Deshabilitar periodo</h2>
                         <h6>Codigo</h6>
-                        <input placeholder="Ej: 202110" id="code" name="code" type="text">
+                        <input onsubmit="return confirm('¿Deshabilitar periodo?');" placeholder="Ej: 202110" id="code" name="code" type="number" minlength="6" maxlength="6" min="202010" max="300020" required>
                         <br>
                         <input type="submit" value="Deshabilitar periodo">
                     </form>
