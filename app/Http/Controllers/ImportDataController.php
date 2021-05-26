@@ -13,7 +13,7 @@ class ImportDataController extends Controller
     {
         //Aca creamos una query para que nos ponga la tabla usuarios en este orden y despues desplegarla en import_data
         $data = DB::table('users')->orderBy('name', 'desc')->get();
-        return view('import_data', compact('data'));
+        return view('User_stories.EncDoc.eaa001.import_data', compact('data'));
     }
 
     public function import(Request $request) // Cargamos datos con un excel o otro

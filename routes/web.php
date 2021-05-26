@@ -23,8 +23,8 @@ Route::get('/', function () {
 Route::resource('/dashboard/users', UserController::class);
 
 // eaa 001
-Route::get('/import_data', 'App\Http\Controllers\ImportDataController@indexUsers');
-Route::post('/import_data/import', 'App\Http\Controllers\ImportDataController@import');
+Route::get('dashboard/import_data', 'App\Http\Controllers\ImportDataController@indexUsers');
+Route::post('dashboard/import_data/import', 'App\Http\Controllers\ImportDataController@import');
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

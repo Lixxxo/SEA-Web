@@ -15,7 +15,7 @@ class UserController extends Controller
     public function index()
     {
         $user_list = User::all();
-        return view('Admin.adm001.users', ['user_list' => $user_list]);
+        return view('User_stories.Admin.adm001.users', ['user_list' => $user_list]);
     }
 
     /**
@@ -25,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('Admin.adm001.create');
+        return view('User_stories.Admin.adm001.create');
     }
 
     /**
@@ -57,7 +57,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('Admin.adm001.edit',['user' => $user]);
+        return view('User_stories.Admin.adm001.edit',['user' => $user]);
     }
 
     /**
