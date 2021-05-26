@@ -15,7 +15,7 @@
                         <h6>Codigo</h6>
                         <input placeholder="Ej: 202110" id="code" name="code" type="number" minlength="6" maxlength="6" min="202010" max="300020" required >
                         <h6>Descripcion</h6>
-                        <input size="25" placeholder="Ej: primer semestre año 2020" id="description" name="description" type="text">
+                        <input maxlength="25" size="25" placeholder="Ej: primer semestre año 2020" id="description" name="description" type="text">
                         <br>
                         <input type="submit" value="Habilitar periodo">
                     </form>
