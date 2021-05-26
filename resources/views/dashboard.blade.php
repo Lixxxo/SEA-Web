@@ -14,6 +14,7 @@
     </div>
 @endauth
 <br>
+
 @if (Auth::user()->role == "Administrador") 
     <!--Cosas de Administrador-->
     <div>
@@ -22,10 +23,14 @@
         </a>    
     </div>
     <!--Cosas de Encargado Docente-->
-    
+    <div>
+        <a href="/dashboard/periods">
+            <h3> Ver periodos</h3>
+        </a>
+    </div>
     <div>
         <a href="/dashboard/import_data">
-            <h3> Carga masiva de estudiantes</h2>
+            <h3> Carga masiva de estudiantes</h3>
         </a>    
     </div>
     <div>
@@ -39,9 +44,15 @@
             <h3> Carga masiva de estudiantes</h2>
         </a>    
     </div>
+        <div>
+        <a href="/dashboard/periods">
+            <h3> Habilitar y deshabilitar periodo académico</h3>
+        </a>
+    </div>
 @elseif (Auth::user()->role == "Ayudante") 
     Futuras historias de usuario para Ayudante
     Futuras historias de usuario para Estudiante
+
 @else
     Futuras historias de usuario para Estudiante
 @endif
