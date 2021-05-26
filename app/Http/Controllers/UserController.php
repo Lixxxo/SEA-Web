@@ -41,7 +41,7 @@ class UserController extends Controller
         $user->rut = $request->get('rut');
         $user->name = $request->get('full_name');
         $user->email = $request->get('email');
-        $user->password = Hash::make($request->get('rut'), 0, -2);
+        $user->password = Hash::make(substr($request->get('rut'), 0, -2));
         $user->role = $request->get('role');
         $user->save();
 
@@ -73,7 +73,6 @@ class UserController extends Controller
         $user->rut = $request->get('rut');
         $user->name = $request->get('full_name');
         $user->email = $request->get('email');
-        $user->password = Hash::make($request->get('password'));
         $user->role = $request->get('role');
 
         if($request->get('enabled') === 'on'){

@@ -26,12 +26,7 @@
                 tabindex="3" value="{{$user->email}}">
         </div>
         <br>
-        <!--Clave-->
-        <div class="mb-3">
-            <label class="form-label">Clave</label>
-            <input id="password" name="password" type="text" class="form-control" 
-                tabindex="4" value="{{$user->password}}">
-        </div>
+
         <br>
         <!--Rol-->
         <div class="mb-3">
