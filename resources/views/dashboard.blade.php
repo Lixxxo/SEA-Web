@@ -25,7 +25,7 @@
     <!--Cosas de Encargado Docente-->
     <div>
         <a href="/dashboard/periods">
-            <h3> Ver periodos</h3>
+            <h3>Habilitar y deshabilitar periodo académico</h3>
         </a>
     </div>
     <div>

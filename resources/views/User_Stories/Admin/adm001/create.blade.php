@@ -22,7 +22,6 @@
       <input id="email" name="email" type="email" class="form-control" tabindex="3">
     </div>
     <!--Rol-->
-    <!--TODO: arreglar bug de rol como rol-->
     <div class="mb-3">
       <label for="" class="form-label">Rol</label>
       <select class="form-select" id="role" name="role">

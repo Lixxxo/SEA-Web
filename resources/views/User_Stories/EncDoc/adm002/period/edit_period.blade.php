@@ -1,6 +1,9 @@
 @extends('layouts.base')
 @section('contenido')
 <div>
+    <a href="/dashboard">Dashboard</a>
+</div>
+<div>
     <body>
        <div style="width: 100%; display: table;">
            <div style="display: table-row; height: 100px;">
@@ -65,9 +68,6 @@
         </tbody>
     </table>
 </div>
-
-<br>
-<a href="/dashboard">Volver</a>
 
 <script>
     function verification() {

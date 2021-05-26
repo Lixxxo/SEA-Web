@@ -9,7 +9,7 @@ class PeriodController extends Controller
     public function show(){
         $period_list = Period::all();
 
-        return view('period.edit_period', ['period_list' => $period_list]);
+        return view('User_stories.EncDoc.adm002.period.edit_period', ['period_list' => $period_list]);
     }
 
     public function has_enabled_period(){
