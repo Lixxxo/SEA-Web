@@ -6,52 +6,32 @@ use Illuminate\Http\Request;
 use App\Models\Period;
 class PeriodController extends Controller
 {
-
-    //
     public function show(){
         $period_list = Period::all();
 
         return view('period.edit_period', ['period_list' => $period_list]);
     }
 
-    public static function edit(Request $request){
-        $code = $request->only('Codigo');
-        //Period::update('update periods set Estado = 0 where Codigo = ?', [$code]);
-        //return redirect('/dashboard/periods');
-
-        //$period = Period::findOrFail(request()->Codigo);
-        //return response()->json($code);
-        Period::find($code);
-        Period::update('update periods set Estado = 0 where Codigo = 202020');
-        //return view('/dashboard/periods');
-        //$code = $request->only('Codigo');
-        //$period = Period::findOrFail($code);
-        //Period::
-        //return redirect('/dashboard/periods');
-        /*
-        try {
-            $periodo = Period::find($code);
-
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
-
-        if($periodo->Estado === 0){
-
-        }else{
-            // desabilitar
-            // vaya no mas compare
-
-        }
-        */
-    }
-
     public function store(Request $request){
-        $datosPeriodo = request()->except('_token');
-        Period::insert($datosPeriodo);
+        $datos_periodo = request()->except('_token');
+        Period::insert($datos_periodo);
 
         $period_list = Period::all();
 
+        return redirect('/dashboard/periods');
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request){
+        $code = $request->code;
+        $period = Period::where('code',$code)->first();
+        $period->enabled = 0;
+        $period->save();
         return redirect('/dashboard/periods');
     }
 }
