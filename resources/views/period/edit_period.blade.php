@@ -25,9 +25,9 @@
 
                         <h2>Deshabilitar periodo</h2>
                         <h6>Codigo</h6>
-                        <input onsubmit="return confirm('¿Deshabilitar periodo?');" placeholder="Ej: 202110" id="code" name="code" type="number" minlength="6" maxlength="6" min="202010" max="300020" required>
+                        <input placeholder="Ej: 202110" id="code" name="code" type="number" minlength="6" maxlength="6" min="202010" max="300020" required>
                         <br>
-                        <input type="submit" value="Deshabilitar periodo">
+                        <input type="submit" value="Deshabilitar periodo" onclick="return verification();">
                     </form>
                 </div>
                </div>
@@ -68,4 +68,12 @@
 
 <br>
 <a href="/dashboard">Volver</a>
+
+<script>
+    function verification() {
+        if(!confirm("¿Deshabilitar periodo?"))
+        event.preventDefault();
+    }
+</script>
+
 @endsection
