@@ -2,7 +2,6 @@
 @section('contenido')
 @auth
     <div>   
-        <a href="/">Home</a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                     <x-jet-dropdown-link href="{{ route('logout') }}"
@@ -11,9 +10,10 @@
                     {{ __('Cerrar Sesión') }}
                 </x-jet-dropdown-link>
             </form>
+
     </div>
 @endauth
-
+<br>
 @if (Auth::user()->role == "Administrador") 
     <!--Cosas de Administrador-->
     <div>

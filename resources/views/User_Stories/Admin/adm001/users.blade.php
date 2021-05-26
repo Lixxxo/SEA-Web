@@ -1,7 +1,10 @@
-@extends('layouts.base')
 
+@extends('layouts.base')
 @section('contenido')
-    <h3>Listado de usuarios</h3>
+    <div>
+        <a href="/dashboard">Dashboard</a>
+    </div>
+    <h3  align = "center">Listado de usuarios</h3>
     
     <table class="table table-dark table-striped mt-4">
         <thead>

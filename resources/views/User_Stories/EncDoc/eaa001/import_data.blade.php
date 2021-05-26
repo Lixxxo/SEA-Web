@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <title>Importar Datos</title>
-</head>
-<body>
+
+@extends('layouts.base')
+@section('contenido')
+    <div>
+        <a href="/dashboard">Dashboard</a>
+    </div>
     <div class = "container">
-        <h1 align = "center"> Añadir estudiantes </h1>
+        <h3  align = "center">Cargar estudiantes</h3>
         <br>
         @if (count($errors) > 0)
             <div class = "alert alert-danger">
@@ -75,5 +72,4 @@
         </div>
     </div>
 
-</body>
-</html>
+@endsection
