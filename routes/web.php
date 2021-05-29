@@ -22,22 +22,22 @@ Route::get('/', function () {
 
 // adm 001
 Route::resource('/dashboard/users', UserController::class)
-->middleware('role');
+->middleware('Administrador');
 
 // adm 002
 Route::get('/dashboard/periods','App\Http\Controllers\PeriodController@show')
-->middleware('role');
+->middleware(['Administrador', 'Encargado Docente']);
 Route::post('/dashboard/enable_period', 'App\Http\Controllers\PeriodController@store')->name('dashboard_store')
-->middleware('role');
+->middleware(['Administrador', 'Encargado Docente']);
 Route::post('/dashboard/edit', 'App\Http\Controllers\PeriodController@update')->name('dashboard_edit')
-->middleware('role');
+->middleware(['Administrador', 'Encargado Docente']);
 
 
 // eaa 001
 Route::get('dashboard/import_data', 'App\Http\Controllers\ImportDataController@indexUsers')
-->middleware('role');
+->middleware(['Administrador', 'Encargado Docente']);
 Route::post('dashboard/import_data/import', 'App\Http\Controllers\ImportDataController@import')
-->middleware('role');
+->middleware(['Administrador', 'Encargado Docente']);
 
 
 
