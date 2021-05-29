@@ -12,7 +12,6 @@
                 <th scope="col">Rut</th>
                 <th scope="col">Nombre completo</th>
                 <th scope="col">Email</th>
-                <th scope="col">Clave</th>
                 <th scope="col">Rol</td>
                 <th scope="col">Estado</th>
                 <th scope="col">Acción</th>
@@ -25,7 +24,6 @@
                     <td>{{$user->rut}}</td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
-                    <td>{{$user->password}}</td>
                     <td>{{$user->role}}</td>
                     @if ($user->enabled === 1)
                         <td>Habilitado</td>
