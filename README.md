@@ -14,11 +14,9 @@ Sistema Web de Seguimiento y Evaluación de Ayudantes DISC
 ### Roles
 - Encargado BD felipe.aguilera@alumnos.ucn.cl.
 
-- Encargado BD noah.faundez@alumnos.ucn.cl.
-
 - Documentador técnico joel.gomez@alumnos.ucn.cl.
 
-- Encargado SQA bastian.rios@alumnos.ucn.cl.
+- Encargado SQA noah.faundez@alumnos.ucn.cl.
 
 - Lider de programación luisrojas04@alumnos.ucn.cl 
 
