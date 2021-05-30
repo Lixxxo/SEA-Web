@@ -128,5 +128,18 @@ class UserController extends Controller
 
         return 'valid';
     }
+    
+    /**
+     * Send email atributte of the current Administrator
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function password_request(Request $request){
+
+        $admin_email = User::where('role','Administrador')->get()[0]->email;
+        return view('User_stories.adm003.password_request',['admin_email'=>$admin_email]);
+
+    }
 
 }

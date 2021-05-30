@@ -45,9 +45,7 @@ Route::post('/password_confirm', 'App\Http\Controllers\UserController@change_pas
 ->name('password_confirm')
 ->middleware('auth');
 // adm 003
-Route::get('/password_request', function(){
-    return view('User_Stories/adm003/password_request');
-})
+Route::get('/password_request', 'App\Http\Controllers\UserController@password_request')
 ->name('password_request');
 
 
