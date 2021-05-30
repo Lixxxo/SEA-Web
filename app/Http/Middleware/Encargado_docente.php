@@ -21,6 +21,7 @@ class Encargado_docente
         if (!in_array(auth()->user()->role, array('Administrador','Encargado Docente'))){
             return redirect('/404');
         }
+
         return $next($request);
     }
 }

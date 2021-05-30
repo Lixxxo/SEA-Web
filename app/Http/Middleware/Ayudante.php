@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-
+use Auth;
 class Ayudante
 {
     /**
@@ -21,6 +21,7 @@ class Ayudante
         if (!in_array(auth()->user()->role, array('Administrador','Ayudante'))){
             return redirect('/404');
         }
+
         return $next($request);
     }
 }

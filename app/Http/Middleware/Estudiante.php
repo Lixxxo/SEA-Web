@@ -19,6 +19,7 @@ class Estudiante
         if (auth()->user()->role !== 'Estudiante'){
             return redirect('/404');
         }
+
         return $next($request);
     }
 }

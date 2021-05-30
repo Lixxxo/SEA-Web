@@ -47,6 +47,10 @@ Route::post('/password_confirm', 'App\Http\Controllers\UserController@change_pas
 // adm 003
 Route::get('/password_request', 'App\Http\Controllers\UserController@password_request')
 ->name('password_request');
+Route::get('/disabled', function (){
+    return view('User_stories.adm003.disabled');
+})
+->name('disabled');
 
 
 // eaa 001
