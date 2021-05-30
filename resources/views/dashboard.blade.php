@@ -7,10 +7,14 @@
                     <x-jet-dropdown-link href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                             this.closest('form').submit();">
-                    {{ __('Cerrar Sesión') }}
-                </x-jet-dropdown-link>
+                        {{ __('Cerrar Sesión') }}
+                    </x-jet-dropdown-link>
             </form>
-
+    </div>
+    <div>
+        <a href="{{ url('password_change') }}">
+            Cambiar Contraseña
+        </a>
     </div>
 @endauth
 <br>

@@ -16,12 +16,7 @@ class Estudiante
      */
     public function handle(Request $request, Closure $next)
     {
-        try {
-            $user_role = Auth::user()->role;
-        } catch (\Throwable $th) {
-            return redirect('/login');
-        }
-        if ($user_role != 'Estudiante'){
+        if (auth()->user()->role !== 'Estudiante'){
             return redirect('/404');
         }
         return $next($request);

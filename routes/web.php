@@ -22,23 +22,34 @@ Route::get('/', function () {
 
 // adm 001
 Route::resource('/dashboard/users', UserController::class)
-->middleware('Administrador');
+->middleware(['auth','Administrador']);
+
 
 // adm 002
 Route::get('/dashboard/periods','App\Http\Controllers\PeriodController@show')
-->middleware(['Administrador', 'Encargado Docente']);
+->middleware(['auth', 'Encargado Docente']);
 Route::post('/dashboard/enable_period', 'App\Http\Controllers\PeriodController@store')->name('dashboard_store')
-->middleware(['Administrador', 'Encargado Docente']);
+->middleware(['auth', 'Encargado Docente']);
 Route::post('/dashboard/edit', 'App\Http\Controllers\PeriodController@update')->name('dashboard_edit')
-->middleware(['Administrador', 'Encargado Docente']);
+->middleware(['auth', 'Encargado Docente']);
 
+
+// adm 003
+Route::get('/password_change', function(){
+    return view('User_Stories/adm003/password_change', 
+    ['message' => '']);
+})
+->name('password_change')
+->middleware('auth');
+Route::post('/password_confirm', 'App\Http\Controllers\UserController@change_password')
+->name('password_confirm')
+->middleware('auth');
 
 // eaa 001
 Route::get('dashboard/import_data', 'App\Http\Controllers\ImportDataController@indexUsers')
-->middleware(['Administrador', 'Encargado Docente']);
+->middleware(['auth', 'Encargado Docente']);
 Route::post('dashboard/import_data/import', 'App\Http\Controllers\ImportDataController@import')
-->middleware(['Administrador', 'Encargado Docente']);
-
+->middleware(['auth', 'Encargado Docente']);
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
