@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use Auth;
 class UserController extends Controller
 {
     /**
@@ -82,6 +82,51 @@ class UserController extends Controller
         }
         $user->save();
         return redirect('/dashboard/users');
+    }
+
+    /**
+     * Change current user if password is valid
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function change_password(Request $request){
+
+        if ($request->get('password') !== $request->get('confirm_password')){
+            return back()->with('error', 'Las contraseñas no coinciden.');
+        }
+        $view_message = $this->password_is_valid($request->get('password'));
+        if ($view_message != 'valid'){
+            return back()->with('error', $view_message);
+        }
+        else{
+            $user = User::find(Auth::user()->id);
+            $user->password = Hash::make($request->get('password'));
+            $user->save();
+            return redirect('dashboard');
+        }
+
+    }
+
+    /**
+     * Check if password is valid, return descriptive message
+     *
+     * @param  string  $request
+     * @return string
+     */
+    public function password_is_valid($password){
+        if (strlen($password) < 8 ){
+            return 'Contraseña demasiado corta.';
+        }
+        // regular expression
+        // https://www.geeksforgeeks.org/how-to-remove-non-alphanumeric-characters-in-php/
+        $alphanumeric_password = preg_replace( '/[\W]/', '', $password);
+
+        if ($alphanumeric_password != $password){
+            return 'Contraseña incluye caracters inválidos.';
+        }
+
+        return 'valid';
     }
 
 }

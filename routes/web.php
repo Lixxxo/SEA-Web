@@ -44,6 +44,12 @@ Route::get('/password_change', function(){
 Route::post('/password_confirm', 'App\Http\Controllers\UserController@change_password')
 ->name('password_confirm')
 ->middleware('auth');
+// adm 003
+Route::get('/password_request', function(){
+    return view('User_Stories/adm003/password_request');
+})
+->name('password_request');
+
 
 // eaa 001
 Route::get('dashboard/import_data', 'App\Http\Controllers\ImportDataController@indexUsers')
