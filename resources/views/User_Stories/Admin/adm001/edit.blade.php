@@ -9,7 +9,7 @@
         <div class="mb-3">
             <label class="form-label">Rut</label>
             <input type="text" id="rut" name="rut" required 
-            oninput="checkRut(this)" placeholder="11111111-1" 
+            oninput="checkRut(this)"
             class="form-control" tabindex="1" value="{{$user->rut}}">    
         </div>
         <br>

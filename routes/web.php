@@ -19,18 +19,21 @@ Route::get('/', function () {
     return view('index');
 });
 
-
 // adm 001
 Route::resource('/dashboard/users', UserController::class)
 ->middleware(['auth','Administrador']);
-
+Route::post('/dashboard/users/reset_password', 'App\Http\Controllers\UserController@reset_password')
+->name('reset_password')
+->middleware(['auth', 'Administrador']);
 
 // adm 002
 Route::get('/dashboard/periods','App\Http\Controllers\PeriodController@show')
 ->middleware(['auth', 'Encargado Docente']);
-Route::post('/dashboard/enable_period', 'App\Http\Controllers\PeriodController@store')->name('dashboard_store')
+Route::post('/dashboard/enable_period', 'App\Http\Controllers\PeriodController@store')
+->name('dashboard_store')
 ->middleware(['auth', 'Encargado Docente']);
-Route::post('/dashboard/edit', 'App\Http\Controllers\PeriodController@update')->name('dashboard_edit')
+Route::post('/dashboard/edit', 'App\Http\Controllers\PeriodController@update')
+->name('dashboard_edit')
 ->middleware(['auth', 'Encargado Docente']);
 
 

@@ -4,7 +4,7 @@
     <div>
         <a href="/dashboard">Dashboard</a>
     </div>
-    <h3  align = "center">Listado de usuarios</h3>
+    <h3 align = "center">Listado de usuarios</h3>
     
     <table class="table table-dark table-striped mt-4">
         <thead>
@@ -33,6 +33,12 @@
                     
                     <td>
                         <a href='/dashboard/users/{{$user->id}}/edit' class="btn btn-warning">Editar</a>
+                        <form action="{{route ('reset_password') }}" method="POST">
+                            @csrf
+                            <input  id="user_id" name="user_id" hidden value="{{$user->id}}">
+                            <button type="submit"  
+                                class="btn btn-info">Reestablecer contraseña</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
@@ -42,4 +48,6 @@
     <br>
     <a href="users/create" class="btn btn-success" href="dashboard/users/create">Crear usuario</a>
     <br>
+
+
 @endsection

@@ -43,6 +43,12 @@ class UserController extends Controller
         $user->email = $request->get('email');
         $user->password = Hash::make(substr($request->get('rut'), 0, -2));
         $user->role = $request->get('role');
+
+        if($request->get('role') === 'Encargado Docente' && 
+            $this->there_is_encargado_enabled()){
+            $user->enabled = 0;
+        }
+
         $user->save();
 
         return redirect('/dashboard/users');
@@ -74,12 +80,48 @@ class UserController extends Controller
         $user->name = $request->get('full_name');
         $user->email = $request->get('email');
         $user->role = $request->get('role');
-
         if($request->get('enabled') === 'on'){
             $user->enabled = 1;
         }else{
             $user->enabled = 0;
         }
+        if($request->get('role') === 'Encargado Docente' && 
+            $this->there_is_encargado_enabled()){
+            
+            $user->enabled = 0;
+            }
+    }
+
+        $user->save();
+        return redirect('/dashboard/users');
+    }
+
+    /**
+     * Check if theres an encargado enabled already
+     *
+     * @return boolean
+     */
+    public function there_is_enabled_encargado(){
+
+        $encagado_list = User::where('role','Encargado Docente');
+        foreach($encargado_list as $encargado){
+            if ($encargado->enabled === 1){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Reset password to default (rut without verification digit)
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function reset_password(Request $request){
+
+        $user = User::find($request->get('user_id'));
+        $user->password = Hash::make(substr($user->rut, 0, -2));
         $user->save();
         return redirect('/dashboard/users');
     }
