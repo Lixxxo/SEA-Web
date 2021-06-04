@@ -15,7 +15,7 @@ class CreateEncuestaTable extends Migration
     {
         Schema::create('encuesta', function (Blueprint $table) {
             $table->string('nombre')->primary();
-            $table->string('usuario_rut')->index('FKEncuesta642385');
+            $table->string('EstudianteUsuariorut')->nullable()->index('FKEncuesta448474');
         });
     }
 

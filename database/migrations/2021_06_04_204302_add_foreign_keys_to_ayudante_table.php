@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysToSemestreTable extends Migration
+class AddForeignKeysToAyudanteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddForeignKeysToSemestreTable extends Migration
      */
     public function up()
     {
-        Schema::table('semestre', function (Blueprint $table) {
-            $table->foreign('usuario_rut', 'FKSemestre482582')->references('rut')->on('usuario')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+        Schema::table('ayudante', function (Blueprint $table) {
+            $table->foreign('Usuariorut', 'FKAyudante376330')->references('rut')->on('usuario')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
 
@@ -25,8 +25,8 @@ class AddForeignKeysToSemestreTable extends Migration
      */
     public function down()
     {
-        Schema::table('semestre', function (Blueprint $table) {
-            $table->dropForeign('FKSemestre482582');
+        Schema::table('ayudante', function (Blueprint $table) {
+            $table->dropForeign('FKAyudante376330');
         });
     }
 }
