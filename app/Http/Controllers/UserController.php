@@ -90,7 +90,7 @@ class UserController extends Controller
             
             $user->enabled = 0;
             }
-    }
+    
 
         $user->save();
         return redirect('/dashboard/users');
@@ -123,7 +123,7 @@ class UserController extends Controller
         $user = User::find($request->get('user_id'));
         $user->password = Hash::make(substr($user->rut, 0, -2));
         $user->save();
-        return redirect('/dashboard/users');
+        return back()->with('status', 'Se restableció la contraseña del usuario '.$user->name);
     }
 
     /**
@@ -135,17 +135,17 @@ class UserController extends Controller
     public function change_password(Request $request){
 
         if ($request->get('password') !== $request->get('confirm_password')){
-            return back()->with('error', 'Las contraseñas no coinciden.');
+            return back()->with('status', 'Las contraseñas no coinciden.');
         }
         $view_message = $this->password_is_valid($request->get('password'));
         if ($view_message != 'valid'){
-            return back()->with('error', $view_message);
+            return back()->with('status', $view_message);
         }
         else{
             $user = User::find(Auth::user()->id);
             $user->password = Hash::make($request->get('password'));
-            $user->save();
-            return redirect('dashboard');
+            $save_message = $user->save();
+            return back()->with('status', 'XD');
         }
 
     }

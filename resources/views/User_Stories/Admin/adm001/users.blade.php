@@ -51,3 +51,13 @@
 
 
 @endsection
+@section('script')
+    <script src="{{asset("js/notify.min.js")}}"></script>
+    <script>
+        var status = '{{session("status")}}';
+        if (status){
+            $.notify(status, "success");
+        }
+    </script>
+    
+@endsection
