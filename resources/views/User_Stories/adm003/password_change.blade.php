@@ -3,8 +3,12 @@
     <div>
         <a href="/dashboard">Dashboard</a>
     </div>
-    <h3  align = "center">Cambiar contraseña</h3>
-
+    <div align = "center" >
+        <h3 >Cambiar contraseña</h3>
+        <h4>
+            Una vez cambiada la contraseña deberá volver a iniciar sesión
+        </h4>
+    </div>
     <form action="{{url('password_confirm')}}" method="POST">
         @csrf
         <label for="password">Nueva contraseña</label>
