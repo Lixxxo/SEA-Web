@@ -1,29 +1,60 @@
 @extends('layouts.base')
 @section('contenido')
-<!--TODO: Un navbar responsivo con cada componente dependiendo del Auth:user()->role logeado-->
-<a href="/">Home</a>
-<form method="POST" action="{{ route('logout') }}">
-    @csrf
+@auth
+    <div>   
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                    <x-jet-dropdown-link href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                            this.closest('form').submit();">
+                    {{ __('Cerrar Sesión') }}
+                </x-jet-dropdown-link>
+            </form>
 
-    <x-jet-dropdown-link href="{{ route('logout') }}"
-             onclick="event.preventDefault();
-                    this.closest('form').submit();">
-        {{ __('Cerrar Sesión') }}
-    </x-jet-dropdown-link>
-</form>
+    </div>
+@endauth
 <br>
-<!--TODO: Crear Componentes pesonalizados en cada caso-->
+
 @if (Auth::user()->role == "Administrador") 
-    Cosas de Administrador
-    Cosas de Encargado Docente
-    Cosas de Ayudante
-@elseif (Auth::user()->role == "Encargado Docente") 
-    Cosas de Encargado Docente
+    <!--Cosas de Administrador-->
+    <div>
+        <a href="dashboard/users">
+            <h3>Administrar usuarios</h2>
+        </a>    
+    </div>
+    <!--Cosas de Encargado Docente-->
+    <div>
+        <a href="/dashboard/periods">
+            <h3>Habilitar y deshabilitar periodo académico</h3>
+        </a>
+    </div>
+    <div>
+        <a href="/dashboard/import_data">
+            <h3> Carga masiva de estudiantes</h3>
+        </a>    
+    </div>
+    <div>
+        Futuras historias de usuario para Ayudante
+    </div>
+    
+@elseif (Auth::user()->role == "Encargado Docente")
+
+    <div>
+        <a href="/dashboard/import_data">
+            <h3> Carga masiva de estudiantes</h2>
+        </a>    
+    </div>
+        <div>
+        <a href="/dashboard/periods">
+            <h3> Habilitar y deshabilitar periodo académico</h3>
+        </a>
+    </div>
 @elseif (Auth::user()->role == "Ayudante") 
-    Cosas de Ayudante
-    Cosas de Estudiante
+    Futuras historias de usuario para Ayudante
+    Futuras historias de usuario para Estudiante
+
 @else
-    Cosas De Estudiante
+    Futuras historias de usuario para Estudiante
 @endif
 
 @endsection
