@@ -18,8 +18,8 @@ class CreateUsuarioTable extends Migration
             $table->string('nombre_completo')->nullable();
             $table->string('correo_electronico')->nullable();
             $table->string('clave')->nullable();
-            $table->string('rol')->nullable();
             $table->string('estado')->nullable();
+            $table->string('AdministradorUsuariorut')->nullable()->index('FKUsuario785879');
         });
     }
 

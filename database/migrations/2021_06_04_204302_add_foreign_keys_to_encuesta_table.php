@@ -14,7 +14,7 @@ class AddForeignKeysToEncuestaTable extends Migration
     public function up()
     {
         Schema::table('encuesta', function (Blueprint $table) {
-            $table->foreign('usuario_rut', 'FKEncuesta642385')->references('rut')->on('usuario')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('EstudianteUsuariorut', 'FKEncuesta448474')->references('Usuariorut')->on('estudiante')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
 
@@ -26,7 +26,7 @@ class AddForeignKeysToEncuestaTable extends Migration
     public function down()
     {
         Schema::table('encuesta', function (Blueprint $table) {
-            $table->dropForeign('FKEncuesta642385');
+            $table->dropForeign('FKEncuesta448474');
         });
     }
 }

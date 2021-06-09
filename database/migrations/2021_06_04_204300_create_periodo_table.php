@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSemestreTable extends Migration
+class CreatePeriodoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateSemestreTable extends Migration
      */
     public function up()
     {
-        Schema::create('semestre', function (Blueprint $table) {
+        Schema::create('periodo', function (Blueprint $table) {
             $table->string('codigo_semestre')->primary();
             $table->string('descripcion')->nullable();
-            $table->string('usuario_rut')->index('FKSemestre482582');
+            $table->string('Usuariorut')->index('FKPeriodo741776');
+            $table->string('Encargado_DocenteUsuariorut')->nullable()->index('FKPeriodo843927');
         });
     }
 
@@ -27,6 +28,6 @@ class CreateSemestreTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('semestre');
+        Schema::dropIfExists('periodo');
     }
 }

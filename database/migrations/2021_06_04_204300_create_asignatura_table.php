@@ -15,9 +15,12 @@ class CreateAsignaturaTable extends Migration
     {
         Schema::create('asignatura', function (Blueprint $table) {
             $table->string('nrc')->primary();
-            $table->string('nombre')->nullable();
-            $table->string('codigo_asignatura')->nullable();
-            $table->string('codigo_semestre')->index('FKAsignatura120791');
+            $table->string('codigo_asignatura');
+            $table->string('nombre');
+            $table->string('rut_profesor')->nullable();
+            $table->string('nombre_profesor')->nullable();
+            $table->string('Encuestanombre')->index('FKAsignatura59802');
+            $table->string('Encargado_DocenteUsuariorut')->nullable()->index('FKAsignatura38468');
         });
     }
 

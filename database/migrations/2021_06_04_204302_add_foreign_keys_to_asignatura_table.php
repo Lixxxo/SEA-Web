@@ -14,7 +14,8 @@ class AddForeignKeysToAsignaturaTable extends Migration
     public function up()
     {
         Schema::table('asignatura', function (Blueprint $table) {
-            $table->foreign('codigo_semestre', 'FKAsignatura120791')->references('codigo_semestre')->on('semestre')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('Encargado_DocenteUsuariorut', 'FKAsignatura38468')->references('Usuariorut')->on('encargado_docente')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('Encuestanombre', 'FKAsignatura59802')->references('nombre')->on('encuesta')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
 
@@ -26,7 +27,8 @@ class AddForeignKeysToAsignaturaTable extends Migration
     public function down()
     {
         Schema::table('asignatura', function (Blueprint $table) {
-            $table->dropForeign('FKAsignatura120791');
+            $table->dropForeign('FKAsignatura38468');
+            $table->dropForeign('FKAsignatura59802');
         });
     }
 }
