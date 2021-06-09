@@ -16,12 +16,8 @@ class Administrador
      */
     public function handle(Request $request, Closure $next)
     {
-        try {
-            $user_role = Auth::user()->role;
-        } catch (\Throwable $th) {
-            return redirect('/login');
-        }
-        if ($user_role != 'Administrador'){
+
+        if (auth()->user()->role !== 'Administrador'){
             return redirect('/404');
         }
         return $next($request);
