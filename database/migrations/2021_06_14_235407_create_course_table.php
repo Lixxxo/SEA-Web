@@ -16,7 +16,6 @@ class CreateCourseTable extends Migration
         Schema::create('course', function (Blueprint $table) {
             $table->string('nrc')->primary();
             $table->string('codigo_asignatura');
-            $table->string('nombre');
             $table->string('rut_profesor')->nullable();
             $table->string('nombre_profesor')->nullable();
             $table->string('Teacher_ManagerProfilerut')->index('FKCourse734211');
