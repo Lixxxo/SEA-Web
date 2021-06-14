@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAyudanteTable extends Migration
+class CreateAssistantTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateAyudanteTable extends Migration
      */
     public function up()
     {
-        Schema::create('ayudante', function (Blueprint $table) {
-            $table->string('Usuariorut')->primary();
+        Schema::create('assistant', function (Blueprint $table) {
+            $table->string('Profilerut')->primary();
         });
     }
 
@@ -25,6 +25,6 @@ class CreateAyudanteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ayudante');
+        Schema::dropIfExists('assistant');
     }
 }

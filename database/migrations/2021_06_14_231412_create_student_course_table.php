@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrabajaTable extends Migration
+class CreateStudentCourseTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateTrabajaTable extends Migration
      */
     public function up()
     {
-        Schema::create('trabaja', function (Blueprint $table) {
-            $table->string('Asignaturanrc');
-            $table->string('AyudanteUsuariorut')->index('FKTrabaja701161');
-            $table->primary(['Asignaturanrc', 'AyudanteUsuariorut']);
+        Schema::create('student_course', function (Blueprint $table) {
+            $table->string('Coursenrc');
+            $table->string('StudentProfilerut')->index('FKStudent_Co728520');
+            $table->primary(['Coursenrc', 'StudentProfilerut']);
         });
     }
 
@@ -27,6 +27,6 @@ class CreateTrabajaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trabaja');
+        Schema::dropIfExists('student_course');
     }
 }
