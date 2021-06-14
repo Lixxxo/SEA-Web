@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysToAyudanteTable extends Migration
+class AddForeignKeysToStudentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddForeignKeysToAyudanteTable extends Migration
      */
     public function up()
     {
-        Schema::table('ayudante', function (Blueprint $table) {
-            $table->foreign('Usuariorut', 'FKAyudante376330')->references('rut')->on('usuario')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+        Schema::table('student', function (Blueprint $table) {
+            $table->foreign('Profilerut', 'FKStudent697548')->references('rut')->on('profile')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
 
@@ -25,8 +25,8 @@ class AddForeignKeysToAyudanteTable extends Migration
      */
     public function down()
     {
-        Schema::table('ayudante', function (Blueprint $table) {
-            $table->dropForeign('FKAyudante376330');
+        Schema::table('student', function (Blueprint $table) {
+            $table->dropForeign('FKStudent697548');
         });
     }
 }

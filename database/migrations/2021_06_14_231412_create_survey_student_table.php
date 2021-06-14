@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsuarioRolTable extends Migration
+class CreateSurveyStudentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateUsuarioRolTable extends Migration
      */
     public function up()
     {
-        Schema::create('usuario_rol', function (Blueprint $table) {
-            $table->string('Usuariorut');
-            $table->string('Rolrol')->index('FKUsuario_Ro193094');
-            $table->primary(['Usuariorut', 'Rolrol']);
+        Schema::create('survey_student', function (Blueprint $table) {
+            $table->string('Surveynombre');
+            $table->string('StudentProfilerut')->index('FKSurvey_Stu990882');
+            $table->primary(['Surveynombre', 'StudentProfilerut']);
         });
     }
 
@@ -27,6 +27,6 @@ class CreateUsuarioRolTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usuario_rol');
+        Schema::dropIfExists('survey_student');
     }
 }

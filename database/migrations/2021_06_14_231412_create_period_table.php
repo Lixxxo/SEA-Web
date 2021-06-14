@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEncuestaTable extends Migration
+class CreatePeriodTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateEncuestaTable extends Migration
      */
     public function up()
     {
-        Schema::create('encuesta', function (Blueprint $table) {
-            $table->string('nombre')->primary();
-            $table->string('EstudianteUsuariorut')->nullable()->index('FKEncuesta448474');
+        Schema::create('period', function (Blueprint $table) {
+            $table->string('codigo_semestre')->primary();
+            $table->string('descripcion')->nullable();
+            $table->string('Teacher_ManagerProfilerut')->index('FKPeriod580180');
         });
     }
 
@@ -26,6 +27,6 @@ class CreateEncuestaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('encuesta');
+        Schema::dropIfExists('period');
     }
 }

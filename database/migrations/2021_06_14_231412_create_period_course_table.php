@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEncargadoDocenteTable extends Migration
+class CreatePeriodCourseTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateEncargadoDocenteTable extends Migration
      */
     public function up()
     {
-        Schema::create('encargado_docente', function (Blueprint $table) {
-            $table->string('Usuariorut')->primary();
+        Schema::create('period_course', function (Blueprint $table) {
+            $table->string('Periodcodigo_semestre');
+            $table->string('Coursenrc')->index('FKPeriod_Cou322953');
+            $table->primary(['Periodcodigo_semestre', 'Coursenrc']);
         });
     }
 
@@ -25,6 +27,6 @@ class CreateEncargadoDocenteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('encargado_docente');
+        Schema::dropIfExists('period_course');
     }
 }
