@@ -16,6 +16,7 @@ class CreatePeriodTable extends Migration
         Schema::create('period', function (Blueprint $table) {
             $table->string('codigo_semestre')->primary();
             $table->string('descripcion')->nullable();
+            $table->string('estado');
             $table->string('Teacher_ManagerProfilerut')->index('FKPeriod580180');
         });
     }
