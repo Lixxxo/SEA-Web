@@ -27,21 +27,24 @@ class PeriodController extends Controller
         }
         $period_data = request()->except('_token');
         $code = $request->code;
-        $period = Period::where('code',$code)->first();
-        if ($period != null ){
-            if ($period->enabled === 0){
-                $period->enabled = 1;
-                $period->description = $request->description;
-                $period->save();
+        $period_code = substr($code, -2);
+        if ($period_code == "10" || $period_code == "20") {
+            $period = Period::where('code',$code)->first();
+            if ($period != null ){
+                if ($period->enabled === 0){
+                    $period->enabled = 1;
+                    $period->description = $request->description;
+                    $period->save();
+                }
+        }
+            else{
+            Period::insert($period_data);
             }
         }
         else{
-            Period::insert($period_data);
-
-            //$period_list = Period::all();
-            //$period->save();
-
+            return redirect('/dashboard/periods'); //TODO: Enviar una alerta indicando que no se pudo habilitar el semestre por codigo invalido.
         }
+
 
         return redirect('/dashboard/periods');
 
