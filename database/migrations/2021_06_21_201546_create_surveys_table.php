@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTeacherManagerTable extends Migration
+class CreateSurveysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateTeacherManagerTable extends Migration
      */
     public function up()
     {
-        Schema::create('teacher_manager', function (Blueprint $table) {
-            $table->string('Profilerut')->primary();
+        Schema::create('surveys', function (Blueprint $table) {
+            $table->string('nombre')->primary();
+            $table->string('Coursesnrc')->index('FKSurveys93583');
         });
     }
 
@@ -25,6 +26,6 @@ class CreateTeacherManagerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('teacher_manager');
+        Schema::dropIfExists('surveys');
     }
 }

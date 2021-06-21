@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePeriodsTable extends Migration
+class CreateProfilesRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreatePeriodsTable extends Migration
      */
     public function up()
     {
-        Schema::create('periods', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('code');
-            $table->string('description')->nullable();
-            $table->boolean('enabled')->nullable()->default(true);
+        Schema::create('profiles_roles', function (Blueprint $table) {
+            $table->string('Profilesrut');
+            $table->string('Rolesrol')->index('FKProfiles_R914436');
+            $table->primary(['Profilesrut', 'Rolesrol']);
         });
     }
 
@@ -29,6 +27,6 @@ class CreatePeriodsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('periods');
+        Schema::dropIfExists('profiles_roles');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAssistantCourseTable extends Migration
+class CreateStudentsSurveysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateAssistantCourseTable extends Migration
      */
     public function up()
     {
-        Schema::create('assistant_course', function (Blueprint $table) {
-            $table->string('AssistantProfilerut');
-            $table->string('Coursenrc')->index('FKAssistant_659942');
-            $table->primary(['AssistantProfilerut', 'Coursenrc']);
+        Schema::create('students_surveys', function (Blueprint $table) {
+            $table->string('Surveysnombre');
+            $table->string('StudentsProfilesrut')->index('FKStudents_S187032');
+            $table->primary(['Surveysnombre', 'StudentsProfilesrut']);
         });
     }
 
@@ -27,6 +27,6 @@ class CreateAssistantCourseTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assistant_course');
+        Schema::dropIfExists('students_surveys');
     }
 }
