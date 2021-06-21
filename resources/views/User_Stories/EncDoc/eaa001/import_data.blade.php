@@ -7,7 +7,7 @@
     <div class = "container">
         <h3  align = "center">Cargar estudiantes</h3>
         <br>
-        @if (count($errors) > 0)
+        @if ($message = Sessions::get('error'))
             <div class = "alert alert-danger">
                 Problema al cargar archivo<br><br>
                 <ul>

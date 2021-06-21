@@ -18,8 +18,16 @@ class ImportDataController extends Controller
 
     public function importStudents(Request $request) // Cargamos datos con un excel o otro
     {
-        Excel::import(new UserImport, $request->select_file);
-        return back()->with('success', 'Los alumnos han sido cargados correctamente');
+        $Students = Excel::import(new UserImport, $request->select_file);
+        if(is_null($Students))
+        {
+            return back()->with('error', 'Los alumnos no han sido cargados correctamente');
+        }
+        else
+        {
+            return back()->with('success', 'Los alumnos han sido cargados correctamente');
+        }
+        
     }
 
     //public function import<Entidad>(Request $request) para los demas
