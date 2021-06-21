@@ -56,10 +56,10 @@ Route::get('/disabled', function (){
 ->name('disabled');
 
 
-// eaa 001
-Route::get('dashboard/import_data', 'App\Http\Controllers\ImportDataController@indexUsers')
+// EAA-001
+Route::get('dashboard/import_data', 'App\Http\Controllers\ImportDataController@indexStudents')
 ->middleware(['auth', 'Encargado Docente']);
-Route::post('dashboard/import_data/import', 'App\Http\Controllers\ImportDataController@import')
+Route::post('dashboard/import_data/importStudents', 'App\Http\Controllers\ImportDataController@importStudents')
 ->middleware(['auth', 'Encargado Docente']);
 
 
