@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProfileRoleTable extends Migration
+class CreateAssistantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateProfileRoleTable extends Migration
      */
     public function up()
     {
-        Schema::create('profile_role', function (Blueprint $table) {
-            $table->string('Profilerut');
-            $table->string('Rolerol')->index('FKProfile_Ro461810');
-            $table->primary(['Profilerut', 'Rolerol']);
+        Schema::create('assistants', function (Blueprint $table) {
+            $table->string('Profilesrut')->primary();
         });
     }
 
@@ -27,6 +25,6 @@ class CreateProfileRoleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profile_role');
+        Schema::dropIfExists('assistants');
     }
 }
