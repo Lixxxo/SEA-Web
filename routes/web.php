@@ -39,7 +39,7 @@ Route::post('/dashboard/edit', 'App\Http\Controllers\PeriodController@update')
 
 // adm 003
 Route::get('/password_change', function(){
-    return view('User_Stories/adm003/password_change', 
+    return view('User_Stories/adm003/password_change',
     ['message' => '']);
 })
 ->name('password_change')
@@ -62,6 +62,9 @@ Route::get('dashboard/import_data', 'App\Http\Controllers\ImportDataController@i
 Route::post('dashboard/import_data/import', 'App\Http\Controllers\ImportDataController@import')
 ->middleware(['auth', 'Encargado Docente']);
 
+// eaa 003
+
+Route::get('dashboard/courses', 'App\Http\Controllers\CourseController@Show');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
