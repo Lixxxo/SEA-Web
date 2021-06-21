@@ -23,7 +23,7 @@
                 <td>{{$course->nombre_profesor}}</td>
                 <td>{{$course->rut_profesor}}</td>
                 <td>
-                    <a href='/dashboard/users/{{$course->nrc}}/edit' class="btn btn-warning">Editar</a>
+                    <a href='/dashboard/courses/{{$course->nrc}}/edit' class="btn btn-warning">Editar</a>
                 </td>
             </tr>
         @endforeach

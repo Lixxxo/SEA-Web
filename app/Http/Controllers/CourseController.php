@@ -54,12 +54,13 @@ class CourseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Course  $course
+     * @param  string $nrc
      * @return \Illuminate\Http\Response
      */
-    public function edit(Course $course)
+    public function edit($nrc)
     {
-        //
+        $course = course::find($nrc);
+        return view('User_stories.eaa003.edit',['course' => $course]);
     }
 
     /**
