@@ -47,7 +47,8 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         //
-        return view('User_Stories.eaa003.edit_course');
+        $course_list = Course::all();
+        return view('User_Stories.eaa003.edit_course', ['course_list' => $course_list]);
     }
 
     /**

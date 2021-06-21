@@ -16,6 +16,17 @@
         </tr>
     </thead>
     <tbody>
+        @foreach($course_list as $course)
+            <tr>
+                <td>{{$course->nrc}}</td>
+                <td>{{$course->codigo_asignatura}}</td>
+                <td>{{$course->nombre_profesor}}</td>
+                <td>{{$course->rut_profesor}}</td>
+                <td>
+                    <a href='/dashboard/users/{{$course->nrc}}/edit' class="btn btn-warning">Editar</a>
+                </td>
+            </tr>
+        @endforeach
 
     </tbody>
 
