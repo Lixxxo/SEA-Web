@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAssistantTable extends Migration
+class CreateTeacherManagersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateAssistantTable extends Migration
      */
     public function up()
     {
-        Schema::create('assistant', function (Blueprint $table) {
-            $table->string('Profilerut')->primary();
+        Schema::create('teacher_managers', function (Blueprint $table) {
+            $table->string('Profilesrut')->primary();
         });
     }
 
@@ -25,6 +25,6 @@ class CreateAssistantTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assistant');
+        Schema::dropIfExists('teacher_managers');
     }
 }
