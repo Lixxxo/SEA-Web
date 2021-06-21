@@ -69,6 +69,11 @@ Route::post('dashboard/import_data_courses/importCourses', 'App\Http\Controllers
 ->middleware(['auth', 'Encargado Docente']);
 
 // EAA-004
+Route::get('dashboard/import_data_assistants', 'App\Http\Controllers\ImportDataController@indexAssistants')
+->middleware(['auth', 'Encargado Docente']);
+Route::post('dashboard/import_data_assistants/importAssistants', 'App\Http\Controllers\ImportDataController@importAssistants')
+->middleware(['auth', 'Encargado Docente']);
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
