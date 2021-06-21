@@ -64,7 +64,9 @@ Route::post('dashboard/import_data/import', 'App\Http\Controllers\ImportDataCont
 
 // eaa 003
 
-Route::get('dashboard/courses', 'App\Http\Controllers\CourseController@Show');
+Route::get('dashboard/courses', 'App\Http\Controllers\CourseController@Show')
+->middleware(['auth', 'Encargado Docente']);
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
