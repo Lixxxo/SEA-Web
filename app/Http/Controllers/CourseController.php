@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use Illuminate\Http\Request;
+use DB;
 
 class CourseController extends Controller
 {
@@ -14,7 +15,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $course_list = Course::all();
+        return view('User_Stories.EncDoc.eaa003.edit_course',['course_list' => $course_list]);
     }
 
     /**
@@ -46,21 +48,23 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        //
-        $course_list = Course::all();
-        return view('User_Stories.eaa003.edit_course', ['course_list' => $course_list]);
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  string $nrc
+     * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function edit($nrc)
+    public function edit($id)
     {
-        $course = course::find($nrc);
-        return view('User_stories.eaa003.edit',['course' => $course]);
+        //dd($id);
+        //);
+        $course = DB::table('Courses')->where('nrc',$id)->first();
+        //dd($course);
+        //return response()->json($course);
+        return view('User_stories.EncDoc.eaa003.edit',['course' => $course]);
     }
 
     /**

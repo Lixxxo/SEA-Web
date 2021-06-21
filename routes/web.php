@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 // Controllers
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CourseController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,9 +64,8 @@ Route::post('dashboard/import_data/import', 'App\Http\Controllers\ImportDataCont
 ->middleware(['auth', 'Encargado Docente']);
 
 // eaa 003
-
-Route::get('dashboard/courses', 'App\Http\Controllers\CourseController@Show')
-->middleware(['auth', 'Encargado Docente']);
+Route::resource('/dashboard/courses', CourseController::class)
+->middleware(['auth','Encargado Docente']);
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
