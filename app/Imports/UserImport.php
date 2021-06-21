@@ -20,19 +20,27 @@ class UserImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError
     */
     public function model(array $row)
     {
-        $query0 = DB::select('select rut from users where role = ? and enabled = ?', ['Administrador', 1]);
-        $query1 = DB::insert('insert into profiles (rut, nombre_completo, correo_electronico, clave, estado, AdministratorsProfilesrut) values (?, ?, ?, ?, ?, ?)', [$row['rut'], $row['nombre'], $row['correo'], Hash::make(substr($row['rut'], 0, -2)), 1, $query0[0]->rut]);
-        $query2 = DB::insert('insert into profiles_roles (Profilesrut, Rolesrol) values (?, ?)', [$row['rut'], 'Estudiante']);
-        $query3 = DB::insert('insert into student (Profilesrut) values (?)', [$row['rut']]);
-        
-        
-        return new User([
-            'rut' => $row['rut'],
-            'name' => $row['name'],
-            'email' => $row['email'],
-            'password' => Hash::make(substr($row['rut'], 0, -2)),
-            'role' => 'Estudiante'
-        ]);
+        $query0 = DB::select('select rut from users where rut = ?', [$row['rut']]);
+        if($query0 == NULL)
+        {
+            $query1 = DB::insert('insert into profiles (rut, nombre_completo, correo_electronico, clave, estado) values (?, ?, ?, ?, ?)', [$row['rut'], $row['nombre'], $row['correo'], Hash::make(substr($row['rut'], 0, -2)), 1]);
+            $query2 = DB::insert('insert into profiles_roles (Profilesrut, Rolesrol) values (?, ?)', [$row['rut'], 'Estudiante']);
+            $query3 = DB::insert('insert into students (Profilesrut) values (?)', [$row['rut']]);
+            
+            
+            return new User([
+                'rut' => $row['rut'],
+                'name' => $row['nombre'],
+                'email' => $row['correo'],
+                'password' => Hash::make(substr($row['rut'], 0, -2)),
+                'role' => 'Estudiante'
+            ]);            
+        }
+        else
+        {
+            return NULL;
+        }
+
     }
 
     public function chunkSize(): int

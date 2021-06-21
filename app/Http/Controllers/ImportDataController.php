@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\UserImport;
+use App\Imports\CourseImport;
+
 
 class ImportDataController extends Controller
 {
@@ -30,6 +32,24 @@ class ImportDataController extends Controller
         
     }
 
-    //public function import<Entidad>(Request $request) para los demas
+    public function indexCourses() // Cargar Importar
+    {
+        //Aca creamos una query para que nos ponga la tabla usuarios en este orden y despues desplegarla en import_data
+        $data = DB::table('courses')->orderBy('nrc', 'desc')->get();
+        return view('User_stories.EncDoc.eaa002.import_data_courses', compact('data'));
+    }
 
+    public function importCourses(Request $request) // Cargamos datos con un excel o otro
+    {
+        $Courses = Excel::import(new CourseImport, $request->select_file);
+        if(is_null($Courses))
+        {
+            return back()->with('error', 'Los alumnos no han sido cargados correctamente');
+        }
+        else
+        {
+            return back()->with('success', 'Los alumnos han sido cargados correctamente');
+        }
+        
+    }
 }
