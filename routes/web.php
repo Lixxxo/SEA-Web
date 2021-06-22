@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 // Controllers
 use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +23,7 @@ Route::get('/', function () {
 // adm 001
 Route::resource('/dashboard/users', UserController::class)
 ->middleware(['auth','Administrador']);
+
 Route::post('/dashboard/users/reset_password', 'App\Http\Controllers\UserController@reset_password')
 ->name('reset_password')
 ->middleware(['auth', 'Administrador']);
@@ -44,9 +46,11 @@ Route::get('/password_change', function(){
 })
 ->name('password_change')
 ->middleware('auth');
+
 Route::post('/password_confirm', 'App\Http\Controllers\UserController@change_password')
 ->name('password_confirm')
 ->middleware('auth');
+
 // adm 003
 Route::get('/password_request', 'App\Http\Controllers\UserController@password_request')
 ->name('password_request');
@@ -57,9 +61,13 @@ Route::get('/disabled', function (){
 
 
 // eaa 001
-Route::get('dashboard/import_data', 'App\Http\Controllers\ImportDataController@indexUsers')
+Route::get('/dashboard/import_data', 'App\Http\Controllers\ImportDataController@indexUsers')
 ->middleware(['auth', 'Encargado Docente']);
-Route::post('dashboard/import_data/import', 'App\Http\Controllers\ImportDataController@import')
+Route::post('/dashboard/import_data/import', 'App\Http\Controllers\ImportDataController@import')
+->middleware(['auth', 'Encargado Docente']);
+
+//enc 001
+Route::resource('/dashboard/surveys', 'App\Http\Controllers\SurveyController')
 ->middleware(['auth', 'Encargado Docente']);
 
 
