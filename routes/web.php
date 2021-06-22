@@ -60,11 +60,23 @@ Route::get('/disabled', function (){
 ->name('disabled');
 
 
-// eaa 001
-Route::get('/dashboard/import_data', 'App\Http\Controllers\ImportDataController@indexUsers')
+// EAA-001
+Route::get('dashboard/import_data', 'App\Http\Controllers\ImportDataController@indexStudents')
 ->middleware(['auth', 'Encargado Docente']);
-Route::post('/dashboard/import_data/import', 'App\Http\Controllers\ImportDataController@import')
+Route::post('dashboard/import_data/importStudents', 'App\Http\Controllers\ImportDataController@importStudents')
 ->middleware(['auth', 'Encargado Docente']);
+
+// EAA-002
+Route::get('dashboard/import_data_courses', 'App\Http\Controllers\ImportDataController@indexCourses')
+->middleware(['auth', 'Encargado Docente']);
+Route::post('dashboard/import_data_courses/importCourses', 'App\Http\Controllers\ImportDataController@importCourses')
+->middleware(['auth', 'Encargado Docente']);
+
+// EAA-004
+Route::get('dashboard/import_data_assistants', 'App\Http\Controllers\ImportDataController@indexAssistants')
+->middleware(['auth', 'Encargado Docente']);
+Route::post('dashboard/import_data_assistants/importAssistants', 'App\Http\Controllers\ImportDataController@importAssistants')
+
 
 //enc 001
 Route::resource('/dashboard/surveys', 'App\Http\Controllers\SurveyController')

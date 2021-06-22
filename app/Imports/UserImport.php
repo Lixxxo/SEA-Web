@@ -3,14 +3,15 @@
 namespace App\Imports;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Throwable;
-use Hash;
 
-class UserImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError
+class UserImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError,SkipsOnFailure
 {
     /**
     * @param array $row
@@ -21,11 +22,12 @@ class UserImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError
     {
         return new User([
             'rut' => $row['rut'],
-            'name' => $row['name'],
-            'email' => $row['email'],
+            'name' => $row['nombre'],
+            'email' => $row['correo'],
             'password' => Hash::make(substr($row['rut'], 0, -2)),
-            'role' => 'Estudiante'
-        ]);
+            'role' => 'Estudiante',
+            'enabled' => 1
+        ]);            
     }
 
     public function chunkSize(): int
@@ -34,6 +36,11 @@ class UserImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError
     }
 
     public function onError(Throwable $error)
+    {
+        
+    }
+
+    public function onFailure(\Maatwebsite\Excel\Validators\Failure ...$failures)
     {
         
     }

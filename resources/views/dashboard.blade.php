@@ -62,7 +62,17 @@
                 <h3> Carga masiva de estudiantes</h2>
             </a>    
         </div>
-            <div>
+        <div>
+            <a href="/dashboard/import_data_courses">
+                <h3> Carga masiva de asignaturas</h2>
+            </a>    
+        </div>
+        <div>
+            <a href="/dashboard/import_data_assistants">
+                <h3> Carga masiva de ayudantes</h2>
+            </a>    
+        </div>
+        <div>
             <a href="/dashboard/periods">
                 <h3> Habilitar y deshabilitar periodo académico</h3>
             </a>
