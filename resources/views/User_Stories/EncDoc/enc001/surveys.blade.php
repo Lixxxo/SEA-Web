@@ -12,7 +12,7 @@
     </h4>
 </div>
 <div>
-    <form action="/dashboard/surveys" method="POST">
+    <form action="{{route('createSurvey')}}" method="POST">
         @csrf
         
         <h5>Sleccione una asignatura para crear una nueva encuesta</h5>
@@ -57,7 +57,7 @@
                 
                 
                 <td>
-                    <a href='/dashboard/surveys/{{$survey_list[$i]->id}}/edit' class="btn btn-warning">Editar</a>
+                    <a href='/dashboard/surveys/{{$survey_list[$i]->id}}' class="btn btn-warning">Editar</a>
                 </td>
             </tr>
         @endfor

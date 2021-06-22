@@ -22,7 +22,7 @@ class SurveyController extends Controller
     }
 
 
-    public function store(Request $request){
+    public function createSurvey(Request $request){
        
         // explode == split
         $course_nrc = explode(",",$request->get("data"))[0];
@@ -36,7 +36,7 @@ class SurveyController extends Controller
         return redirect("/dashboard/surveys");
     }
 
-    public function edit($id)
+    public function editSurvey($id)
     {
         
         $survey = DB::select('select * from surveys where id = ?', [$id])[0];
@@ -52,19 +52,23 @@ class SurveyController extends Controller
         
         return redirect("/dashboard/surveys/".$survey_id."/edit");
     }
-
-    public function update(Request $request){
+    
+    public function updateQuestion(Request $request){
         dd($request);
     }
 
-    public function destroy(Request $request){
-        dd($request);
-        /*
+    public function deleteQuestion(Request $request){
+        //dd($request);
+        
         $question_id = $request->get('question_id');
         $survey_id = $request->get('survey_id');
-        DB::delete('delete questions where id = ?', [$question_id]);
-        
+        $question_list = DB::select('select * from questions where Surveysid = ?', [$survey_id]);
+        if(count($question_list) == 1)
+        {
+            return redirect("/dashboard/surveys/".$survey_id."/edit");
+        }
+        DB::delete('delete from questions where id = ?', [$question_id]);
         return redirect("/dashboard/surveys/".$survey_id."/edit");
-        */
+        
     }
 }

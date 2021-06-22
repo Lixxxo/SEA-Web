@@ -19,9 +19,9 @@
 <br>
 
     @foreach($question_list as $question)
-        <form action="{{route('editQuestion')}}" method="POST">         
+        <form action="{{route('updateQuestion')}}" method="POST">         
             @csrf
-            @method("PUT")
+            
             <input type="hidden" value="{{$survey->id}}" name="survey_id"/>
             <input type="hidden" value="{{$question->id}}"  name="question_id">
             <label for="frase"> Frase</label>
@@ -34,11 +34,12 @@
             {{$question->cantRespuestas}}
             <br>
             <button type="submit" class="btn btn-warning">Editar</button>
-            <form action="{{route('deleteQuestion')}}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger">Eliminar Pregunta</button>
-            </form>
+        </form>
+        <form action="{{route('deleteQuestion')}}" method="POST">
+            @csrf
+            <input type="hidden" value="{{$survey->id}}" name="survey_id"/>
+            <input type="hidden" value="{{$question->id}}"  name="question_id">
+            <button type="submit" class="btn btn-danger">Eliminar Pregunta</button>
         </form>
         <br>
     @endforeach
