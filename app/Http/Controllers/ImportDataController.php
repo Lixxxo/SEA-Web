@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\UserImport;
 use App\Imports\CourseImport;
 use App\Imports\Assistants_CoursesImport;
+use Throwable;
 
 class ImportDataController extends Controller
 {
@@ -20,16 +21,15 @@ class ImportDataController extends Controller
 
     public function importStudents(Request $request) // Cargamos datos con un excel o otro
     {
-        $Students = Excel::import(new UserImport, $request->select_file);
-        if(is_null($Students))
+        try 
+        {
+           $Students = Excel::import(new UserImport, $request->select_file);
+           return back()->with('success', 'Los alumnos han sido cargados correctamente');
+        } 
+        catch (Throwable $th) 
         {
             return back()->with('error', 'Los alumnos no han sido cargados correctamente');
         }
-        else
-        {
-            return back()->with('success', 'Los alumnos han sido cargados correctamente');
-        }
-        
     }
 
     public function indexCourses() // Cargar Importar

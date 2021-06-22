@@ -9,9 +9,10 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Throwable;
 
-class UserImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError
+class UserImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError,SkipsOnFailure
 {
     /**
     * @param array $row
@@ -38,9 +39,8 @@ class UserImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError
         }
         else
         {
-            return NULL;
+            return back()->with('error', 'El alumno o ciertos alumnos estan duplicados');
         }
-
     }
 
     public function chunkSize(): int
@@ -49,6 +49,11 @@ class UserImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError
     }
 
     public function onError(Throwable $error)
+    {
+        
+    }
+
+    public function onFailure(\Maatwebsite\Excel\Validators\Failure ...$failures)
     {
         
     }
