@@ -10,10 +10,10 @@
 
 
 <br>
-<form action="/dashboard/surveys/{{$survey->id}}}/createQuestion" method="POST">
-@csrf
-
-<input type="submit" class="btn btn-success" value="Crear Pregunta">
+<form action="/dashboard/surveys/createQuestion" method="POST">
+    @csrf
+    <input type="text" name="id" id="id" value="{{$survey->id}}" hidden>
+    <input type="submit" class="btn btn-success" value="Crear Pregunta">
 </form>
 
 <br>

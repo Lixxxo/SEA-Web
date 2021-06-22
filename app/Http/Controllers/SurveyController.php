@@ -41,6 +41,6 @@ class SurveyController extends Controller
     }
 
     public function createQuestion(Request $request){
-        dd($survey_id);
+        dd($request);
     }
 }
