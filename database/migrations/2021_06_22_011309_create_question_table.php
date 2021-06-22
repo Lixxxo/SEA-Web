@@ -14,7 +14,7 @@ class CreateQuestionTable extends Migration
     public function up()
     {
         Schema::create('question', function (Blueprint $table) {
-            $table->string('Surveysnombre')->primary();
+            $table->integer('Surveysid')->primary();
             $table->string('frase')->nullable();
             $table->integer('indicador')->nullable();
             $table->integer('cantRespuesta')->nullable();

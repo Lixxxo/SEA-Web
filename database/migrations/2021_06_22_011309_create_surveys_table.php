@@ -14,9 +14,9 @@ class CreateSurveysTable extends Migration
     public function up()
     {
         Schema::create('surveys', function (Blueprint $table) {
-            $table->string('nombre')->primary();
+            $table->integer('id')->primary();
+            $table->string('nombre');
             $table->string('Coursesnrc')->index('FKSurveys93583');
-            $table->integer('totalRepsuestas')->nullable();
             $table->integer('estado')->nullable();
         });
     }
