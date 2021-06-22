@@ -8,14 +8,20 @@
 </div>
 <div>
     <h4>
-        <button>
+        <a href="/dashboard/surveys/create">
             Nueva Encuesta
-        </button>
+        </a>
     </h4>
 </div>
 
 <div>
-    
+    @foreach($survey_list as $survey)
+        <div>
+            <h5>
+                <a href="">{{$survey}}</a>
+            </h5>
+        </div>
+    @endforeach
 </div>
 
 @endsection

@@ -25,12 +25,10 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('current_team_id')->nullable();
             $table->text('profile_photo_path')->nullable();
             $table->timestamps();
-            
             $table->string('rut')->unique();
             $table->string('role')->default('Administrador');
             $table->string('full_name')->nullable();
-            $table->boolean('enabled')->default(True);
-            
+            $table->tinyInteger('enabled')->default(1);
         });
     }
 
