@@ -76,7 +76,7 @@ Route::post('dashboard/import_data_courses/importCourses', 'App\Http\Controllers
 Route::get('dashboard/import_data_assistants', 'App\Http\Controllers\ImportDataController@indexAssistants')
 ->middleware(['auth', 'Encargado Docente']);
 Route::post('dashboard/import_data_assistants/importAssistants', 'App\Http\Controllers\ImportDataController@importAssistants')
-
+->middleware(['auth', 'Encargado Docente']);
 
 //enc 001
 Route::resource('/dashboard/surveys', 'App\Http\Controllers\SurveyController')
