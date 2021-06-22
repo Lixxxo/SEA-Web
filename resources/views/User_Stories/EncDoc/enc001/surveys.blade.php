@@ -3,6 +3,7 @@
 
 <div>
     <a href="/dashboard">Dashboard</a>
+    
 </div>
 <h3 align = "center">Listado de Encuestas</h3>
 <div>
@@ -21,7 +22,10 @@
             @endforeach
         </select>
         <br>
-        <input type="submit">
+        <br>
+        <input class="btn btn-success" type="submit"><br>
+        
+        <br>
     </form>
 </div>
 <br>
@@ -30,8 +34,10 @@
         <tr>
             <th scope="col">Nombre</th>
             <th scope="col">Cantidad de preguntas</th>
+            <th scope="col">Cantidad de respuestas</th>
             <th scope="col">Estado</th>
             <th scope="col">NRC del Curso</td>
+            
             <th scope="col">Acción</th>
         </tr>
 
@@ -41,6 +47,7 @@
             <tr>
                 <td>{{$survey->nombre}}</td>
                 <td>{{$survey->cantidad_preguntas}}</td>
+                <td>{{$survey->totalRespuestas}}</td>
                 @if ($survey->estado === 1)
                     <td>Habilitado</td>
                 @else

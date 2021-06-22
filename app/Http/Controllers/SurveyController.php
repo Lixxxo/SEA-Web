@@ -9,7 +9,7 @@ class SurveyController extends Controller
 
     public function index(){
 
-        $survey_list = DB::select("select id, nombre, count(*) as cantidad_preguntas, estado, Coursesnrc from surveys where id in (Select Surveysid from questions) group by(nombre);");
+        $survey_list = DB::select("select id, nombre, count(*) as cantidad_preguntas, totalRespuestas, estado, Coursesnrc from surveys where id in (Select Surveysid from questions) group by(nombre);");
         //dd($survey_list);
         $course_list = DB::select('select * from courses');
         
@@ -33,7 +33,14 @@ class SurveyController extends Controller
 
     public function edit($id)
     {
-        $user = Survey::find($id);
-        return view('User_stories.EncDoc.enc001.edit',['survey' => $survey]);
+        
+        $survey = DB::select('select * from surveys where id = ?', [$id])[0];
+        $question_list = DB::select('select * from questions where Surveysid = ?', [$id]);
+        //dd($survey, $question_list);
+        return view('User_stories.EncDoc.enc001.edit',['survey' => $survey, 'question_list'=>$question_list]);
+    }
+
+    public function createQuestion(Request $request){
+        dd($survey_id);
     }
 }

@@ -70,6 +70,9 @@ Route::post('/dashboard/import_data/import', 'App\Http\Controllers\ImportDataCon
 Route::resource('/dashboard/surveys', 'App\Http\Controllers\SurveyController')
 ->middleware(['auth', 'Encargado Docente']);
 
+Route::post('/dashboard/surveys/{$id}/createQuestion', 'App\Http\Controllers\SurveyController@createQuestion')
+->middleware(['auth', 'Encargado Docente'])
+->name("createQuestion");
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
