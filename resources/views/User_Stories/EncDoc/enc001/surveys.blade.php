@@ -43,24 +43,24 @@
 
     </thead>
     <tbody>
-        @foreach($survey_list as $survey)
+        @for($i = 0; $i < count($survey_list); $i++)
             <tr>
-                <td>{{$survey->nombre}}</td>
-                <td>{{$survey->cantidad_preguntas}}</td>
-                <td>{{$survey->totalRespuestas}}</td>
-                @if ($survey->estado === 1)
+                <td>{{$survey_list[$i]->nombre}}</td>
+                <td>{{$question_qtty_list[$i][0]->cantidadPreguntas}}</td>
+                <td>{{$survey_list[$i]->totalRespuestas}}</td>
+                @if ($survey_list[$i]->estado === 1)
                     <td>Habilitado</td>
                 @else
                     <td>Deshabilitado</td>
                 @endif
-                <td>{{$survey->Coursesnrc}}</td>
+                <td>{{$survey_list[$i]->Coursesnrc}}</td>
                 
                 
                 <td>
-                    <a href='/dashboard/surveys/{{$survey->id}}/edit' class="btn btn-warning">Editar</a>
+                    <a href='/dashboard/surveys/{{$survey_list[$i]->id}}/edit' class="btn btn-warning">Editar</a>
                 </td>
             </tr>
-        @endforeach
+        @endfor
     </tbody>
 
 </table>

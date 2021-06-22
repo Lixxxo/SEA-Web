@@ -9,11 +9,16 @@ class SurveyController extends Controller
 
     public function index(){
 
-        $survey_list = DB::select("select id, nombre, count(*) as cantidad_preguntas, totalRespuestas, estado, Coursesnrc from surveys where id in (Select Surveysid from questions) group by(nombre);");
-        //dd($survey_list);
+        $survey_list = DB::select("select id, nombre, totalRespuestas, estado, Coursesnrc from surveys where id in (Select Surveysid from questions);");
+        $question_qtty_list = array();
+        foreach ($survey_list as $survey){
+            $question_qtty = DB::select("select count(*) as cantidadPreguntas from questions where Surveysid = ?;",[$survey->id]);
+            array_push($question_qtty_list, $question_qtty);
+        }
+       //dd($question_qtty_list);
         $course_list = DB::select('select * from courses');
         
-        return view("User_Stories.EncDoc.enc001.surveys", ['survey_list' => $survey_list, 'course_list'=>$course_list]);
+        return view("User_Stories.EncDoc.enc001.surveys", ['survey_list' => $survey_list, 'course_list'=>$course_list, 'question_qtty_list'=>$question_qtty_list]);
     }
 
 
