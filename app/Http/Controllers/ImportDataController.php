@@ -15,7 +15,7 @@ class ImportDataController extends Controller
     public function indexStudents() // Cargar Importar
     {
         //Aca creamos una query para que nos ponga la tabla usuarios en este orden y despues desplegarla en import_data
-        $data = DB::table('users')->orderBy('name', 'desc')->get();
+        $data = DB::table('users')->where('role','Estudiante')->orderBy('name', 'desc')->get();
         return view('User_stories.EncDoc.eaa001.import_data', compact('data'));
     }
 
@@ -41,16 +41,15 @@ class ImportDataController extends Controller
 
     public function importCourses(Request $request) // Cargamos datos con un excel o otro
     {
-        $Courses = Excel::import(new CourseImport, $request->select_file);
-        if(is_null($Courses))
+        try
+        {
+            $Courses = Excel::import(new CourseImport, $request->select_file);
+            return back()->with('success', 'Las asignaturas han sido cargadas correctamente');            
+        }
+        catch(Throwable $error)
         {
             return back()->with('error', 'Las asignaturas no han sido cargadas correctamente');
         }
-        else
-        {
-            return back()->with('success', 'Las asignaturas han sido cargadas correctamente');
-        }
-        
     }
 
     public function indexAssistants() // Cargar Importar
@@ -62,16 +61,15 @@ class ImportDataController extends Controller
 
     public function importAssistants(Request $request) // Cargamos datos con un excel o otro
     {
-        $AssistantsCourses = Excel::import(new Assistants_CoursesImport, $request->select_file);
-        if(is_null($AssistantsCourses))
+        try 
+        {
+            $AssistantsCourses = Excel::import(new Assistants_CoursesImport, $request->select_file);
+            return back()->with('success', 'Los ayudantes han sido asignados');
+        } 
+        catch (\Throwable $th) 
         {
             return back()->with('error', 'Los ayudantes no han sido asignados');
         }
-        else
-        {
-            return back()->with('success', 'Los ayudantes han sido asignados');
-        }
-        
     }
 
 }

@@ -22,11 +22,10 @@ class CourseImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnErr
         $query0 = DB::select('select nrc from courses where nrc = ?', [$row['nrc']]);
         if($query0 == NULL)
         {
-            $query1 = DB::select('select rut from users where role = ? and enabled = ?', ['Encargado Docente', 1]);
-            $query2 = DB::insert('insert into courses (nrc,	codigo_asignatura, rut_profesor, nombre_profesor, Teacher_ManagersProfilesrut) values (?, ?, ?, ?, ?)', [$row['nrc'], $row['codigo_asignatura'], $row['rut_profesor'], $row['nombre_profesor'], $query1[0]->rut]);
+            $query1 = DB::insert('insert into courses (nrc,	codigo_asignatura, rut_profesor, nombre_profesor) values (?, ?, ?, ?)', [$row['nrc'], $row['codigo_asignatura'], $row['rut_profesor'], $row['nombre_profesor']]);
 
-            $query3 = DB::select('select codigo_semestre from Periods where estado = ?', [1]);
-            $query4 = DB::insert('insert into periods_courses (Periodscodigo_semestre, Coursesnrc) values (?, ?)', [$query3[0]->codigo_semestre, $row['nrc']]);
+            $query2 = DB::select('select codigo_semestre from Periods where estado = ?', [1]);
+            $query3 = DB::insert('insert into periods_courses (Periodscodigo_semestre, Coursesnrc) values (?, ?)', [$query2[0]->codigo_semestre, $row['nrc']]);
 
             return new Course([
             ]);

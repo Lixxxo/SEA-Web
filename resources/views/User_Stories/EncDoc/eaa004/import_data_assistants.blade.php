@@ -9,12 +9,13 @@
         <br>
         @if ($message = Session::get('error'))
             <div class = "alert alert-danger">
-                Problema al cargar archivo<br><br>
+                Problema al cargar el archivo, verifique que todo este correcto e intente de nuevo!!<br>
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li> {{ $error }} </li>
                     @endforeach
                 </ul>
+            </div>
         @endif
 
         @if($message = Session::get('success'))
@@ -61,7 +62,7 @@
                     @foreach ($data as $row)
                         <tr>
                             <td>{{ $row->Coursesnrc }}</td>
-                            <td>{{ $row->AssistantsProfilesrut }}</td>
+                            <td>{{ $row->Usersrut }}</td>
                         </tr>
                     @endforeach
                     </table>

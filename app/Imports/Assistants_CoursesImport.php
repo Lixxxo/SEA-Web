@@ -19,14 +19,14 @@ class Assistants_CoursesImport implements ToModel,WithHeadingRow,WithChunkReadin
     */
     public function model(array $row)
     {
-        $query0 = DB::select('select Profilesrut from Assistants where Profilesrut = ?', [$row['rut']]);
+        $query0 = DB::select('select rut from users where rut = ? and role = ?', [$row['rut'], 'Ayudante']);
         if($query0 != NULL)
         {
-            $query1 = DB::select('select AssistantsProfilesrut from Assistants_Courses where AssistantsProfilesrut = ? and Coursesnrc = ?', [$row['rut'], $row['nrc']]);
+            $query1 = DB::select('select Usersrut from Assistants_Courses where Usersrut = ? and Coursesnrc = ?', [$row['rut'], $row['nrc']]);
 
             if($query1 == NULL)
             {
-                $query2 = DB::insert('insert into assistants_courses (AssistantsProfilesrut, Coursesnrc) values (?, ?)', [$row['rut'], $row['nrc']]);
+                $query2 = DB::insert('insert into assistants_courses (Usersrut, Coursesnrc) values (?, ?)', [$row['rut'], $row['nrc']]);
 
                 return new Assistants_Courses([
                 ]);       
