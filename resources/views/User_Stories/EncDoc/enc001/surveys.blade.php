@@ -2,9 +2,13 @@
 @section('contenido')
 
 <div>
-    <h2>
-        Crear Encuestas
-    </h2>
+    <a href="/dashboard">Dashboard</a>
+</div>
+<h3 align = "center">Listado de Encuestas</h3>
+<div>
+    <h4>
+        Crear Encuesta
+    </h4>
 </div>
 <div>
     <form action="/dashboard/surveys" method="POST">
@@ -14,30 +18,45 @@
         <select name="data" id="data" >
             @foreach($course_list as $course)
                 <option value="{{$course->nrc}},{{$course->codigo_asignatura}}">{{$course->codigo_asignatura}}</option>
-                
             @endforeach
         </select>
-        
         <br>
         <input type="submit">
     </form>
 </div>
+<br>
+<table class="table table-dark table-striped mt-4">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Cantidad de preguntas</th>
+            <th scope="col">Estado</th>
+            <th scope="col">NRC del Curso</td>
+            <th scope="col">Acción</th>
+        </tr>
 
-<div>
-    @foreach($survey_list as $survey)
-        <div>
+    </thead>
+    <tbody>
+        @foreach($survey_list as $survey)
             <tr>
+                <td>{{$survey->nombre}}</td>
+                <td>{{$survey->cantidad_preguntas}}</td>
+                @if ($survey->estado === 1)
+                    <td>Habilitado</td>
+                @else
+                    <td>Deshabilitado</td>
+                @endif
+                <td>{{$survey->Coursesnrc}}</td>
+                
+                
                 <td>
-                    {{$survey->nombre}}
-                </td>
-                <td>
-                    <a href="" type="button">{{$survey->id}}</a>
-
+                    <a href='/dashboard/surveys/{{$survey->id}}/edit' class="btn btn-warning">Editar</a>
                 </td>
             </tr>
-        </div>
-    @endforeach
-</div>
+        @endforeach
+    </tbody>
+
+</table>
 
 
 @endsection

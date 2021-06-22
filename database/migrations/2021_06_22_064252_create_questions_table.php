@@ -16,8 +16,8 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->integer('Surveysid')->primary();
             $table->string('frase')->default('Nueva Pregunta');
-            $table->integer('indicador');
-            $table->integer('cantRespuestas');
+            $table->integer('indicador')->default(0);
+            $table->integer('cantRespuestas')->default(0);
         });
     }
 
