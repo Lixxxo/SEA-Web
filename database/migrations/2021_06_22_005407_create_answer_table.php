@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSurveysTable extends Migration
+class CreateAnswerTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateSurveysTable extends Migration
      */
     public function up()
     {
-        Schema::create('surveys', function (Blueprint $table) {
-            $table->string('nombre')->primary();
-            $table->string('Coursesnrc')->index('FKSurveys93583');
+        Schema::create('answer', function (Blueprint $table) {
+            $table->string('respuesta')->nullable();
+            $table->string('QuestionSurveysnombre')->index('FKAnswer380006');
         });
     }
 
@@ -26,6 +26,6 @@ class CreateSurveysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('surveys');
+        Schema::dropIfExists('answer');
     }
 }
