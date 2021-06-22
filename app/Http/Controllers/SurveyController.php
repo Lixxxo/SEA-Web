@@ -48,4 +48,7 @@ class SurveyController extends Controller
     public function createQuestion(Request $request){
         dd($request);
     }
+    public function editQuestion(Request $request){
+        dd($request);
+    }
 }

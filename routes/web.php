@@ -73,6 +73,9 @@ Route::resource('/dashboard/surveys', 'App\Http\Controllers\SurveyController')
 Route::post('/dashboard/surveys/createQuestion', 'App\Http\Controllers\SurveyController@createQuestion')
 ->middleware(['auth', 'Encargado Docente'])
 ->name("createQuestion");
+Route::post('/dashboard/surveys/editQuestion', 'App\Http\Controllers\SurveyController@createQuestion')
+->middleware(['auth', 'Encargado Docente'])
+->name("editQuestion");
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
