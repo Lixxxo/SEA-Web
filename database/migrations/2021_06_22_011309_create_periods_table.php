@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAssistantsTable extends Migration
+class CreatePeriodsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateAssistantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('assistants', function (Blueprint $table) {
-            $table->string('Profilesrut')->primary();
+        Schema::create('periods', function (Blueprint $table) {
+            $table->string('codigo_semestre')->primary();
+            $table->string('descripcion')->nullable();
+            $table->integer('estado');
         });
     }
 
@@ -25,6 +27,6 @@ class CreateAssistantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assistants');
+        Schema::dropIfExists('periods');
     }
 }

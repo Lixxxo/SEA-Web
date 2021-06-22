@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTeacherManagersTable extends Migration
+class CreateStudentsCoursesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class CreateTeacherManagersTable extends Migration
      */
     public function up()
     {
-        Schema::create('teacher_managers', function (Blueprint $table) {
-            $table->string('Profilesrut')->primary();
+        Schema::create('students_courses', function (Blueprint $table) {
+            $table->string('Profilesrut');
+            $table->string('Coursesnrc')->index('FKStudents_C909963');
+            $table->primary(['Profilesrut', 'Coursesnrc']);
         });
     }
 
@@ -25,6 +27,6 @@ class CreateTeacherManagersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('teacher_managers');
+        Schema::dropIfExists('students_courses');
     }
 }

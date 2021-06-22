@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProfilesRolesTable extends Migration
+class CreateAnswerTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateProfilesRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('profiles_roles', function (Blueprint $table) {
-            $table->string('Profilesrut');
-            $table->string('Rolesrol')->index('FKProfiles_R914436');
-            $table->primary(['Profilesrut', 'Rolesrol']);
+        Schema::create('answer', function (Blueprint $table) {
+            $table->string('respuesta')->nullable();
+            $table->string('QuestionSurveysnombre')->index('FKAnswer380006');
         });
     }
 
@@ -27,6 +26,6 @@ class CreateProfilesRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profiles_roles');
+        Schema::dropIfExists('answer');
     }
 }
