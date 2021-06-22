@@ -14,7 +14,7 @@ class SurveyController extends Controller
     }
 
     public function create(){
-        DB::insert('insert into surveys (id, name) values (?, ?)', [1, 'Dayle'])
+        DB::insert('insert into surveys');
         return view("User_Stories.EncDoc.enc001.edit");
     }
 
