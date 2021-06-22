@@ -73,9 +73,13 @@ Route::resource('/dashboard/surveys', 'App\Http\Controllers\SurveyController')
 Route::post('/dashboard/surveys/createQuestion', 'App\Http\Controllers\SurveyController@createQuestion')
 ->middleware(['auth', 'Encargado Docente'])
 ->name("createQuestion");
-Route::post('/dashboard/surveys/editQuestion', 'App\Http\Controllers\SurveyController@createQuestion')
+Route::put('/dashboard/surveys/editQuestion', 'App\Http\Controllers\SurveyController@editQuestion')
 ->middleware(['auth', 'Encargado Docente'])
 ->name("editQuestion");
+Route::delete('/dashboard/surveys/deleteQuestion', 'App\Http\Controllers\SurveyController@deleteQuestion')
+->middleware(['auth', 'Encargado Docente'])
+->name("deleteQuestion");
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

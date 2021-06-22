@@ -10,41 +10,37 @@
 
 
 <br>
-<form action="/dashboard/surveys/createQuestion" method="POST">
+<form action="{{route('createQuestion')}}" method="POST">
     @csrf
     <input type="text" name="id" id="id" value="{{$survey->id}}" hidden>
     <input type="submit" class="btn btn-success" value="Crear Pregunta">
 </form>
 
 <br>
-<table class="table table-dark table-striped mt-4">
-    <thead>
-        <tr>
-            <th scope="col"></th>
-            <th scope="col">Frase</th>
-            
-            <th scope="col">Indicador</th>
-            
-            <th scope="col">Cantidad de respuestas</th>
-        </tr>
 
-    </thead>
     @foreach($question_list as $question)
-    <tbody>
-        <tr>
-            <td><form id="editForm" action="/dashboard/surveys/editQuestion" method="POST">         
-                @csrf    
-            <input type="hidden" value="{{$survey->id}}" name="survey_id"/></form></td>
-            <td><input form="editForm" type="text" value="{{$question->frase}}" name="frase" /></td>
-            <td><input form="editForm" type="number" min="1" max="2" value="{{$question->indicador}}"  name="indicador" /></td>
-            <td>{{$question->cantRespuestas}}</td>
-            <td><input form="editForm" type="submit" value="Guardar" /></td>
-
+        <form action="{{route('editQuestion')}}" method="POST">         
+            @csrf
+            @method("PUT")
+            <input type="hidden" value="{{$survey->id}}" name="survey_id"/>
+            <input type="hidden" value="{{$question->id}}"  name="question_id">
+            <label for="frase"> Frase</label>
+            <input type="text" size = "100" value="{{$question->frase}}" id="frase" name="frase" />
             <br>
-        </tr>
-    </tbody>
+            <label for="indicador"> Indicador</label>
+            <input type="number" min="1" max="2" value="{{$question->indicador}}" id="indicador" name="indicador" />
+            <br>
+            <label >Cantidad respuestas</label>
+            {{$question->cantRespuestas}}
+            <br>
+            <button type="submit" class="btn btn-warning">Editar</button>
+            <form action="{{route('deleteQuestion')}}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">Eliminar Pregunta</button>
+            </form>
+        </form>
+        <br>
     @endforeach
 
-
-</table>
 @endsection

@@ -46,9 +46,25 @@ class SurveyController extends Controller
     }
 
     public function createQuestion(Request $request){
+        
+        $survey_id = $request->get('id');
+        DB::insert('insert into questions (Surveysid) values (?)', [$survey_id]);
+        
+        return redirect("/dashboard/surveys/".$survey_id."/edit");
+    }
+
+    public function update(Request $request){
         dd($request);
     }
-    public function editQuestion(Request $request){
+
+    public function destroy(Request $request){
         dd($request);
+        /*
+        $question_id = $request->get('question_id');
+        $survey_id = $request->get('survey_id');
+        DB::delete('delete questions where id = ?', [$question_id]);
+        
+        return redirect("/dashboard/surveys/".$survey_id."/edit");
+        */
     }
 }
