@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProfilesRolesTable extends Migration
+class CreateCoursesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateProfilesRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('profiles_roles', function (Blueprint $table) {
-            $table->string('Profilesrut');
-            $table->string('Rolesrol')->index('FKProfiles_R914436');
-            $table->primary(['Profilesrut', 'Rolesrol']);
+        Schema::create('courses', function (Blueprint $table) {
+            $table->string('nrc')->primary();
+            $table->string('codigo_asignatura');
+            $table->string('rut_profesor')->nullable();
+            $table->string('nombre_profesor')->nullable();
         });
     }
 
@@ -27,6 +28,6 @@ class CreateProfilesRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profiles_roles');
+        Schema::dropIfExists('courses');
     }
 }

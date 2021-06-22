@@ -19,6 +19,7 @@ class CreateProfilesTable extends Migration
             $table->string('correo_electronico')->nullable();
             $table->string('clave')->nullable();
             $table->integer('estado')->nullable();
+            $table->string('rol')->nullable();
         });
     }
 
