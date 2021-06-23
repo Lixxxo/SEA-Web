@@ -25,7 +25,7 @@
             </div>
         @endif
         <form method = "post" enctype = "multipart/form-data" action = '/dashboard/import_data_courses/importCourses'>
-            {{ csrf_field() }}
+            @csrf
             <div class = "form-group">
                 <table class = "table">
                     <tr>
