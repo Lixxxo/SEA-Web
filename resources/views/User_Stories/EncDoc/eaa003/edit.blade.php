@@ -1,23 +1,23 @@
 @extends('layouts.base')
 @section('contenido')
-<h2>Actualizar usuario</h2>
+<h2>Actualizar asignatura</h2>
     <form action="/dashboard/courses/{{$course->nrc}}" method="POST">
         @csrf
         @method('PUT')
-        <!--Rut-->
+        <!--NRC-->
 
         <div class="mb-3">
-            <label class="form-label">Rut</label>
-            <input type="text" id="rut" name="rut" required
-            oninput="checkRut(this)"
-            class="form-control" tabindex="1" value="{{$user->rut}}">
+            <label class="form-label">NRC</label>
+            <input type="text" id="nrc" name="nrc" required
+
+            class="form-control" tabindex="1" value="{{$course->nrc}}">
         </div>
         <br>
-        <!--Nombre Completo-->
+        <!--Codigo-->
         <div class="mb-3">
-            <label class="form-label">Nombre completo</label>
-            <input id="full_name" name="full_name" type="text" class="form-control"
-                tabindex="2" value="{{$user->name}}">
+            <label class="form-label">Código de asignatura</label>
+            <input id="code" name="code" type="text" class="form-control"
+                tabindex="2" value="{{$course->codigo_asignatura}}">
         </div>
         <br>
         <!--Email-->
