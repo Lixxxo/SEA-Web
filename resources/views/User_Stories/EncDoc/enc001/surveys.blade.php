@@ -15,7 +15,7 @@
     <form action="{{route('createSurvey')}}" method="POST">
         @csrf
         
-        <h5>Sleccione una asignatura para crear una nueva encuesta</h5>
+        <h4>Sleccione un nrc de asignatura para crear una nueva encuesta</h4>
         <select name="data" id="data" >
             @foreach($course_list as $course)
                 <option value="{{$course->nrc}},{{$course->codigo_asignatura}}">{{$course->codigo_asignatura}}</option>
@@ -58,6 +58,7 @@
                 
                 <td>
                     <a href='/dashboard/surveys/{{$survey_list[$i]->id}}' class="btn btn-warning">Editar</a>
+                    
                 </td>
             </tr>
         @endfor
