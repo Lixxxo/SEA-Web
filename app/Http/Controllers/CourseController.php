@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Http\Request;
 use DB;
 
@@ -16,7 +17,10 @@ class CourseController extends Controller
     public function index()
     {
         $course_list = Course::all();
-        return view('User_Stories.EncDoc.eaa003.edit_course',['course_list' => $course_list]);
+        //$assistant_list = DB::table('users')->where('rut', DB::table('assistants_courses')->first())->first();
+        $assistant_list = DB::table('assistants_courses')->get();
+        //return response()->json($assistant_list);
+        return view('User_Stories.EncDoc.eaa003.edit_course',['course_list' => $course_list],['assistant_list' => $assistant_list]);
     }
 
     /**
@@ -74,9 +78,17 @@ class CourseController extends Controller
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Course $course)
+    public function update(Request $request, $nrc)
     {
-        //
+        //$course = DB::table('Courses')->where('nrc',$nrc)->first();
+        $course = Course::where('nrc',$nrc)->first();
+        //return response()->json($course);
+        $course->timestamps =
+        $course->codigo_asignatura = $request->get('codigo_asignatura');
+        $course->rut_profesor = $request->get('rut_profesor');
+        $course->nombre_profesor = $request->get('nombre_profesor');
+        $course->save();
+        return redirect('/dashboard/courses');
     }
 
     /**
