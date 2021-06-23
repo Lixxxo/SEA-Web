@@ -76,12 +76,10 @@ Route::get('/dashboard/surveys/{id}', 'App\Http\Controllers\SurveyController@edi
 ->where('id', '(.*)')
 ->middleware(['auth', 'Encargado Docente'])
 ->name("editSurvey");
-Route::post('/dashboard/surveys/editSurvey', 'App\Http\Controllers\SurveyController@updateSurvey')
+Route::post('/dashboard/surveys/updateSurvey', 'App\Http\Controllers\SurveyController@updateSurvey')
 ->middleware(['auth', 'Encargado Docente'])
 ->name("updateSurvey");
-Route::post('/dashboard/surveys/deactivate', 'App\Http\Controllers\SurveyController@deactivateSurvey')
-->middleware(['auth', 'Encargado Docente'])
-->name("deactivateSurvey");
+
 
 Route::post('/dashboard/surveys/createQuestion', 'App\Http\Controllers\SurveyController@createQuestion')
 ->middleware(['auth', 'Encargado Docente'])

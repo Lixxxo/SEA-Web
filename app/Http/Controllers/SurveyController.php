@@ -44,6 +44,25 @@ class SurveyController extends Controller
         return view('User_stories.EncDoc.enc001.edit',['survey' => $survey, 'question_list'=>$question_list]);
     }
 
+    public function updateSurvey(Request $request)
+    {
+        //dd($request);
+        $id = $request->get('survey_id');
+        $nombre = $request->get('nombre');
+        if($request->get('enabled') === "on"){
+            $estado = 1;
+        }else{
+            $estado = 0;
+        }
+        try {
+            DB::update('update surveys set nombre = ?, estado = ? where id = ?', [$nombre, $estado, $id]);
+        } catch (\Throwable $th) {
+            return redirect("/dashboard/surveys/".$id);
+        }
+        return redirect("/dashboard/surveys/".$id);
+        
+    }
+
     public function createQuestion(Request $request){
         
         $survey_id = $request->get('id');

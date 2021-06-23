@@ -24,7 +24,7 @@
                 id="enabled" name = "enabled" >
         @endif
 
-        <input type="submit" class="btn btn-info" value="Editar Encuesta">
+        <input type="submit" class="btn btn-info" value="Guardar">
     </form>
 </h3>
 
