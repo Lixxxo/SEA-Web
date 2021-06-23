@@ -10,4 +10,5 @@ class Period extends Model
     use HasFactory;
     protected $fillable = ['estado'];
     protected $primaryKey = null;
+    public $timestamps = false;
 }
