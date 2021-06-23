@@ -14,7 +14,8 @@ class CreateCoursesTable extends Migration
     public function up()
     {
         Schema::create('courses', function (Blueprint $table) {
-            $table->string('nrc')->primary();
+            $table->integer('id', true);
+            $table->string('nrc');
             $table->string('codigo_asignatura');
             $table->string('rut_profesor')->nullable();
             $table->string('nombre_profesor')->nullable();
