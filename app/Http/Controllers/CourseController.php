@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\User;
+use App\Models\Assistants_Courses;
 use Illuminate\Http\Request;
 use DB;
 
@@ -82,12 +83,17 @@ class CourseController extends Controller
     {
         //$course = DB::table('Courses')->where('nrc',$nrc)->first();
         $course = Course::where('nrc',$nrc)->first();
+
+        $course->timestamps = false;
+        $course->update(['nrc'=>$request->get('nrc'),'codigo_asignatura'=>$request->get('codigo_asignatura'),'rut_profesor'=>$request->get('rut_profesor'),'nombre_profesor'=>$request->get('nombre_profesor')]);
+        //Assistants_Courses::where('Coursesnrc',$nrc)->update(['Coursesnrc'=>$request->get('nrc')]);
         //return response()->json($course);
-        $course->timestamps =
-        $course->codigo_asignatura = $request->get('codigo_asignatura');
-        $course->rut_profesor = $request->get('rut_profesor');
-        $course->nombre_profesor = $request->get('nombre_profesor');
-        $course->save();
+        //return response()->json($course);
+        //$course->timestamps = false;
+        //$course->codigo_asignatura = $request->get('codigo_asignatura');
+        //$course->rut_profesor = $request->get('rut_profesor');
+        //$course->nombre_profesor = $request->get('nombre_profesor');
+        //$course->save();
         return redirect('/dashboard/courses');
     }
 

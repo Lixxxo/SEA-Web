@@ -23,14 +23,14 @@
         <!--Rut profesor-->
         <div class="mb-3">
             <label class="form-label">Rut Profesor</label>
-            <input id="rut_professor" name="rut_professor" type="text" class="form-control"
+            <input id="rut_profesor" name="rut_profesor" type="text" class="form-control"
                 tabindex="3" value="{{$course->rut_profesor}}">
         </div>
         <br>
         <!--Nombre profesor-->
         <div class="mb-3">
             <label class="form-label">Nombre Profesor</label>
-            <input id="name_professor" name="name_professor" type="text" class="form-control"
+            <input id="nombre_profesor" name="nombre_profesor" type="text" class="form-control"
                 tabindex="4" value="{{$course->nombre_profesor}}">
         </div>
         <br>
