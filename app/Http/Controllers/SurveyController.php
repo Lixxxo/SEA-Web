@@ -38,7 +38,6 @@ class SurveyController extends Controller
 
     public function editSurvey($id)
     {
-        
         $survey = DB::select('select * from surveys where id = ?', [$id])[0];
         $question_list = DB::select('select * from questions where Surveysid = ?', [$id]);
         //dd($survey, $question_list);

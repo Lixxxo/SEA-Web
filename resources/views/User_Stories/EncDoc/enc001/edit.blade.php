@@ -6,7 +6,27 @@
     <br>
     <a href="/dashboard/surveys">Encuestas</a>
 </div>
-<h3 align = "center">Editar Encuesta {{$survey->nombre}}</h3>
+
+<h3 align = "center">
+    
+    <form action="{{route('updateSurvey')}}" method="POST">
+        @csrf
+        <input type="text" name="survey_id" value="{{$survey->id}}" hidden>
+        <label for="nombre"> Editar Encuesta</label>
+        <input type="text" value="{{$survey->nombre}}"  name="nombre" />
+        <br>
+        <label for="habilitado"> Habilitado</label>
+        @if ($survey->estado)
+            <input class="form-check-input" type="checkbox" 
+                id="enabled" name = "enabled" checked>                   
+        @else
+            <input class="form-check-input" type="checkbox" 
+                id="enabled" name = "enabled" >
+        @endif
+
+        <input type="submit" class="btn btn-info" value="Editar Encuesta">
+    </form>
+</h3>
 
 
 <br>
@@ -44,4 +64,7 @@
         <br>
     @endforeach
 
+    <script>
+        var stateValue = $("enabled").is("checked") ? true : false;
+    </script>
 @endsection
