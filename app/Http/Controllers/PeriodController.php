@@ -26,9 +26,11 @@ class PeriodController extends Controller
             return redirect('/dashboard/periods');
         }
 
-        $period_data = request()->except('_token');
+
 
         $code = $request->codigo_semestre;
+        $request->request->add(['estado' => '1']);
+        $period_data = request()->except('_token');
         $period_code = substr($code, -2);
         if ($period_code == "10" || $period_code == "20") {
             $period = Period::where('codigo_semestre',$code)->first();
