@@ -13,7 +13,7 @@
             <th scope="col">Código de asignatura</th>
             <th scope="col">Profesor</th>
             <th scope="col">Rut</td>
-            <th scope="col">Ayudantes</td>
+            <th scope="col">Rut Ayudantes</td>
         </tr>
     </thead>
     <tbody>
@@ -23,8 +23,9 @@
                 <td>{{$course->codigo_asignatura}}</td>
                 <td>{{$course->nombre_profesor}}</td>
                 <td>{{$course->rut_profesor}}</td>
+                <td>
                 @foreach($assistant_list as $assistant)
-                    <td>{{$assistant->Usersrut}}</td>
+                    <ul>{{$assistant->Usersrut}}</ul>
                 @endforeach
                 <td>
                     <a href='/dashboard/courses/{{$course->nrc}}/edit' class="btn btn-warning">Editar</a>

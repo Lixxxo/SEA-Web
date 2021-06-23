@@ -86,6 +86,10 @@ class CourseController extends Controller
 
         $course->timestamps = false;
         $course->update(['nrc'=>$request->get('nrc'),'codigo_asignatura'=>$request->get('codigo_asignatura'),'rut_profesor'=>$request->get('rut_profesor'),'nombre_profesor'=>$request->get('nombre_profesor')]);
+        DB::update('update Assistants_Courses set Coursesnrc = ? where Coursesnrc = ?', [$request->get('nrc'),$nrc]);
+        DB::update('update Surveys set Coursesnrc = ? where Coursesnrc = ?', [$request->get('nrc'),$nrc]);
+        DB::update('update Periods_Courses set Coursesnrc = ? where Coursesnrc = ?', [$request->get('nrc'),$nrc]);
+        DB::update('update Students_Courses set Coursesnrc = ? where Coursesnrc = ?', [$request->get('nrc'),$nrc]);
         //Assistants_Courses::where('Coursesnrc',$nrc)->update(['Coursesnrc'=>$request->get('nrc')]);
         //return response()->json($course);
         //return response()->json($course);
