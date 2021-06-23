@@ -61,18 +61,20 @@ class PeriodController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request){
-        $code = $request->code;
-        $period = Period::where('codigo_semestre',$code)->first();
+        $code = $request->codigo_semestre;
+        $period = Period::where(['codigo_semestre' => $code])->first();
+        $period->timestamps = false;
 
         if ($period != null){
             if ($period->estado === 1){
-                $period->estado = 0;
+                //$period->estado = 0;
+                $period->update(['estado' => 0]);
             }
             else{
                 //$period->enabled = 1;
                 //$period->description = $request->description;
             }
-            $period->save();
+            //$period->save();
         }
         return redirect('/dashboard/periods');
     }
