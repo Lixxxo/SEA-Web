@@ -1,10 +1,11 @@
+
 @extends('layouts.base')
 @section('contenido')
     <div>
         <a href="/dashboard">Dashboard</a>
     </div>
     <div class = "container">
-        <h3  align = "center">Cargar estudiantes</h3>
+        <h3  align = "center">Cargar ayudantes</h3>
         <br>
         @if ($message = Session::get('error'))
             <div class = "alert alert-danger">
@@ -23,7 +24,7 @@
                 <strong> {{ $message }}</strong>
             </div>
         @endif
-        <form method = "post" enctype = "multipart/form-data" action = '/dashboard/import_data/importStudents'>
+        <form method = "post" enctype = "multipart/form-data" action = '/dashboard/import_data_assistants/importAssistants'>
             {{ csrf_field() }}
             <div class = "form-group">
                 <table class = "table">
@@ -55,17 +56,13 @@
                 <div class = "table-responsive">
                     <table class = "table table-bordered table-striped">
                     <tr>
-                        <th>ID</th>
-                        <th>Rut</th>
-                        <th>Nombre</th>
-                        <th>Correo Electronico</th>
+                        <th>NRC</th>
+                        <th>Rut del ayudante</th>
                     </tr>
                     @foreach ($data as $row)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $row->rut }}</td>
-                            <td>{{ $row->name }}</td>
-                            <td>{{ $row->email }}</td>
+                            <td>{{ $row->Coursesnrc }}</td>
+                            <td>{{ $row->Usersrut }}</td>
                         </tr>
                     @endforeach
                     </table>
@@ -73,4 +70,5 @@
             </div>
         </div>
     </div>
+
 @endsection

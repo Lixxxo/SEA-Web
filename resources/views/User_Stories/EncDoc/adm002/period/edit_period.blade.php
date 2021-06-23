@@ -11,11 +11,11 @@
                 <div class="small">
                     <form action="/dashboard/enable_period/" method="post">
                         @csrf
-                        <h2>Habilitar periodo</h2>
-                        <h6>Codigo</h6>
-                        <input placeholder="Ej: 202110" id="code" name="code" type="number" minlength="6" maxlength="6" min="202010" max="300020" required >
-                        <h6>Descripcion</h6>
-                        <input maxlength="25" size="25" placeholder="Ej: primer semestre año 2020" id="description" name="description" type="text">
+                        <h2>Habilitar período</h2>
+                        <h6>Código</h6>
+                        <input placeholder="Ej: 202110" id="codigo_semestre" name="codigo_semestre" type="number" minlength="6" maxlength="6" min="202010" max="300020" required >
+                        <h6>Descripción</h6>
+                        <input maxlength="25" size="25" placeholder="Ej: primer semestre año 2020" id="descripcion" name="descripcion" type="text">
                         <br>
                         <input type="submit" value="Habilitar periodo">
                     </form>
@@ -26,9 +26,9 @@
                     <form action={{route('dashboard_edit')}} method="post">
                         @csrf
 
-                        <h2>Deshabilitar periodo</h2>
-                        <h6>Codigo</h6>
-                        <input placeholder="Ej: 202110" id="code" name="code" type="number" minlength="6" maxlength="6" min="202010" max="300020" required>
+                        <h2>Deshabilitar período</h2>
+                        <h6>Código</h6>
+                        <input placeholder="Ej: 202110" id="codigo_semestre" name="codigo_semestre" type="number" minlength="6" maxlength="6" min="202010" max="300020" required>
                         <br>
                         <input type="submit" value="Deshabilitar periodo" onclick="return verification();">
                     </form>
@@ -51,10 +51,10 @@
         <tbody>
             @foreach ($period_list as $period)
             <tr>
-                <td>{{$period->code}}</td>
-                <td>{{$period->description}}</td>
+                <td>{{$period->codigo_semestre}}</td>
+                <td>{{$period->descripcion}}</td>
                 <td>
-                    @if ($period->enabled)
+                    @if ($period->estado)
                         Habilitado
                     @else
                         Deshabilitado

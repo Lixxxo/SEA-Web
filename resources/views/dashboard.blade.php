@@ -31,17 +31,33 @@
     @if (Auth::user()->role == "Administrador")
         <!--Cosas de Administrador-->
         <div>
-            <a href="dashboard/users">
+            <a href="/dashboard/users">
                 <h3>Administrar usuarios</h2>
             </a>
         </div>
         <!--Cosas de Encargado Docente-->
         <div>
-            <a href="/dashboard/periods">
-                <h3>Habilitar y deshabilitar periodo académico</h3>
+            <a href="/dashboard/import_data">
+                <h3> Carga masiva de estudiantes</h2>
             </a>
         </div>
         <div>
+            <a href="/dashboard/import_data_courses">
+                <h3> Carga masiva de asignaturas</h2>
+            </a>
+        </div>
+        <div>
+            <a href="/dashboard/import_data_assistants">
+                <h3> Carga masiva de ayudantes</h2>
+            </a>
+        </div>
+        <div>
+            <a href="/dashboard/periods">
+                <h3> Habilitar y deshabilitar periodo académico</h3>
+            </a>
+        </div>
+        <div>
+
             <a href="/dashboard/import_data">
                 <h3> Carga masiva de estudiantes</h3>
             </a>
@@ -50,6 +66,11 @@
             <a href="/dashboard/courses">
                 <h3> Administrar asignaturas</h3>
             </a>
+
+            <a href="/dashboard/surveys">
+                <h3>Crear Encuesta</h3>
+            </a>
+
         </div>
         <div>
             Futuras historias de usuario para Ayudante
@@ -62,12 +83,29 @@
                 <h3> Carga masiva de estudiantes</h2>
             </a>
         </div>
-            <div>
+        <div>
+            <a href="/dashboard/import_data_courses">
+                <h3> Carga masiva de asignaturas</h2>
+            </a>
+        </div>
+        <div>
+            <a href="/dashboard/import_data_assistants">
+                <h3> Carga masiva de ayudantes</h2>
+            </a>
+        </div>
+        <div>
             <a href="/dashboard/periods">
                 <h3> Habilitar y deshabilitar periodo académico</h3>
             </a>
         </div>
+
+        <div>
+            <a href="/dashboard/surveys">
+                <h3>Crear Encuesta</h3>
+            </a>
+        </div>
     @elseif (Auth::user()->role == "Ayudante")
+
         Futuras historias de usuario para Ayudante
         Futuras historias de usuario para Estudiante
 

@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Assistants_Courses extends Model
 {
     use HasFactory;
-    protected $primaryKey = null;
-    protected $fillable = ['Usersrut','Coursesnrc'];
+
+
+    protected $fillable = [
+        'AssistantsProfilesrut',
+        'Coursesnrc'
+    ];
+
+
 }
