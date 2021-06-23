@@ -50,11 +50,18 @@ class SurveyController extends Controller
         $survey_id = $request->get('id');
         DB::insert('insert into questions (Surveysid) values (?)', [$survey_id]);
         
-        return redirect("/dashboard/surveys/".$survey_id."/edit");
+        return redirect("/dashboard/surveys/".$survey_id);
     }
     
     public function updateQuestion(Request $request){
-        dd($request);
+        //dd($request);
+        $question_id = $request->get('question_id');
+        $frase = $request->get('frase');
+        $indicador = $request->get('indicador');
+        $survey_id = $request->get('survey_id');
+        
+        DB::update('update questions set frase = ?, indicador = ? where id = ?', [$frase, $indicador, $question_id]);
+        return redirect("/dashboard/surveys/".$survey_id);
     }
 
     public function deleteQuestion(Request $request){
@@ -68,7 +75,7 @@ class SurveyController extends Controller
             return redirect("/dashboard/surveys/".$survey_id."/edit");
         }
         DB::delete('delete from questions where id = ?', [$question_id]);
-        return redirect("/dashboard/surveys/".$survey_id."/edit");
+        return redirect("/dashboard/surveys/".$survey_id);
         
     }
 }
