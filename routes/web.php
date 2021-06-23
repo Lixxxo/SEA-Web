@@ -79,8 +79,29 @@ Route::post('dashboard/import_data_assistants/importAssistants', 'App\Http\Contr
 ->middleware(['auth', 'Encargado Docente']);
 
 //enc 001
-Route::resource('/dashboard/surveys', 'App\Http\Controllers\SurveyController')
+Route::get('/dashboard/surveys', 'App\Http\Controllers\SurveyController@index')
 ->middleware(['auth', 'Encargado Docente']);
+Route::post('/dashboard/surveys/create', 'App\Http\Controllers\SurveyController@createSurvey')
+->middleware(['auth', 'Encargado Docente'])
+->name("createSurvey");
+Route::get('/dashboard/surveys/{id}', 'App\Http\Controllers\SurveyController@editSurvey')
+->where('id', '(.*)')
+->middleware(['auth', 'Encargado Docente'])
+->name("editSurvey");
+Route::post('/dashboard/surveys/updateSurvey', 'App\Http\Controllers\SurveyController@updateSurvey')
+->middleware(['auth', 'Encargado Docente'])
+->name("updateSurvey");
+
+
+Route::post('/dashboard/surveys/createQuestion', 'App\Http\Controllers\SurveyController@createQuestion')
+->middleware(['auth', 'Encargado Docente'])
+->name("createQuestion");
+Route::post('/dashboard/surveys/updateQuestion', 'App\Http\Controllers\SurveyController@updateQuestion')
+->middleware(['auth', 'Encargado Docente'])
+->name("updateQuestion");
+Route::post('/dashboard/surveys/deleteQuestion', 'App\Http\Controllers\SurveyController@deleteQuestion')
+->middleware(['auth', 'Encargado Docente'])
+->name("deleteQuestion");
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
