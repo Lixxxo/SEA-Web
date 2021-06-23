@@ -8,16 +8,16 @@
 
         <div class="mb-3">
             <label class="form-label">NRC</label>
-            <input type="text" id="nrc" name="nrc" required 
+            <input type="text" id="nrc" name="nrc" required readonly
 
-            class="form-control" tabindex="1" value="{{$course->nrc}}">
+            class="form-control" tabindex="1" value="{{$course->nrc}}" required>
         </div>
         <br>
         <!--Codigo-->
         <div class="mb-3">
             <label class="form-label">Código de Asignatura</label>
             <input id="codigo_asignatura" name="codigo_asignatura" type="text" class="form-control"
-                tabindex="2" value="{{$course->codigo_asignatura}}">
+                tabindex="2" value="{{$course->codigo_asignatura}}" required>
         </div>
         <br>
         <!--Rut profesor-->
@@ -35,9 +35,79 @@
         </div>
         <br>
 
+        <!--Nombre ayudantes-->
+        <div class="mb-3">
+            <label class="form-label">Rut Ayudantes</label>
+                @foreach($assistant_list as $assistant)
+                <input id="rut_ayudante" name="rut_ayudante" type="text" class="form-control"
+                    value="{{$assistant->Usersrut}}" readonly>
+
+                @endforeach
+        </div>
+
         <br>
         <a href="/dashboard/courses" class="btn btn-secondary" tabindex="7">Cancelar</a>
         <button type="submit" class="btn btn-primary" tabindex="8">Guardar</button>
     </form>
+
+    <script>
+        function isNumberKey(evt){
+            var charCode = (evt.which) ? evt.which : evt.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
+    </script>
+
+<script>
+    function checkRut(rut) {
+    // Despejar Puntos
+    var valor = rut.value.replace('.','');
+    // Despejar Guión
+    valor = valor.replace('-','');
+
+    // Aislar Cuerpo y Dígito Verificador
+    cuerpo = valor.slice(0,-1);
+    dv = valor.slice(-1).toUpperCase();
+
+    // Formatear RUN
+    rut.value = cuerpo + '-'+ dv
+
+
+    // Si no cumple con el mínimo ej. (n.nnn.nnn)
+    if(cuerpo.length < 7) { rut.setCustomValidity("RUT Incompleto"); return false;}
+
+    // Calcular Dígito Verificador
+    suma = 0;
+    multiplo = 2;
+
+    // Para cada dígito del Cuerpo
+    for(i=1;i<=cuerpo.length;i++) {
+
+        // Obtener su Producto con el Múltiplo Correspondiente
+        index = multiplo * valor.charAt(cuerpo.length - i);
+
+        // Sumar al Contador General
+        suma = suma + index;
+
+        // Consolidar Múltiplo dentro del rango [2,7]
+        if(multiplo < 7) { multiplo = multiplo + 1; } else { multiplo = 2; }
+
+    }
+
+    // Calcular Dígito Verificador en base al Módulo 11
+    dvEsperado = 11 - (suma % 11);
+
+    // Casos Especiales (0 y K)
+    dv = (dv == 'K')?10:dv;
+    dv = (dv == 0)?11:dv;
+
+    // Validar que el Cuerpo coincide con su Dígito Verificador
+    if(dvEsperado != dv) { rut.setCustomValidity("RUT Inválido"); return false; }
+
+    // Si todo sale bien, eliminar errores (decretar que es válido)
+    rut.setCustomValidity('');
+    }
+</script>
 
 @endsection

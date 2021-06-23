@@ -67,9 +67,10 @@ class CourseController extends Controller
         //dd($id);
         //);
         $course = DB::table('Courses')->where('nrc',$id)->first();
+        $assistant_list = DB::table('assistants_courses')->get();
         //dd($course);
         //return response()->json($course);
-        return view('User_stories.EncDoc.eaa003.edit',['course' => $course]);
+        return view('User_stories.EncDoc.eaa003.edit',['course' => $course],['assistant_list' => $assistant_list]);
     }
 
     /**
@@ -81,15 +82,17 @@ class CourseController extends Controller
      */
     public function update(Request $request, $nrc)
     {
+        //return response()->json($request);
         //$course = DB::table('Courses')->where('nrc',$nrc)->first();
         $course = Course::where('nrc',$nrc)->first();
 
         $course->timestamps = false;
         $course->update(['nrc'=>$request->get('nrc'),'codigo_asignatura'=>$request->get('codigo_asignatura'),'rut_profesor'=>$request->get('rut_profesor'),'nombre_profesor'=>$request->get('nombre_profesor')]);
-        DB::update('update Assistants_Courses set Coursesnrc = ? where Coursesnrc = ?', [$request->get('nrc'),$nrc]);
-        DB::update('update Surveys set Coursesnrc = ? where Coursesnrc = ?', [$request->get('nrc'),$nrc]);
-        DB::update('update Periods_Courses set Coursesnrc = ? where Coursesnrc = ?', [$request->get('nrc'),$nrc]);
-        DB::update('update Students_Courses set Coursesnrc = ? where Coursesnrc = ?', [$request->get('nrc'),$nrc]);
+        //DB::table('assistants_courses')->get()->update(['Usersrut'=>$request->])
+        //DB::update('update Assistants_Courses set Coursesnrc = ? where Coursesnrc = ?', [$request->get('nrc'),$nrc]);
+        //DB::update('update Surveys set Coursesnrc = ? where Coursesnrc = ?', [$request->get('nrc'),$nrc]);
+        //DB::update('update Periods_Courses set Coursesnrc = ? where Coursesnrc = ?', [$request->get('nrc'),$nrc]);
+        //DB::update('update Students_Courses set Coursesnrc = ? where Coursesnrc = ?', [$request->get('nrc'),$nrc]);
         //Assistants_Courses::where('Coursesnrc',$nrc)->update(['Coursesnrc'=>$request->get('nrc')]);
         //return response()->json($course);
         //return response()->json($course);

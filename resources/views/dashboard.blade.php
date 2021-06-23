@@ -113,5 +113,7 @@
         Futuras historias de usuario para Estudiante
     @endif
 @endif
-
+<script src= "{{asset('/js/notify.min.js')}}"></script>
+<scri
+</script>
 @endsection

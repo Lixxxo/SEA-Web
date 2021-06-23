@@ -4,13 +4,13 @@
 <div>
     <a href="/dashboard">Dashboard</a>
 </div>
-<h3 align = "center">Listado de asignaturas</h3>
+<h3 align = "center">Listado de Asignaturas</h3>
 
 <table class="table table-dark table-striped mt-4">
     <thead>
         <tr>
             <th scope="col">NRC</th>
-            <th scope="col">Código de asignatura</th>
+            <th scope="col">Código de Asignatura</th>
             <th scope="col">Profesor</th>
             <th scope="col">Rut</td>
             <th scope="col">Rut Ayudantes</td>
@@ -36,9 +36,6 @@
     </tbody>
 
 </table>
-<br>
-<a href="" class="btn btn-success" href="">Crear asignatura</a>
-<br>
 
 
 @endsection
