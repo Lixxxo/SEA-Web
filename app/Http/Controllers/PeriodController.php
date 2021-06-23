@@ -14,7 +14,7 @@ class PeriodController extends Controller
 
     public function has_enabled_period(){
         foreach (Period::all() as $period){
-            if ($period->enabled == 1){
+            if ($period->estado == 1){
                 return true;
             }
         }
@@ -25,20 +25,22 @@ class PeriodController extends Controller
         if ($this->has_enabled_period()){
             return redirect('/dashboard/periods');
         }
+
         $period_data = request()->except('_token');
-        $code = $request->code;
+
+        $code = $request->codigo_semestre;
         $period_code = substr($code, -2);
         if ($period_code == "10" || $period_code == "20") {
-            $period = Period::where('code',$code)->first();
+            $period = Period::where('codigo_semestre',$code)->first();
             if ($period != null ){
-                if ($period->enabled === 0){
-                    $period->enabled = 1;
-                    $period->description = $request->description;
+                if ($period->estado === 0){
+                    $period->estado = 1;
+                    $period->descripcion = $request->descripcion;
                     $period->save();
                 }
         }
             else{
-            Period::insert($period_data);
+                Period::insert($period_data);
             }
         }
         else{
@@ -58,11 +60,11 @@ class PeriodController extends Controller
      */
     public function update(Request $request){
         $code = $request->code;
-        $period = Period::where('code',$code)->first();
+        $period = Period::where('codigo_semestre',$code)->first();
 
         if ($period != null){
-            if ($period->enabled === 1){
-                $period->enabled = 0;
+            if ($period->estado === 1){
+                $period->estado = 0;
             }
             else{
                 //$period->enabled = 1;
