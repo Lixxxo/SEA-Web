@@ -38,3 +38,6 @@ Para refrescar las tablas:
 Para iniciar servidor:
 
 ` php artisan serve --port=8080 `
+
+## IMPORTANTE
+En caso de error con gd ir a la carpeta de Xampp y modificar php.ini, buscar extension ;extension gd, sacarle el punto y coma inicial
