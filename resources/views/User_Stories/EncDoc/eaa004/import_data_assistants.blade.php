@@ -56,7 +56,7 @@
                 <div class = "table-responsive">
                     <table class = "table table-bordered table-striped">
                     <tr>
-                        <th>NRC</th>
+                        <th>ID</th>
                         <th>Rut del ayudante</th>
                     </tr>
                     @foreach ($data as $row)
