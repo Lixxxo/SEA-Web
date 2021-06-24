@@ -8,9 +8,10 @@
 
         <div class="mb-3">
             <label class="form-label">NRC</label>
-            <input type="text" id="nrc" name="nrc" required 
+            <input type="text" id="nrc" name="nrc" required
 
             class="form-control" tabindex="1" value="{{$course->nrc}}" required>
+            <input type="hidden" name = "nrc_antiguo" value="{{$course->nrc}}">
         </div>
         <br>
         <!--Codigo-->
@@ -38,11 +39,11 @@
         <!--Nombre ayudantes-->
         <div class="mb-3">
             <label class="form-label">Rut Ayudantes</label>
-                @foreach($assistant_list as $assistant)
-                <input id="rut_ayudante" name="rut_ayudante" type="text" class="form-control"
-                    value="{{$assistant->Usersrut}}" readonly>
+                @for($i = 0 ; $i < count($assistant_list); $i++)
+                <ul id="rut_ayudante{{$i}}" name="rut_ayudante{{$i}}" type="text"
+                    value="{{$assistant_list[$i]->Usersrut}}" >{{$assistant_list[$i]->Usersrut}}<ul>
 
-                @endforeach
+                @endfor
         </div>
 
         <br>

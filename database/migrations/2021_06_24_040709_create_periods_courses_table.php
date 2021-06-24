@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAnswersTable extends Migration
+class CreatePeriodsCoursesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateAnswersTable extends Migration
      */
     public function up()
     {
-        Schema::create('answers', function (Blueprint $table) {
-            $table->integer('QuestionsSurveysid')->index('QuestionsSurveysid');
-            $table->integer('respuesta');
+        Schema::create('periods_courses', function (Blueprint $table) {
+            $table->string('Periodscodigo_semestre');
+            $table->integer('Coursesid')->index('FKPeriods_Co276519');
+            $table->primary(['Periodscodigo_semestre', 'Coursesid']);
         });
     }
 
@@ -26,6 +27,6 @@ class CreateAnswersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('answers');
+        Schema::dropIfExists('periods_courses');
     }
 }

@@ -15,8 +15,8 @@ class CreateStudentsCoursesTable extends Migration
     {
         Schema::create('students_courses', function (Blueprint $table) {
             $table->string('Usersrut');
-            $table->string('Coursesnrc')->index('FKStudents_C909963');
-            $table->primary(['Usersrut', 'Coursesnrc']);
+            $table->integer('Coursesid')->index('FKStudents_C394876');
+            $table->primary(['Usersrut', 'Coursesid']);
         });
     }
 

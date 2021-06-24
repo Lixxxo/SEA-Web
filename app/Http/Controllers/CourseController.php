@@ -80,58 +80,42 @@ class CourseController extends Controller
      * @param  \App\Models\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $nrc)
+    public function update(Request $request)
     {
-        //return response()->json($request);
-        //$course = DB::table('Courses')->where('nrc',$nrc)->first();
-        $course = Course::where('nrc',$nrc)->first();
 
-        $course->timestamps = false;
+        //dd($request);
+        $old_nrc = $request->get('nrc_antiguo');
+        $nrc  = $request->get('nrc');
+        $course_codigo = $request->get('codigo_asignatura');
+        $professor_rut  = $request->get('rut_profesor');
+        $professor_nombre  = $request->get('nombre_profesor');
+        $assistant_rut_list  = request()->except('_token', '_method', 'nrc','codigo_asignatura', 'rut_profesor', 'nombre_profesor');
 
-        $periods_courses = DB::table('periods_courses')->get();
-        $periods_codigo_semestre = $periods_courses->get('Periodscodigo_semestre');
+        if(strval($nrc) != strval($old_nrc)){
 
-        $assistants_courses = DB::table('assistants_courses')->get();
-        //return response()->json($assistants_courses);
-        $users_rut = $assistants_courses->get('Usersrut');
-        //return response()->json($users_rut);
-        $courses = DB::table('courses')->get();
-        $codigo_asignatura = $courses->get('codigo_asignatura');
-        $rut_profesor = $courses->get('rut_profesor');
-        $nombre_profesor = $courses->get('nombre_profesor');
-        DB::table('periods_courses')->where('Coursesnrc',$nrc)->delete();
-        DB::table('assistants_courses')->where('Coursesnrc',$nrc)->delete();
-        DB::table('courses')->where('nrc',$nrc)->delete();
+            // obtener las weas desde la db guardarlas (periodos, los ayudantes, los estudiantes, las surveys )
+            $period_list = DB::select('select * from periods_courses where Coursesnrc = ?', [$old_nrc]);
+            $assistant_list = DB::select('select * from assistants_courses where coursesnrc = ?', [$old_nrc]);
+            $student_list = DB::select('select * from students_courses where coursesnrc = ?', [$old_nrc]);
+            $survey_list = DB::select('select * from surveys where coursesnrc = ?', [$old_nrc]);
+            //por cada wea borrar cuando corresponda
 
-        DB::insert('insert into courses (nrc, codigo_asignatura, rut_profesor, nombre_profesor) values (?, ?, ?, ?)', [$request->get('nrc'),$request->get('codigo_asignatura'),$request->get('rut_profesor'), $request->get('nombre_profesor')]);
-        foreach($assistants_courses as $assistant){
-            DB::insert('insert into assistants_courses (Usersrut, Coursesnrc) values (?, ?)', [$assistant->Usersrut, $request->get('nrc')]);
+            foreach ($period_list as $period) {
+                dd($period);
+                DB::delete('delete from periods_courses where Coursesnrc = ?', [$old_nrc]);
+                DB::insert('insert into periods_courses (Periodscodigo_semestre, Coursesnrc) values (?, ?)', [$period->Periodscodigo_semestre, $nrc]);
+            }
+            foreach ($assistant_list as $assistant) {
+                DB::delete('delete assistants_courses where Coursesnrc = ?', [$old_nrc]);
+                DB::insert('insert into assistants_courses (id, name) values (?, ?)', [$nrc]);
+            }
+            foreach ($student_list as $student) {
+                DB::delete('delete students_courses where coursesnrc = ?', [$old_nrc]);
+                DB::insert('insert into students_courses (Usersrut, Coursesnrc) values (?, ?)', [$student->Usersrut, $nrc]);
+            }
+            //DB::update('update surveys set coursesnrc = ? where coursesnrc = ?', [$nrc, $old_nrc]);
         }
-        foreach($periods_courses as $period){
-            DB::insert('insert into periods_courses (Periodscodigo_semestre, Coursesnrc) values (?, ?)', [$period->Periodscodigo_semestre, $request->get('nrc')]);
-        }
 
-        //DB::delete('delete periods_courses where Coursesnrc = ?', [$nrc]);
-
-
-
-        //DB::delete('delete assistants_courses where Coursesnrc = ?', [$nrc]);
-        //DB::insert('insert into assistants_courses (Usersrut, Coursesnrc) values (?, ?)', [$assistants_courses->Usersrut, $nrc]);
-
-        //$course->update(['nrc'=>$request->get('nrc'),'codigo_asignatura'=>$request->get('codigo_asignatura'),'rut_profesor'=>$request->get('rut_profesor'),'nombre_profesor'=>$request->get('nombre_profesor')]);
-        //DB::table('assistants_courses')->get()->update(['Usersrut'=>$request->])
-        //DB::update('update Assistants_Courses set Coursesnrc = ? where Coursesnrc = ?', [$request->get('nrc'),$nrc]);
-        //DB::update('update Surveys set Coursesnrc = ? where Coursesnrc = ?', [$request->get('nrc'),$nrc]);
-        //DB::update('update Periods_Courses set Coursesnrc = ? where Coursesnrc = ?', [$request->get('nrc'),$nrc]);
-        //DB::update('update Students_Courses set Coursesnrc = ? where Coursesnrc = ?', [$request->get('nrc'),$nrc]);
-        //Assistants_Courses::where('Coursesnrc',$nrc)->update(['Coursesnrc'=>$request->get('nrc')]);
-        //return response()->json($course);
-        //return response()->json($course);
-        //$course->timestamps = false;
-        //$course->codigo_asignatura = $request->get('codigo_asignatura');
-        //$course->rut_profesor = $request->get('rut_profesor');
-        //$course->nombre_profesor = $request->get('nombre_profesor');
-        //$course->save();
         return redirect('/dashboard/courses');
     }
 
