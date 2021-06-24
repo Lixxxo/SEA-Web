@@ -27,7 +27,7 @@
     <br>
 
 @else
-
+    <hr>
     @if (Auth::user()->role == "Administrador")
         <!--Cosas de Administrador-->
         <div>
@@ -35,6 +35,7 @@
                 <h3>Administrar usuarios</h2>
             </a>
         </div>
+        <hr>
         <!--Cosas de Encargado Docente-->
         <div>
             <a href="/dashboard/import_data">
@@ -51,21 +52,25 @@
                 <h3> Carga masiva de ayudantes</h2>
             </a>
         </div>
+        <hr>
         <div>
             <a href="/dashboard/periods">
                 <h3> Habilitar y deshabilitar periodo académico</h3>
             </a>
         </div>
+        <hr>
         <div>
             <a href="/dashboard/courses">
                 <h3> Administrar asignaturas</h3>
             </a>
-
+        </div>
+        <div>
             <a href="/dashboard/surveys">
                 <h3>Crear Encuesta</h3>
             </a>
 
         </div>
+        <hr>
         <div>
             Futuras historias de usuario para Ayudante
         </div>
@@ -87,12 +92,19 @@
                 <h3> Carga masiva de ayudantes</h2>
             </a>
         </div>
+        <hr>
         <div>
             <a href="/dashboard/periods">
                 <h3> Habilitar y deshabilitar periodo académico</h3>
             </a>
         </div>
-
+        <hr>
+        <div>
+            <a href="/dashboard/courses">
+                <h3> Administrar asignaturas</h3>
+            </a>
+        </div>
+        <hr>
         <div>
             <a href="/dashboard/surveys">
                 <h3>Crear Encuesta</h3>
@@ -101,6 +113,7 @@
     @elseif (Auth::user()->role == "Ayudante")
 
         Futuras historias de usuario para Ayudante
+        <hr>
         Futuras historias de usuario para Estudiante
 
     @else
