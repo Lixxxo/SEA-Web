@@ -57,12 +57,6 @@
             </a>
         </div>
         <div>
-
-            <a href="/dashboard/import_data">
-                <h3> Carga masiva de estudiantes</h3>
-            </a>
-        </div>
-        <div>
             <a href="/dashboard/courses">
                 <h3> Administrar asignaturas</h3>
             </a>

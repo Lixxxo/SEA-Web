@@ -2,7 +2,7 @@
 @section('contenido')
 
 <div>
-    <a href="/dashboard">Dashboard</a>
+    <a href="/dashboard">Menu principal</a>
     
 </div>
 <h3 align = "center">Listado de Encuestas</h3>

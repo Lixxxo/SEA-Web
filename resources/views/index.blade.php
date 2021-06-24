@@ -7,9 +7,9 @@
         @if (Route::has('login'))
             <div class="">
                 @auth
-                    <a href="{{ url('/dashboard') }}" >Dashboard</a>
+                    <a href="{{ url('/dashboard') }}" >Menú Principal</a>
                 @else
-                    <a href="{{ route('login') }}" >Login</a>
+                    <a href="{{ route('login') }}" >Iniciar Sesión</a>
 
                 @endauth
             </div>
@@ -22,7 +22,7 @@
             </h2>
             <br>
             <p class="text-center">
-                Bienvenido al sistema de seguimiento y evaluacion de ayudantes, por favor inicia sesion, en caso de no tener cuenta contactar con el administrador
+                Bienvenido al sistema de seguimiento y evaluacion de ayudantes, por favor inicie sesion, en caso de no tener cuenta contactar con el administrador
                 <br>Muchas Gracias
             </p>
         </div>

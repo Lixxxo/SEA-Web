@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('contenido')
 <div>
-    <a href="/dashboard">Dashboard</a>
+    <a href="/dashboard">Menu principal</a>
 </div>
 <div>
     <body>
