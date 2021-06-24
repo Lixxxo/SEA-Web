@@ -41,10 +41,9 @@ class ImportDataController extends Controller
 
     public function importCourses(Request $request) // Cargamos datos con un excel o otro
     {
-        $Courses = Excel::import(new CourseImport, $request->select_file);
         try
         {
-            //$Courses = Excel::import(new CourseImport, $request->select_file);
+            $Courses = Excel::import(new CourseImport, $request->select_file);
             return back()->with('success', 'Las asignaturas han sido cargadas correctamente');
         }
         catch(Throwable $error)
@@ -65,6 +64,7 @@ class ImportDataController extends Controller
         try
         {
             $AssistantsCourses = Excel::import(new Assistants_CoursesImport, $request->select_file);
+        
             return back()->with('success', 'Los ayudantes han sido asignados');
         }
         catch (\Throwable $th)
