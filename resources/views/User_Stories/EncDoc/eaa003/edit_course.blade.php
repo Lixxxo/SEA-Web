@@ -17,21 +17,21 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($course_list as $course)
+        @for($i= 0; $i< count($course_list); $i++)
             <tr>
-                <td>{{$course->nrc}}</td>
-                <td>{{$course->codigo_asignatura}}</td>
-                <td>{{$course->nombre_profesor}}</td>
-                <td>{{$course->rut_profesor}}</td>
+                <td>{{$course_list[$i]->nrc}}</td>
+                <td>{{$course_list[$i]->codigo_asignatura}}</td>
+                <td>{{$course_list[$i]->nombre_profesor}}</td>
+                <td>{{$course_list[$i]->rut_profesor}}</td>
                 <td>
-                @foreach($assistant_list as $assistant)
-                    <ul>{{$assistant->Usersrut}}</ul>
+                @foreach($assistant_matrix[$i] as $assistant)
+                    <ul>{{$assistant->name}}</ul>
                 @endforeach
                 <td>
-                    <a href='/dashboard/courses/{{$course->id}}/edit' class="btn btn-warning">Editar</a>
+                    <a href='/dashboard/courses/{{$course_list[$i]->id}}/edit' class="btn btn-warning">Editar</a>
                 </td>
             </tr>
-        @endforeach
+        @endfor
 
     </tbody>
 

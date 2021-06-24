@@ -19,9 +19,14 @@ class CourseController extends Controller
     {
         $course_list = Course::all();
         //$assistant_list = DB::table('users')->where('rut', DB::table('assistants_courses')->first())->first();
-        $assistant_list = DB::table('assistants_courses')->get();
+        $assistant_matrix = array();
+        foreach($course_list as $course){
+            $assistant_list = DB::select('select * from users where rut in (select Usersrut from assistants_courses where Coursesid = ?);', [$course->id]);
+            array_push($assistant_matrix, $assistant_list);
+        }
+
         //return response()->json($assistant_list);
-        return view('User_Stories.EncDoc.eaa003.edit_course',['course_list' => $course_list],['assistant_list' => $assistant_list]);
+        return view('User_Stories.EncDoc.eaa003.edit_course',['course_list' => $course_list],['assistant_matrix' => $assistant_matrix]);
     }
 
     /**
@@ -64,13 +69,14 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        dd($id);
+
         //);
-        $course = DB::select('select * from courses where id = ?', [$id]);
-        $assistant_list = DB::table('assistants_courses')->get();
-        //dd($course);
+        $course = DB::select('select * from courses where id = ?', [$id])[0];
+        $assistant_list = DB::select('select * from users where rut in (select Usersrut from assistants_courses where Coursesid = ?);', [$id]);
+        $student_list = DB::select('select * from users where rut in (select Usersrut from students_courses where Coursesid = ?);', [$id]);
+
         //return response()->json($course);
-        return view('User_stories.EncDoc.eaa003.edit',['course' => $course],['assistant_list' => $assistant_list]);
+        return view('User_stories.EncDoc.eaa003.edit',['course' => $course, 'assistant_list' => $assistant_list, 'student_list'=>$student_list ]);
     }
 
     /**
@@ -83,7 +89,8 @@ class CourseController extends Controller
     public function update(Request $request)
     {
 
-        //dd($request);
+
+        $course_id = $request->get('id');
         $old_nrc = $request->get('nrc_antiguo');
         $nrc  = $request->get('nrc');
         $course_codigo = $request->get('codigo_asignatura');
@@ -91,15 +98,12 @@ class CourseController extends Controller
         $professor_nombre  = $request->get('nombre_profesor');
         $assistant_rut_list  = request()->except('_token', '_method', 'nrc','codigo_asignatura', 'rut_profesor', 'nombre_profesor');
 
+
         if(strval($nrc) != strval($old_nrc)){
 
-            // obtener las weas desde la db guardarlas (periodos, los ayudantes, los estudiantes, las surveys )
-            $period_list = DB::select('select * from periods_courses where Coursesnrc = ?', [$old_nrc]);
-            $assistant_list = DB::select('select * from assistants_courses where coursesnrc = ?', [$old_nrc]);
-            $student_list = DB::select('select * from students_courses where coursesnrc = ?', [$old_nrc]);
-            $survey_list = DB::select('select * from surveys where coursesnrc = ?', [$old_nrc]);
-            //por cada wea borrar cuando corresponda
-            //DB::update('update surveys set coursesnrc = ? where coursesnrc = ?', [$nrc, $old_nrc]);
+
+            DB::update('update courses set nrc = ? where id = ?', [$nrc, $course_id]);
+
         }
 
         return redirect('/dashboard/courses');
