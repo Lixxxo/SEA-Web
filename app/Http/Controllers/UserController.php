@@ -103,7 +103,7 @@ class UserController extends Controller
      */
     public function there_is_encargado_enabled(){
 
-        $encagado_list = User::where('role','Encargado Docente');
+        $encargado_list = User::where('role','Encargado Docente');
         foreach($encargado_list as $encargado){
             if ($encargado->enabled === 1){
                 return true;

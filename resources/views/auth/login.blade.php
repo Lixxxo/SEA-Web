@@ -4,11 +4,10 @@
             <img src="img/ucn-logo.png" width=200 alt="UCN">
         </x-slot>
 
-        <x-jet-validation-errors class="mb-4" />
-
+        
         @if (session('status'))
             <div class="mb-4 font-medium text-sm text-green-600">
-                {{ session('status') }}
+                {{ "session('status')" }}
             </div>
         @endif
 
@@ -21,7 +20,7 @@
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="password" value="{{ __('Password') }}" />
+                <x-jet-label for="password" value="{{ __('Contraseña') }}" />
                 <x-jet-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
             </div>
 
@@ -40,7 +39,7 @@
                 @endif
 
                 <x-jet-button class="ml-4">
-                    {{ __('Log in') }}
+                    {{ __('Acceder') }}
                 </x-jet-button>
             </div>
         </form>

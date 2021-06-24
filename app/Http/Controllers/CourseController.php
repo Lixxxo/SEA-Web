@@ -98,13 +98,7 @@ class CourseController extends Controller
         $professor_nombre  = $request->get('nombre_profesor');
         $assistant_rut_list  = request()->except('_token', '_method', 'nrc','codigo_asignatura', 'rut_profesor', 'nombre_profesor');
 
-
-        if(strval($nrc) != strval($old_nrc)){
-
-
-            DB::update('update courses set nrc = ? where id = ?', [$nrc, $course_id]);
-
-        }
+        DB::update('update courses set nrc = ?, codigo_asignatura = ?, rut_profesor = ?, nombre_profesor = ?  where id = ?', [$nrc,$course_codigo, $professor_rut, $professor_nombre, $course_id]);
 
         return redirect('/dashboard/courses');
     }

@@ -14,7 +14,7 @@
                     @auth
                         <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
+                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Acceder</a>
                         <button onclick="{{ route('login') }}">Acceder</button>
                     @endauth
                 </div>
