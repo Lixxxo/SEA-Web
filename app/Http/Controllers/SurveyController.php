@@ -31,7 +31,7 @@ class SurveyController extends Controller
         //dd($course_id, $course_codigo_asignatura);
         $survey_qtty = strval(count(DB::select('select * from surveys')));
 
-        DB::insert('insert into surveys (Coursesid, nombre) values (?, ?)', [$course_id, $course_codigo_asignatura."_".$survey_qtty]);
+        DB::insert('insert into surveys (Coursesid, nombre, estado) values (?, ?, ?)', [$course_id, $course_codigo_asignatura."_".$survey_qtty, 1]);
         DB::insert('insert into questions (Surveysid) values (last_insert_id())');
 
         return redirect("/dashboard/surveys");
@@ -41,7 +41,7 @@ class SurveyController extends Controller
     {
         $survey = DB::select('select * from surveys where id = ?', [$id])[0];
         $question_list = DB::select('select * from questions where Surveysid = ?', [$id]);
-        dd($survey, $question_list);
+        //dd($survey, $question_list);
         return view('User_stories.EncDoc.enc001.edit',['survey' => $survey, 'question_list'=>$question_list]);
     }
 

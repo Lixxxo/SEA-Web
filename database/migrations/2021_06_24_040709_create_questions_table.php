@@ -17,7 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->integer('id', true);
             $table->string('frase')->default("Nueva Pregunta");
             $table->integer('indicador')->default(1);
-            $table->integer('cantRespuesta')->default(0);
+            $table->integer('cantRespuestas')->default(0);
             $table->integer('Surveysid')->index('FKQuestions369296');
         });
     }
