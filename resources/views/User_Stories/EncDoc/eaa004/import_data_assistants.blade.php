@@ -56,12 +56,12 @@
                 <div class = "table-responsive">
                     <table class = "table table-bordered table-striped">
                     <tr>
-                        <th>ID</th>
+                        <th>NRC</th>
                         <th>Rut del ayudante</th>
                     </tr>
                     @foreach ($data as $row)
                         <tr>
-                            <td>{{ $row->Coursesid }}</td>
+                            <td>{{ $row->nrc }}</td>
                             <td>{{ $row->Usersrut }}</td>
                         </tr>
                     @endforeach
