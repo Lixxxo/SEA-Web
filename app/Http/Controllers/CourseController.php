@@ -64,9 +64,9 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        //dd($id);
+        dd($id);
         //);
-        $course = DB::table('Courses')->where('nrc',$id)->first();
+        $course = DB::select('select * from courses where id = ?', [$id]);
         $assistant_list = DB::table('assistants_courses')->get();
         //dd($course);
         //return response()->json($course);
@@ -99,20 +99,6 @@ class CourseController extends Controller
             $student_list = DB::select('select * from students_courses where coursesnrc = ?', [$old_nrc]);
             $survey_list = DB::select('select * from surveys where coursesnrc = ?', [$old_nrc]);
             //por cada wea borrar cuando corresponda
-
-            foreach ($period_list as $period) {
-                dd($period);
-                DB::delete('delete from periods_courses where Coursesnrc = ?', [$old_nrc]);
-                DB::insert('insert into periods_courses (Periodscodigo_semestre, Coursesnrc) values (?, ?)', [$period->Periodscodigo_semestre, $nrc]);
-            }
-            foreach ($assistant_list as $assistant) {
-                DB::delete('delete assistants_courses where Coursesnrc = ?', [$old_nrc]);
-                DB::insert('insert into assistants_courses (id, name) values (?, ?)', [$nrc]);
-            }
-            foreach ($student_list as $student) {
-                DB::delete('delete students_courses where coursesnrc = ?', [$old_nrc]);
-                DB::insert('insert into students_courses (Usersrut, Coursesnrc) values (?, ?)', [$student->Usersrut, $nrc]);
-            }
             //DB::update('update surveys set coursesnrc = ? where coursesnrc = ?', [$nrc, $old_nrc]);
         }
 

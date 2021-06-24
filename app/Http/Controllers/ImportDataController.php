@@ -21,12 +21,12 @@ class ImportDataController extends Controller
 
     public function importStudents(Request $request) // Cargamos datos con un excel o otro
     {
-        try 
+        try
         {
            $Students = Excel::import(new UserImport, $request->select_file);
            return back()->with('success', 'Los alumnos han sido cargados correctamente');
-        } 
-        catch (Throwable $th) 
+        }
+        catch (Throwable $th)
         {
             return back()->with('error', 'Los alumnos no han sido cargados correctamente');
         }
@@ -41,10 +41,11 @@ class ImportDataController extends Controller
 
     public function importCourses(Request $request) // Cargamos datos con un excel o otro
     {
+        $Courses = Excel::import(new CourseImport, $request->select_file);
         try
         {
-            $Courses = Excel::import(new CourseImport, $request->select_file);
-            return back()->with('success', 'Las asignaturas han sido cargadas correctamente');            
+            //$Courses = Excel::import(new CourseImport, $request->select_file);
+            return back()->with('success', 'Las asignaturas han sido cargadas correctamente');
         }
         catch(Throwable $error)
         {
@@ -61,12 +62,12 @@ class ImportDataController extends Controller
 
     public function importAssistants(Request $request) // Cargamos datos con un excel o otro
     {
-        try 
+        try
         {
             $AssistantsCourses = Excel::import(new Assistants_CoursesImport, $request->select_file);
             return back()->with('success', 'Los ayudantes han sido asignados');
-        } 
-        catch (\Throwable $th) 
+        }
+        catch (\Throwable $th)
         {
             return back()->with('error', 'Los ayudantes no han sido asignados');
         }

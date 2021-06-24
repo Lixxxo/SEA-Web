@@ -28,7 +28,7 @@
                     <ul>{{$assistant->Usersrut}}</ul>
                 @endforeach
                 <td>
-                    <a href='/dashboard/courses/{{$course->nrc}}/edit' class="btn btn-warning">Editar</a>
+                    <a href='/dashboard/courses/{{$course->id}}/edit' class="btn btn-warning">Editar</a>
                 </td>
             </tr>
         @endforeach

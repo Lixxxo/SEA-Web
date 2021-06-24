@@ -25,7 +25,7 @@ class CourseImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnErr
             $query1 = DB::insert('insert into courses (nrc,	codigo_asignatura, rut_profesor, nombre_profesor) values (?, ?, ?, ?)', [$row['nrc'], $row['codigo_asignatura'], $row['rut_profesor'], $row['nombre_profesor']]);
 
             $query2 = DB::select('select codigo_semestre from Periods where estado = ?', [1]);
-            $query3 = DB::insert('insert into periods_courses (Periodscodigo_semestre, Coursesnrc) values (?, ?)', [$query2[0]->codigo_semestre, $row['nrc']]);
+            $query3 = DB::insert('insert into periods_courses (Periodscodigo_semestre, Coursesid) values (?, last_insert_id())', [$query2[0]->codigo_semestre]);
 
             return new Course([
             ]);
@@ -45,6 +45,6 @@ class CourseImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnErr
 
     public function onError(Throwable $e)
     {
-        
+
     }
 }
