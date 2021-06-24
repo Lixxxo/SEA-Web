@@ -15,9 +15,9 @@ class CreateSurveysTable extends Migration
     {
         Schema::create('surveys', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->integer('estado')->nullable();
-            $table->string('nombre')->nullable()->unique('nombre');
-            $table->integer('totalRespuestas')->nullable();
+            $table->integer('estado')->deafult(1);
+            $table->string('nombre')->unique('nombre');
+            $table->integer('totalRespuestas')->default(0);
             $table->integer('Coursesid')->index('FKSurveys362920');
         });
     }
