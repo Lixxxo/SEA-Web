@@ -17,12 +17,13 @@
     </div>
     <div class="text-right">
         <div class="mx-auto">
-            <h2>
+            <h2 style = "text-align: center">
                 Sistema Web Seguimiento y Evaluación de Ayudantes DISC
             </h2>
             <br>
             <p class="text-center">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolor modi deserunt illum natus culpa corrupti, tenetur maiores cum reiciendis fuga numquam eum ab necessitatibus. Dolorem possimus obcaecati laborum nulla nesciunt?
+                Bienvenido al sistema de seguimiento y evaluacion de ayudantes, por favor inicia sesion, en caso de no tener cuenta contactar con el administrador
+                <br>Muchas Gracias
             </p>
         </div>
     </div>
