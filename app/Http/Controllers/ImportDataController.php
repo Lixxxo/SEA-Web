@@ -56,7 +56,7 @@ class ImportDataController extends Controller
     public function indexAssistants() // Cargar Importar
     {
         //Aca creamos una query para que nos ponga la tabla usuarios en este orden y despues desplegarla en import_data
-        $data = DB::table('Assistants_Courses')->orderBy('Coursesnrc', 'desc')->get();
+        $data = DB::table('Assistants_Courses')->orderBy('Coursesid', 'desc')->get();
         return view('User_stories.EncDoc.eaa004.import_data_assistants', compact('data'));
     }
 
