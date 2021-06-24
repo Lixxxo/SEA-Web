@@ -8,7 +8,7 @@
 
         <div class="mb-3">
             <label class="form-label">NRC</label>
-            <input type="text" id="nrc" name="nrc" required readonly
+            <input type="text" id="nrc" name="nrc" required 
 
             class="form-control" tabindex="1" value="{{$course->nrc}}" required>
         </div>
