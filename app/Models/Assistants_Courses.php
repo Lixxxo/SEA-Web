@@ -9,9 +9,11 @@ class Assistants_Courses extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         'AssistantsProfilesrut',
         'Coursesnrc'
     ];
+
 
 }

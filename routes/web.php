@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 // Controllers
 use App\Http\Controllers\UserController;
 
+use App\Http\Controllers\CourseController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,7 +43,7 @@ Route::post('/dashboard/edit', 'App\Http\Controllers\PeriodController@update')
 
 // adm 003
 Route::get('/password_change', function(){
-    return view('User_Stories/adm003/password_change', 
+    return view('User_Stories/adm003/password_change',
     ['message' => '']);
 })
 ->name('password_change')
@@ -100,6 +102,10 @@ Route::post('/dashboard/surveys/updateQuestion', 'App\Http\Controllers\SurveyCon
 Route::post('/dashboard/surveys/deleteQuestion', 'App\Http\Controllers\SurveyController@deleteQuestion')
 ->middleware(['auth', 'Encargado Docente'])
 ->name("deleteQuestion");
+
+// eaa 003
+Route::resource('/dashboard/courses', CourseController::class)
+->middleware(['auth','Encargado Docente']);
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

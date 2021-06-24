@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('contenido')
-<div>   
+<div>
     <form method="POST" action="{{ route('logout') }}">
         @csrf
         <x-jet-dropdown-link href="{{ route('logout') }}"
@@ -28,28 +28,28 @@
 
 @else
 
-    @if (Auth::user()->role == "Administrador") 
+    @if (Auth::user()->role == "Administrador")
         <!--Cosas de Administrador-->
         <div>
             <a href="/dashboard/users">
                 <h3>Administrar usuarios</h2>
-            </a>    
+            </a>
         </div>
         <!--Cosas de Encargado Docente-->
         <div>
             <a href="/dashboard/import_data">
                 <h3> Carga masiva de estudiantes</h2>
-            </a>    
+            </a>
         </div>
         <div>
             <a href="/dashboard/import_data_courses">
                 <h3> Carga masiva de asignaturas</h2>
-            </a>    
+            </a>
         </div>
         <div>
             <a href="/dashboard/import_data_assistants">
                 <h3> Carga masiva de ayudantes</h2>
-            </a>    
+            </a>
         </div>
         <div>
             <a href="/dashboard/periods">
@@ -57,42 +57,55 @@
             </a>
         </div>
         <div>
+
+            <a href="/dashboard/import_data">
+                <h3> Carga masiva de estudiantes</h3>
+            </a>
+        </div>
+        <div>
+            <a href="/dashboard/courses">
+                <h3> Administrar asignaturas</h3>
+            </a>
+
             <a href="/dashboard/surveys">
                 <h3>Crear Encuesta</h3>
-            </a>    
+            </a>
+
         </div>
         <div>
             Futuras historias de usuario para Ayudante
         </div>
-        
+
     @elseif (Auth::user()->role == "Encargado Docente")
 
         <div>
             <a href="/dashboard/import_data">
                 <h3> Carga masiva de estudiantes</h2>
-            </a>    
+            </a>
         </div>
         <div>
             <a href="/dashboard/import_data_courses">
                 <h3> Carga masiva de asignaturas</h2>
-            </a>    
+            </a>
         </div>
         <div>
             <a href="/dashboard/import_data_assistants">
                 <h3> Carga masiva de ayudantes</h2>
-            </a>    
+            </a>
         </div>
         <div>
             <a href="/dashboard/periods">
                 <h3> Habilitar y deshabilitar periodo académico</h3>
             </a>
         </div>
+
         <div>
             <a href="/dashboard/surveys">
                 <h3>Crear Encuesta</h3>
-            </a>    
+            </a>
         </div>
-    @elseif (Auth::user()->role == "Ayudante") 
+    @elseif (Auth::user()->role == "Ayudante")
+
         Futuras historias de usuario para Ayudante
         Futuras historias de usuario para Estudiante
 
@@ -100,5 +113,7 @@
         Futuras historias de usuario para Estudiante
     @endif
 @endif
-
+<script src= "{{asset('/js/notify.min.js')}}"></script>
+<scri
+</script>
 @endsection
