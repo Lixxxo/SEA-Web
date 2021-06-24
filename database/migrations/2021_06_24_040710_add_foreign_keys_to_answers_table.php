@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddForeignKeysToSurveysTable extends Migration
+class AddForeignKeysToAnswersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddForeignKeysToSurveysTable extends Migration
      */
     public function up()
     {
-        Schema::table('surveys', function (Blueprint $table) {
-            $table->foreign('Coursesnrc', 'FKSurveys93583')->references('nrc')->on('courses')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+        Schema::table('answers', function (Blueprint $table) {
+            $table->foreign('Questionsid', 'FKAnswers404467')->references('id')->on('questions')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
 
@@ -25,8 +25,8 @@ class AddForeignKeysToSurveysTable extends Migration
      */
     public function down()
     {
-        Schema::table('surveys', function (Blueprint $table) {
-            $table->dropForeign('FKSurveys93583');
+        Schema::table('answers', function (Blueprint $table) {
+            $table->dropForeign('FKAnswers404467');
         });
     }
 }

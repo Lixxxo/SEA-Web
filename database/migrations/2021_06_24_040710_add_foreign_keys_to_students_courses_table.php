@@ -14,8 +14,8 @@ class AddForeignKeysToStudentsCoursesTable extends Migration
     public function up()
     {
         Schema::table('students_courses', function (Blueprint $table) {
-            $table->foreign('Usersrut', 'FKStudents_C80256')->references('rut')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-            $table->foreign('Coursesnrc', 'FKStudents_C909963')->references('nrc')->on('courses')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('Coursesid', 'FKStudents_C394876')->references('id')->on('courses')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('Usersrut', 'FKStudents_C769011')->references('rut')->on('users')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
 
@@ -27,8 +27,8 @@ class AddForeignKeysToStudentsCoursesTable extends Migration
     public function down()
     {
         Schema::table('students_courses', function (Blueprint $table) {
-            $table->dropForeign('FKStudents_C80256');
-            $table->dropForeign('FKStudents_C909963');
+            $table->dropForeign('FKStudents_C394876');
+            $table->dropForeign('FKStudents_C769011');
         });
     }
 }

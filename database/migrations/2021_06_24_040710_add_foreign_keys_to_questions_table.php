@@ -14,7 +14,7 @@ class AddForeignKeysToQuestionsTable extends Migration
     public function up()
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->foreign('Surveysid', 'questions_ibfk_1')->references('id')->on('surveys')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('Surveysid', 'FKQuestions369296')->references('id')->on('surveys')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
 
@@ -26,7 +26,7 @@ class AddForeignKeysToQuestionsTable extends Migration
     public function down()
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->dropForeign('questions_ibfk_1');
+            $table->dropForeign('FKQuestions369296');
         });
     }
 }

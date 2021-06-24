@@ -1,16 +1,18 @@
 @extends('layouts.base')
 @section('contenido')
 <h2>Actualizar Asignatura</h2>
-    <form action="/dashboard/courses/{{$course->nrc}}" method="POST">
+    <form action="/dashboard/courses/{{$course->id}}" method="POST">
         @csrf
         @method('PUT')
         <!--NRC-->
 
         <div class="mb-3">
             <label class="form-label">NRC</label>
-            <input type="text" id="nrc" name="nrc" required 
+            <input type="text" id="nrc" name="nrc" required
+            class="form-control" tabindex="1" value="{{$course->nrc}}" >
 
-            class="form-control" tabindex="1" value="{{$course->nrc}}" required>
+            <input type="hidden" name = "nrc_antiguo" value="{{$course->nrc}}">
+            <input type="hidden" name = "id" value="{{$course->id}}">
         </div>
         <br>
         <!--Codigo-->
@@ -37,12 +39,21 @@
 
         <!--Nombre ayudantes-->
         <div class="mb-3">
-            <label class="form-label">Rut Ayudantes</label>
-                @foreach($assistant_list as $assistant)
-                <input id="rut_ayudante" name="rut_ayudante" type="text" class="form-control"
-                    value="{{$assistant->Usersrut}}" readonly>
+            <label class="form-label">Ayudantes</label>
+                @for($i = 0 ; $i < count($assistant_list); $i++)
+                <ul id="rut_ayudante{{$i}}" name="rut_ayudante{{$i}}" type="text"
+                    value="{{$assistant_list[$i]->rut}}" >{{$assistant_list[$i]->name}}<ul>
 
-                @endforeach
+                @endfor
+        </div>
+        <!--Nombre estudiantes-->
+        <div class="mb-3">
+            <label class="form-label">Estudiantes</label>
+                @for($i = 0 ; $i < count($student_list); $i++)
+                <ul id="rut_ayudante{{$i}}" name="rut_ayudante{{$i}}" type="text"
+                    value="{{$student_list[$i]->rut}}" >{{$student_list[$i]->name}}<ul>
+
+                @endfor
         </div>
 
         <br>

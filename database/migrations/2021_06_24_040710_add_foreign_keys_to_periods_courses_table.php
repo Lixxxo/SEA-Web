@@ -15,7 +15,7 @@ class AddForeignKeysToPeriodsCoursesTable extends Migration
     {
         Schema::table('periods_courses', function (Blueprint $table) {
             $table->foreign('Periodscodigo_semestre', 'FKPeriods_Co198481')->references('codigo_semestre')->on('periods')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-            $table->foreign('Coursesnrc', 'FKPeriods_Co761431')->references('nrc')->on('courses')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('Coursesid', 'FKPeriods_Co276519')->references('id')->on('courses')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
 
@@ -28,7 +28,7 @@ class AddForeignKeysToPeriodsCoursesTable extends Migration
     {
         Schema::table('periods_courses', function (Blueprint $table) {
             $table->dropForeign('FKPeriods_Co198481');
-            $table->dropForeign('FKPeriods_Co761431');
+            $table->dropForeign('FKPeriods_Co276519');
         });
     }
 }

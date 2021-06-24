@@ -8,7 +8,7 @@
 </div>
 
 <h3 align = "center">
-    
+
     <form action="{{route('updateSurvey')}}" method="POST">
         @csrf
         <input type="text" name="survey_id" value="{{$survey->id}}" hidden>
@@ -17,10 +17,10 @@
         <br>
         <label for="habilitado"> Habilitado</label>
         @if ($survey->estado)
-            <input class="form-check-input" type="checkbox" 
-                id="enabled" name = "enabled" checked>                   
+            <input class="form-check-input" type="checkbox"
+                id="enabled" name = "enabled" checked>
         @else
-            <input class="form-check-input" type="checkbox" 
+            <input class="form-check-input" type="checkbox"
                 id="enabled" name = "enabled" >
         @endif
 
@@ -39,9 +39,9 @@
 <br>
 
     @foreach($question_list as $question)
-        <form action="{{route('updateQuestion')}}" method="POST">         
+        <form action="{{route('updateQuestion')}}" method="POST">
             @csrf
-            
+
             <input type="hidden" value="{{$survey->id}}" name="survey_id"/>
             <input type="hidden" value="{{$question->id}}"  name="question_id">
             <label for="frase"> Frase</label>
