@@ -12,8 +12,8 @@
             <th scope="col">NRC</th>
             <th scope="col">Código de Asignatura</th>
             <th scope="col">Profesor</th>
-            <th scope="col">Rut</td>
-            <th scope="col">Rut Ayudantes</td>
+            <th scope="col">Rut Profesor</td>
+            <th scope="col">Ayudantes</td>
         </tr>
     </thead>
     <tbody>

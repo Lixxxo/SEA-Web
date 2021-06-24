@@ -40,20 +40,27 @@
         <!--Nombre ayudantes-->
         <div class="mb-3">
             <label class="form-label">Ayudantes</label>
+            <ul>
                 @for($i = 0 ; $i < count($assistant_list); $i++)
-                <ul id="rut_ayudante{{$i}}" name="rut_ayudante{{$i}}" type="text"
-                    value="{{$assistant_list[$i]->rut}}" >{{$assistant_list[$i]->name}}<ul>
-
+                    <li id="rut_ayudante{{$i}}" name="rut_ayudante{{$i}}"
+                        velue = "rut_ayudante{{$i}}" >{{$assistant_list[$i]->name}}
+                    </li>
+                    <br>
                 @endfor
+            </ul>
         </div>
+        
         <!--Nombre estudiantes-->
         <div class="mb-3">
             <label class="form-label">Estudiantes</label>
-                @for($i = 0 ; $i < count($student_list); $i++)
-                <ul id="rut_ayudante{{$i}}" name="rut_ayudante{{$i}}" type="text"
-                    value="{{$student_list[$i]->rut}}" >{{$student_list[$i]->name}}<ul>
-
+            <ul>
+                @for($i = 0 ; $i < count($assistant_list); $i++)
+                    <li id="rut_estudiante{{$i}}" name="rut_estudiante{{$i}}"
+                        value= "rut_ayudante{{$i}}">{{$assistant_list[$i]->name}}
+                    </li>
+                    <br>
                 @endfor
+
         </div>
 
         <br>
