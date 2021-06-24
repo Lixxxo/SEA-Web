@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
+use DB;
 class UserController extends Controller
 {
     /**
@@ -43,9 +44,9 @@ class UserController extends Controller
         $user->email = $request->get('email');
         $user->password = Hash::make(substr($request->get('rut'), 0, -2));
         $user->role = $request->get('role');
-
-        if($request->get('role') === 'Encargado Docente' && 
-            $this->there_is_encargado_enabled()){
+        
+        if(strval($user->role) === strval("Encargado Docente") && 
+            self::there_is_encargado_enabled()){
             $user->enabled = 0;
         }
 
@@ -86,7 +87,7 @@ class UserController extends Controller
             $user->enabled = 0;
         }
         if($request->get('role') === 'Encargado Docente' && 
-            $this->there_is_encargado_enabled()){
+            self::there_is_encargado_enabled()){
             
             $user->enabled = 0;
             }
@@ -102,14 +103,14 @@ class UserController extends Controller
      * @return boolean
      */
     public function there_is_encargado_enabled(){
-
-        $encargado_list = User::where('role','Encargado Docente');
-        foreach($encargado_list as $encargado){
-            if ($encargado->enabled === 1){
-                return true;
-            }
+        
+        $encargado_list = DB::select('select * from users where role = "Encargado Docente" and enabled = 1');
+        //$encargado_list = User::where('role','Encargado Docente');
+        
+        if (count($encargado_list) == 0) {
+            return false;
         }
-        return false;
+        return true;
     }
     
     /**
