@@ -1,20 +1,9 @@
 @extends('layouts.base')
 @section('contenido')
-    <div class="text-left" >
+    <div class="text-center" >
         <img alt="UCN" width="150" src="img/ucn-logo.png" />  
     </div>
-    <div class="text-left">
-        @if (Route::has('login'))
-            <div class="">
-                @auth
-                    <a href="{{ url('/dashboard') }}" >Menú Principal</a>
-                @else
-                    <a href="{{ route('login') }}" >Iniciar Sesión</a>
 
-                @endauth
-            </div>
-        @endif
-    </div>
     <div class="text-right">
         <div class="mx-auto">
             <h2 style = "text-align: center">
@@ -28,4 +17,19 @@
         </div>
     </div>
 
+    <div class="text-center">
+        @if (Route::has('login'))
+            <div class="">
+                @auth
+                    <form action="{{ url('/dashboard') }}">
+                        <button>Menu Principal</button>
+                    </form>
+                @else
+                    <form action="{{ route('login') }}">
+                        <button>Iniciar Sesion</button>
+                    </form>
+                @endauth
+            </div>
+        @endif
+    </div>
 @endsection

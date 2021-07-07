@@ -27,9 +27,6 @@
             <a href="https://github.com/Lixxxo/SEA-Web" >      SEA_WEB_APP - Rat-Code</a>
           </div>
           <br>
-          <div class="text-center">
-            Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-          </div>
         </div>
       </footer>
     
