@@ -38,57 +38,79 @@
 
 <br>
 
-    @foreach($question_list as $question)
-        <form action="{{route('updateQuestion')}}" method="POST">
-            @csrf
+    @for($i =0; $i<count($question_list);$i++)
+    @if ($i%2 == 0)
+        <div style="background-color: azure; padding: 8px" class="text-left">
+    @else
+        <div style="background-color: rgba(221, 221, 221, 0.418); padding: 8px" class="text-left">
+    @endif
+        
+            <form action="{{route('updateQuestion')}}" method="POST">
+                @csrf
 
-            <input type="hidden" value="{{$survey->id}}" name="survey_id"/>
-            <input type="hidden" value="{{$question->id}}"  name="question_id">
-            <label for="frase"> Frase</label>
-            <input type="text" size = "100" value="{{$question->frase}}" id="frase" name="frase" />
-            <br>
-            <label> Indicador</label>
-            @if ($question->indicador == 1)
-                <input type="radio" checked
-                id="indicador1"
-                onclick="document.getElementById('indicador2').checked = false;
-                        document.getElementById('indicador1').checked = true;
-                        document.getElementById('indicador').value = '1';"> 1
-                <input type="radio"
-                id="indicador2"
-                onclick="document.getElementById('indicador1').checked = false;
-                    document.getElementById('indicador2').checked = true;
-                    document.getElementById('indicador').value = '2';"> 2
-                <input type="number" hidden name="indicador" id="indicador" value="{{$question->indicador}}">
-            
-            @else
+                <input type="hidden" value="{{$survey->id}}" name="survey_id"/>
+                <input type="hidden" value="{{$question_list[$i]->id}}"  name="question_id">
+                <label for="frase"> Frase</label>
+                <input type="text" size = "100" value="{{$question_list[$i]->frase}}" id="frase" name="frase" />
+                <br>
+                <label> Indicador</label>
+                <br>
+                @if ($question_list[$i]->indicador == 1)
+                    <input type="radio" checked
+                    id="indicador1"
+                    onclick="document.getElementById('indicador2').checked = false;
+                            document.getElementById('indicador1').checked = true;
+                            document.getElementById('indicador').value = '1';">
+                    <label for="indicador1">
+                        1 (Totalmente de acuerdo, De acuerdo, Ni de acuerdo ni en desacuerdo, En desacuerdo, Totalmente en desacuerdo)
+                    </label>
+                    <br>
+                    <input type="radio"
+                    id="indicador2"
+                    onclick="document.getElementById('indicador1').checked = false;
+                        document.getElementById('indicador2').checked = true;
+                        document.getElementById('indicador').value = '2';">
+                    <label for="indicador1">
+                        2 (Sí, No)
+                    </label>            
+                @else
                 <input type="radio" 
                 id="indicador1"
                 onclick="document.getElementById('indicador2').checked = false;
                         document.getElementById('indicador1').checked = true;
-                        document.getElementById('indicador').value = '1';"> 1
+                        document.getElementById('indicador').value = '1';">
+                <label for="indicador1">
+                    1 (Totalmente de acuerdo, De acuerdo, Ni de acuerdo ni en desacuerdo, En desacuerdo, Totalmente en desacuerdo)
+                </label>
+                <br>
                 <input type="radio" checked
                 id="indicador2"
                 onclick="document.getElementById('indicador1').checked = false;
                     document.getElementById('indicador2').checked = true;
-                    document.getElementById('indicador').value = '2';"> 2
-                <input type="number" hidden name="indicador" id="indicador" value="{{$question->indicador}}">
-            
-            @endif
-            <br>
-            <label >Cantidad respuestas</label>
-            {{$question->cantRespuestas}}
-            <br>
-            <button type="submit" class="btn btn-warning">Editar</button>
-        </form>
-        <form action="{{route('deleteQuestion')}}" method="POST">
-            @csrf
-            <input type="hidden" value="{{$survey->id}}" name="survey_id"/>
-            <input type="hidden" value="{{$question->id}}"  name="question_id">
-            <button type="submit" class="btn btn-danger">Eliminar Pregunta</button>
-        </form>
-        <br>
-    @endforeach
+                    document.getElementById('indicador').value = '2';">
+                <label for="indicador1">
+                    2 (Sí, No)
+                </label>  
+                @endif
+                <input type="number" hidden name="indicador" id="indicador" value="{{$question_list[$i]->indicador}}">
+                <br>
+                <label >Cantidad de respuestas: </label>
+                <strong>{{$question_list[$i]->cantRespuestas}}</strong>
+                <br>
+                <button type="submit" class="btn btn-info">Guardar pregunta</button>
+            </form>
+            <div class="text-right">
+                <form action="{{route('deleteQuestion')}}" method="POST">
+                    @csrf
+                    <input type="hidden" value="{{$survey->id}}" name="survey_id"/>
+                    <input type="hidden" value="{{$question_list[$i]->id}}"  name="question_id">
+                    <button type="submit" class="btn btn-danger">Eliminar Pregunta</button>
+                </form>
+            </div>
+        
+    </div>
+    <br>
+    @endfor
 
 
 @endsection
