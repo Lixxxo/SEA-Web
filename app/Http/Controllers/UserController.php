@@ -38,16 +38,20 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = new User();
-        $user->rut = $request->get('rut');
+        if(user_exists($request->get('rut'))){
+            return back()->with('status', 'El usuario con el rut ingresado ya existe.');
+        }
+        if($request->get('role') === 'Encargado Docente' && 
+        $this->there_is_encargado_enabled()){
+        $user->enabled = 0;
+        }
+
+    $user->rut = $request->get('rut');
         $user->name = $request->get('full_name');
         $user->email = $request->get('email');
         $user->password = Hash::make(substr($request->get('rut'), 0, -2));
         $user->role = $request->get('role');
 
-        if($request->get('role') === 'Encargado Docente' && 
-            $this->there_is_encargado_enabled()){
-            $user->enabled = 0;
-        }
 
         $user->save();
 
@@ -111,7 +115,19 @@ class UserController extends Controller
         }
         return false;
     }
-    
+        /**
+     * Check if theres an user with rut
+     *
+     * @return boolean
+     */
+    public function user_exists($rut){
+
+        $users_quantity = DB::select('select count(*) from users where rut = ?', [$rut]);
+        if($users_quantity > 0){
+            return true;
+        }
+        return false;
+    }
     /**
      * Reset password to default (rut without verification digit)
      *
