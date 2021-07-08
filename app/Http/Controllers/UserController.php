@@ -85,10 +85,12 @@ class UserController extends Controller
     {
         
         $user = User::find($id);
-        if($this->user_rut_exists($request->get('rut'))){
+        if($user->rut != $request->get('rut') &&
+            $this->user_rut_exists($request->get('rut'))){
             return back()->with('status', 'Ya existe otro usuario con el mismo rut.');
         }
-        if($this->user_email_exists($request->get('email'))){
+        if($user->email != $request->get('email')
+            && $this->user_email_exists($request->get('email'))){
             return back()->with('status', 'Ya existe otro usuario con el mismo email.');
         }
         $user->rut = $request->get('rut');
@@ -132,7 +134,7 @@ class UserController extends Controller
      *
      * @return boolean
      */
-    public function user_exists($rut){
+    public function user_rut_exists($rut){
 
         $users_quantity = DB::select('select count(*) from users where rut = ?', [$rut]);
         if($users_quantity > 0){
