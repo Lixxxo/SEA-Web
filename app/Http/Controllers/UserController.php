@@ -39,8 +39,11 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = new User();
-        if($this->user_exists($request->get('rut'))){
-            return back()->with('status', 'El usuario con el rut ingresado ya existe.');
+        if($this->user_rut_exists($request->get('rut'))){
+            return back()->with('status', 'Ya existe otro usuario con el mismo rut.');
+        }
+        if($this->user_email_exists($request->get('email'))){
+            return back()->with('status', 'Ya existe otro usuario con el mismo email.');
         }
         if($request->get('role') === 'Encargado Docente' && 
         $this->there_is_encargado_enabled()){
@@ -116,7 +119,8 @@ class UserController extends Controller
         }
         return false;
     }
-        /**
+    
+    /**
      * Check if theres an user with rut
      *
      * @return boolean
@@ -129,6 +133,21 @@ class UserController extends Controller
         }
         return false;
     }
+
+    /**
+     * Check if theres an user with email
+     *
+     * @return boolean
+     */
+    public function user_email_exists($email){
+
+        $users_quantity = DB::select('select count(*) from users where email = ?', [$email]);
+        if($users_quantity > 0){
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Reset password to default (rut without verification digit)
      *
