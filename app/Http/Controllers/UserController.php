@@ -136,7 +136,8 @@ class UserController extends Controller
      */
     public function user_rut_exists($rut){
 
-        $users_quantity = DB::select('select count(*) from users where rut = ?', [$rut]);
+        $users_quantity = DB::select('select count(*) as cantidad from users where rut = ?', [$rut])[0]->cantidad;
+        //dd($users_quantity);
         if($users_quantity > 0){
             return true;
         }
@@ -150,7 +151,7 @@ class UserController extends Controller
      */
     public function user_email_exists($email){
 
-        $users_quantity = DB::select('select count(*) from users where email = ?', [$email]);
+        $users_quantity = DB::select('select count(*) as cantidad from users where email = ?', [$email])[0]->cantidad;
         if($users_quantity > 0){
             return true;
         }
