@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
+use DB;
 class UserController extends Controller
 {
     /**
@@ -38,7 +39,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = new User();
-        if(user_exists($request->get('rut'))){
+        if($this->user_exists($request->get('rut'))){
             return back()->with('status', 'El usuario con el rut ingresado ya existe.');
         }
         if($request->get('role') === 'Encargado Docente' && 
