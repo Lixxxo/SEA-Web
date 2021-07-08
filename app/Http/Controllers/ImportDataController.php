@@ -56,12 +56,13 @@ class ImportDataController extends Controller
     public function indexAssistants() // Cargar Importar
     {
         //Aca creamos una query para que nos ponga la tabla usuarios en este orden y despues desplegarla en import_data
-        $data = DB::table('Assistants_Courses')->orderBy('Coursesnrc', 'desc')->get();
+        $data = DB:: select('select ac.Usersrut, c.nrc from assistants_courses ac, courses c where ac.Coursesid = c.id');
         return view('User_stories.EncDoc.eaa004.import_data_assistants', compact('data'));
     }
 
     public function importAssistants(Request $request) // Cargamos datos con un excel o otro
     {
+
         try
         {
             $AssistantsCourses = Excel::import(new Assistants_CoursesImport, $request->select_file);
@@ -71,6 +72,7 @@ class ImportDataController extends Controller
         {
             return back()->with('error', 'Los ayudantes no han sido asignados');
         }
+ 
     }
 
 }
