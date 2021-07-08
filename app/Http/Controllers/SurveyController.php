@@ -51,7 +51,7 @@ class SurveyController extends Controller
         try {
             DB::update('update surveys set nombre = ?, estado = ? where id = ?', [$nombre, $estado, $id]);
         } catch (\Throwable $th) {
-            return redirect("/dashboard/surveys/".$id);
+            return back()->with('status', "Ya existe una encuesta con ese nombre.");
         }
         return redirect("/dashboard/surveys/".$id);
 
@@ -66,7 +66,7 @@ class SurveyController extends Controller
     }
 
     public function updateQuestion(Request $request){
-        //dd($request);
+        
         $question_id = $request->get('question_id');
         $frase = $request->get('frase');
         $indicador = $request->get('indicador');

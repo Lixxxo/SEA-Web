@@ -47,8 +47,34 @@
             <label for="frase"> Frase</label>
             <input type="text" size = "100" value="{{$question->frase}}" id="frase" name="frase" />
             <br>
-            <label for="indicador"> Indicador</label>
-            <input type="number" min="1" max="2" value="{{$question->indicador}}" id="indicador" name="indicador" />
+            <label> Indicador</label>
+            @if ($question->indicador == 1)
+                <input type="radio" checked
+                id="indicador1"
+                onclick="document.getElementById('indicador2').checked = false;
+                        document.getElementById('indicador1').checked = true;
+                        document.getElementById('indicador').value = '1';"> 1
+                <input type="radio"
+                id="indicador2"
+                onclick="document.getElementById('indicador1').checked = false;
+                    document.getElementById('indicador2').checked = true;
+                    document.getElementById('indicador').value = '2';"> 2
+                <input type="number" hidden name="indicador" id="indicador" value="{{$question->indicador}}">
+            
+            @else
+                <input type="radio" 
+                id="indicador1"
+                onclick="document.getElementById('indicador2').checked = false;
+                        document.getElementById('indicador1').checked = true;
+                        document.getElementById('indicador').value = '1';"> 1
+                <input type="radio" checked
+                id="indicador2"
+                onclick="document.getElementById('indicador1').checked = false;
+                    document.getElementById('indicador2').checked = true;
+                    document.getElementById('indicador').value = '2';"> 2
+                <input type="number" hidden name="indicador" id="indicador" value="{{$question->indicador}}">
+            
+            @endif
             <br>
             <label >Cantidad respuestas</label>
             {{$question->cantRespuestas}}
@@ -64,7 +90,20 @@
         <br>
     @endforeach
 
+
+@endsection
+@section('script')
+
     <script>
         var stateValue = $("enabled").is("checked") ? true : false;
     </script>
+
+    <script src="{{asset("js/notify.min.js")}}"></script>
+    <script>
+        var status = '{{session("status")}}';
+        if (status){
+            $.notify(status, "error");
+        }
+    </script>
+    
 @endsection
