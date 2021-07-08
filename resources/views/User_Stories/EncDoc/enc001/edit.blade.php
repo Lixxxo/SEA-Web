@@ -57,42 +57,42 @@
                 <br>
                 @if ($question_list[$i]->indicador == 1)
                     <input type="radio" checked
-                    id="indicador1"
-                    onclick="document.getElementById('indicador2').checked = false;
-                            document.getElementById('indicador1').checked = true;
-                            document.getElementById('indicador').value = '1';">
-                    <label for="indicador1">
+                    id="indicador1_{{$i}}"
+                    onclick="document.getElementById('indicador2_{{$i}}').checked = false;
+                            document.getElementById('indicador1_{{$i}}').checked = true;
+                            document.getElementById('indicador_{{$i}}').value = '1';">
+                    <label for="indicador1_{{$i}}">
                         1 (Totalmente de acuerdo, De acuerdo, Ni de acuerdo ni en desacuerdo, En desacuerdo, Totalmente en desacuerdo)
                     </label>
                     <br>
                     <input type="radio"
-                    id="indicador2"
-                    onclick="document.getElementById('indicador1').checked = false;
-                        document.getElementById('indicador2').checked = true;
-                        document.getElementById('indicador').value = '2';">
-                    <label for="indicador1">
+                    id="indicador2_{{$i}}"
+                    onclick="document.getElementById('indicador1_{{$i}}').checked = false;
+                        document.getElementById('indicador2_{{$i}}').checked = true;
+                        document.getElementById('indicador_{{$i}}').value = '2';">
+                    <label for="indicador2_{{$i}}">
                         2 (Sí, No)
                     </label>            
                 @else
                 <input type="radio" 
-                id="indicador1"
-                onclick="document.getElementById('indicador2').checked = false;
-                        document.getElementById('indicador1').checked = true;
-                        document.getElementById('indicador').value = '1';">
-                <label for="indicador1">
+                id="indicador1_{{$i}}"
+                onclick="document.getElementById('indicador2_{{$i}}').checked = false;
+                        document.getElementById('indicador1_{{$i}}').checked = true;
+                        document.getElementById('indicador_{{$i}}').value = '1';">
+                <label for="indicador1_{{$i}}">
                     1 (Totalmente de acuerdo, De acuerdo, Ni de acuerdo ni en desacuerdo, En desacuerdo, Totalmente en desacuerdo)
                 </label>
                 <br>
                 <input type="radio" checked
-                id="indicador2"
-                onclick="document.getElementById('indicador1').checked = false;
-                    document.getElementById('indicador2').checked = true;
-                    document.getElementById('indicador').value = '2';">
-                <label for="indicador1">
+                id="indicador2_{{$i}}"
+                onclick="document.getElementById('indicador1_{{$i}}').checked = false;
+                    document.getElementById('indicador2_{{$i}}').checked = true;
+                    document.getElementById('indicador_{{$i}}').value = '2';">
+                <label for="indicador2_{{$i}}">
                     2 (Sí, No)
                 </label>  
                 @endif
-                <input type="number" hidden name="indicador" id="indicador" value="{{$question_list[$i]->indicador}}">
+                <input type="number" hidden name="indicador" id="indicador_{{$i}}" value="{{$question_list[$i]->indicador}}">
                 <br>
                 <label >Cantidad de respuestas: </label>
                 <strong>{{$question_list[$i]->cantRespuestas}}</strong>
