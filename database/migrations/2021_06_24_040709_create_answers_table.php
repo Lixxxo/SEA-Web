@@ -15,8 +15,7 @@ class CreateAnswersTable extends Migration
     {
         Schema::create('answers', function (Blueprint $table) {
             $table->integer('respuesta')->nullable();
-            $table->integer('QuestionsSurveysid')->nullable();
-            $table->integer('Questionsid')->nullable()->index('FKAnswers404467');
+            $table->integer('Questionsid')->index('FKAnswers404467');
         });
     }
 

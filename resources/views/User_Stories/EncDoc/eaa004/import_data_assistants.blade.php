@@ -61,7 +61,7 @@
                     </tr>
                     @foreach ($data as $row)
                         <tr>
-                            <td>{{ $row->Coursesnrc }}</td>
+                            <td>{{ $row->nrc }}</td>
                             <td>{{ $row->Usersrut }}</td>
                         </tr>
                     @endforeach

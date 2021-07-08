@@ -9,29 +9,22 @@ class SurveyController extends Controller
 
     public function index(){
 
-        $survey_list = DB::select('select s.id, s.nombre, s.estado, s.totalRespuestas, c.nrc as course_nrc from surveys s, courses c where c.id = s.Coursesid');
+        $survey_list = DB::select('select * from surveys');
 
         $question_qtty_list = array();
         foreach ($survey_list as $survey){
             $question_qtty = DB::select("select count(*) as cantidadPreguntas from questions where Surveysid = ?;",[$survey->id]);
             array_push($question_qtty_list, $question_qtty);
         }
-       //dd($question_qtty_list);
-        $course_list = DB::select('select * from courses');
-
-        return view("User_Stories.EncDoc.enc001.surveys", ['survey_list' => $survey_list, 'course_list'=>$course_list, 'question_qtty_list'=>$question_qtty_list]);
+        return view("User_Stories.EncDoc.enc001.surveys", ['survey_list' => $survey_list, 'question_qtty_list'=>$question_qtty_list]);
     }
 
 
     public function createSurvey(Request $request){
 
-        // explode == split
-        $course_id = explode(",",$request->get("data"))[0];
-        $course_codigo_asignatura = explode(",",$request->get("data"))[1];
-        //dd($course_id, $course_codigo_asignatura);
         $survey_qtty = strval(count(DB::select('select * from surveys')));
 
-        DB::insert('insert into surveys (Coursesid, nombre, estado) values (?, ?, ?)', [$course_id, $course_codigo_asignatura."_".$survey_qtty, 1]);
+        DB::insert('insert into surveys (nombre, estado) values (?, ?)', ["Encuesta_".$survey_qtty, 1]);
         DB::insert('insert into questions (Surveysid) values (last_insert_id())');
 
         return redirect("/dashboard/surveys");
@@ -58,7 +51,7 @@ class SurveyController extends Controller
         try {
             DB::update('update surveys set nombre = ?, estado = ? where id = ?', [$nombre, $estado, $id]);
         } catch (\Throwable $th) {
-            return redirect("/dashboard/surveys/".$id);
+            return back()->with('status', "Ya existe una encuesta con ese nombre.");
         }
         return redirect("/dashboard/surveys/".$id);
 
@@ -73,7 +66,7 @@ class SurveyController extends Controller
     }
 
     public function updateQuestion(Request $request){
-        //dd($request);
+        
         $question_id = $request->get('question_id');
         $frase = $request->get('frase');
         $indicador = $request->get('indicador');

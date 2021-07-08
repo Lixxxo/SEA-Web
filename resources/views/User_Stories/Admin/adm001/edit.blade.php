@@ -35,7 +35,7 @@
             <br>
             <select class="form-select" id="role" name="role">
               <option selected>{{$user->role}}</option>
-              <option value="Ayudante">Estudiante</option>
+              <option value="Estudiante">Estudiante</option>
               <option value="Ayudante">Ayudante</option>
               <option value="Encargado Docente">Encargado Docente</option>
             </select>

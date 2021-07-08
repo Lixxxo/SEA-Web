@@ -190,7 +190,7 @@ class UserController extends Controller
             $user = User::find(Auth::user()->id);
             $user->password = Hash::make($request->get('password'));
             $save_message = $user->save();
-            return back()->with('status', 'XD');
+            return redirect('/dashboard');
         }
 
     }
