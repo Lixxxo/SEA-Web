@@ -5,7 +5,9 @@
         <a href="/dashboard">Menu principal</a>
     </div>
     <h3 align = "center">Listado de usuarios</h3>
-    
+    <br>
+    <a href="users/create" class="btn btn-success" href="dashboard/users/create">Crear usuario</a>
+    <br>
     <table class="table table-dark table-striped mt-4">
         <thead>
             <tr>
@@ -45,9 +47,7 @@
         </tbody>
 
     </table>
-    <br>
-    <a href="users/create" class="btn btn-success" href="dashboard/users/create">Crear usuario</a>
-    <br>
+
 
 
 @endsection
