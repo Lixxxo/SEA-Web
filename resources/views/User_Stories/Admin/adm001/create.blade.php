@@ -37,6 +37,10 @@
     <button type="submit" class="btn btn-primary" tabindex="6">Guardar</button>
   </form>
 
+
+
+@endsection
+@section('script')
   <script>
     function checkRut(rut) {
     // Despejar Puntos
@@ -86,4 +90,13 @@
     rut.setCustomValidity('');
     }
   </script>
+
+  <script src="{{asset("js/notify.min.js")}}"></script>
+  <script>
+      var status = '{{session("status")}}';
+      if (status){
+          $.notify(status, "error");
+      }
+  </script>
+    
 @endsection

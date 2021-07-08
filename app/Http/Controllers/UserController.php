@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
+use DB;
 class UserController extends Controller
 {
     /**
@@ -38,16 +39,23 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = new User();
-        $user->rut = $request->get('rut');
+        if($this->user_rut_exists($request->get('rut'))){
+            return back()->with('status', 'Ya existe otro usuario con el mismo rut.');
+        }
+        if($this->user_email_exists($request->get('email'))){
+            return back()->with('status', 'Ya existe otro usuario con el mismo email.');
+        }
+        if($request->get('role') === 'Encargado Docente' && 
+        $this->there_is_encargado_enabled()){
+        $user->enabled = 0;
+        }
+
+    $user->rut = $request->get('rut');
         $user->name = $request->get('full_name');
         $user->email = $request->get('email');
         $user->password = Hash::make(substr($request->get('rut'), 0, -2));
         $user->role = $request->get('role');
 
-        if($request->get('role') === 'Encargado Docente' && 
-            $this->there_is_encargado_enabled()){
-            $user->enabled = 0;
-        }
 
         $user->save();
 
@@ -75,7 +83,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $user = User::find($id);
+        if($user->rut != $request->get('rut') &&
+            $this->user_rut_exists($request->get('rut'))){
+            return back()->with('status', 'Ya existe otro usuario con el mismo rut.');
+        }
+        if($user->email != $request->get('email')
+            && $this->user_email_exists($request->get('email'))){
+            return back()->with('status', 'Ya existe otro usuario con el mismo email.');
+        }
         $user->rut = $request->get('rut');
         $user->name = $request->get('full_name');
         $user->email = $request->get('email');
@@ -112,6 +129,34 @@ class UserController extends Controller
         return false;
     }
     
+    /**
+     * Check if theres an user with rut
+     *
+     * @return boolean
+     */
+    public function user_rut_exists($rut){
+
+        $users_quantity = DB::select('select count(*) from users where rut = ?', [$rut]);
+        if($users_quantity > 0){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Check if theres an user with email
+     *
+     * @return boolean
+     */
+    public function user_email_exists($email){
+
+        $users_quantity = DB::select('select count(*) from users where email = ?', [$email]);
+        if($users_quantity > 0){
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Reset password to default (rut without verification digit)
      *
