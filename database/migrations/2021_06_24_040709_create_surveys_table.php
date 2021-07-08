@@ -18,7 +18,7 @@ class CreateSurveysTable extends Migration
             $table->integer('estado')->deafult(1);
             $table->string('nombre')->unique('nombre');
             $table->integer('totalRespuestas')->default(0);
-            $table->integer('Coursesid')->index('FKSurveys362920');
+
         });
     }
 
