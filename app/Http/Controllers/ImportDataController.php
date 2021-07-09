@@ -8,6 +8,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\UserImport;
 use App\Imports\CourseImport;
 use App\Imports\Assistants_CoursesImport;
+use App\Imports\Students_CoursesImport;
+
 use Throwable;
 
 class ImportDataController extends Controller
@@ -35,8 +37,18 @@ class ImportDataController extends Controller
     public function indexCourses() // Cargar Importar
     {
         //Aca creamos una query para que nos ponga la tabla usuarios en este orden y despues desplegarla en import_data
-        $data = DB::table('courses')->orderBy('nrc', 'desc')->get();
-        return view('User_stories.EncDoc.eaa002.import_data_courses', compact('data'));
+        $query0 = DB::select('select codigo_semestre from Periods where estado = ?', [1]);
+        if($query0 != null)
+        {
+            $data = DB::table('courses')->orderBy('nrc', 'asc')->get();
+            return view('User_stories.EncDoc.eaa002.import_data_courses', compact('data'));            
+        }
+        else
+        {
+            //Poner alerta
+            $data = DB::table('courses')->orderBy('nrc', 'asc')->get();
+            return view('User_stories.EncDoc.eaa002.import_data_courses', compact('data'));
+        }
     }
 
     public function importCourses(Request $request) // Cargamos datos con un excel o otro
@@ -75,4 +87,23 @@ class ImportDataController extends Controller
  
     }
 
+    public function indexAssociate() // Cargar Importar
+    {
+        //Aca creamos una query para que nos ponga la tabla usuarios en este orden y despues desplegarla en import_data
+        $data = DB::select('select sc.Usersrut, c.nrc from students_courses sc, courses c where sc.Coursesid = c.id');
+        return view('User_stories.EncDoc.eaa005.import_data_associate', compact('data'));
+    }
+
+    public function importAssociate(Request $request) // Cargamos datos con un excel o otro
+    {
+        try
+        {
+            $StudentsCourses = Excel::import(new Students_CoursesImport, $request->select_file);
+            return back()->with('success', 'Los estudiantes han sido asignados');
+        }
+        catch (Throwable $th)
+        {
+            return back()->with('error', 'Los estudiantes no han sido asignados');
+        }
+    }
 }

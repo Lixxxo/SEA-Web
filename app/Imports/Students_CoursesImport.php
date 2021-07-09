@@ -2,15 +2,16 @@
 
 namespace App\Imports;
 
-use App\Models\Assistants_Courses;
+use App\Models\Students_Courses;
+use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
-use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Throwable;
 
-class Assistants_CoursesImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError
+
+class Students_CoursesImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError
 {
     /**
     * @param array $row
@@ -19,9 +20,11 @@ class Assistants_CoursesImport implements ToModel,WithHeadingRow,WithChunkReadin
     */
     public function model(array $row)
     {
-        $query0 = DB::select('select rut from users where rut = ? and role = ?', [$row['rut'], 'Ayudante']);
+        $query0 = DB::select('select rut from users where rut = ?', [$row['rut']]);
+        $rol = DB::select('select role from users where rut = ?', [$row['rut']]);
 
-        if($query0 != NULL)
+
+        if($query0 != NULL && ($rol[0]->role == 'Estudiante' || $rol[0]->role == 'Ayudante'))
         {
             $course_id = DB::select('select id from courses where nrc = ?', [$row['nrc']])[0]->id;
 
@@ -33,11 +36,11 @@ class Assistants_CoursesImport implements ToModel,WithHeadingRow,WithChunkReadin
                 
                 if($query3 != null)
                 {
-                    $query1 = DB::select('select Usersrut from assistants_courses where Usersrut = ? and Coursesid = ?', [$row['rut'], $course_id]);
+                    $query1 = DB::select('select Usersrut from Students_Courses where Usersrut = ? and Coursesid = ?', [$row['rut'], $course_id]);
 
                     if($query1 == null)
                     {
-                        $query4 = DB::insert('insert into assistants_courses (Usersrut, Coursesid) values (?, ?)', [$row['rut'], $course_id]);
+                        $query4 = DB::insert('insert into students_courses (Usersrut, Coursesid) values (?, ?)', [$row['rut'], $course_id]);
 
                         return null;       
                     }
@@ -63,15 +66,15 @@ class Assistants_CoursesImport implements ToModel,WithHeadingRow,WithChunkReadin
         }
     }
 
+
     public function chunkSize(): int
     {
         return 1000;
 
     }
-    
-    public function onError(Throwable $e)
+
+    public function onError(Throwable $th)
     {
-        
+
     }
-    
 }

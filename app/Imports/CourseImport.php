@@ -32,7 +32,30 @@ class CourseImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnErr
         }
         else
         {
-            return NULL;
+            $query4 = DB::select('select codigo_semestre from Periods where estado = ?', [1]);
+            if($query4 != null)
+            {
+                $query5 = DB::select('select id from Courses where nrc = ?', [$row['nrc']]);
+                
+                $query6 = DB::select('select Periodscodigo_semestre from Periods_Courses where Periodscodigo_semestre = ? and Coursesid = ?', [$query4[0]->codigo_semestre, $query5[0]->id]);
+                if($query6 == null)
+                {
+                    $query7 = DB::insert('insert into periods_courses (Periodscodigo_semestre, Coursesid) values (?, ?)', [$query4[0]->codigo_semestre, $query5[0]->id]);
+                    return null;
+
+                }
+                else
+                {
+                    return null;
+
+                }                
+            }
+            else
+            {
+                //Poner alerta
+                return null;
+            }
+
         }
 
     }

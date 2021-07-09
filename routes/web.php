@@ -80,6 +80,12 @@ Route::get('dashboard/import_data_assistants', 'App\Http\Controllers\ImportDataC
 Route::post('dashboard/import_data_assistants/importAssistants', 'App\Http\Controllers\ImportDataController@importAssistants')
 ->middleware(['auth', 'Encargado Docente']);
 
+//EAA-005
+Route::get('dashboard/import_data_associate', 'App\Http\Controllers\ImportDataController@indexAssociate')
+->middleware(['auth', 'Encargado Docente']);
+Route::post('dashboard/import_data_associate/importAssociate', 'App\Http\Controllers\ImportDataController@importAssociate')
+->middleware(['auth', 'Encargado Docente']);
+
 //enc 001
 Route::get('/dashboard/surveys', 'App\Http\Controllers\SurveyController@index')
 ->middleware(['auth', 'Encargado Docente']);

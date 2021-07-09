@@ -52,6 +52,11 @@
                 <h3> Carga masiva de ayudantes</h2>
             </a>
         </div>
+        <div>
+            <a href="/dashboard/import_data_associate">
+                <h3>Asociar estudiantes con asignaturas</h3>
+            </a>
+        </div>
         <hr>
         <div>
             <a href="/dashboard/periods">
@@ -90,6 +95,11 @@
         <div>
             <a href="/dashboard/import_data_assistants">
                 <h3> Carga masiva de ayudantes</h2>
+            </a>
+        </div>
+        <div>
+            <a href="/dashboard/import_data_associate">
+                <h3>Asociar estudiantes con asignaturas</h3>
             </a>
         </div>
         <hr>
