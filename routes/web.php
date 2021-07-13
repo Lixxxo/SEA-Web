@@ -31,13 +31,13 @@ Route::post('/dashboard/users/reset_password', 'App\Http\Controllers\UserControl
 ->middleware(['auth', 'Administrador']);
 
 // adm 002
-Route::get('/dashboard/periods','App\Http\Controllers\PeriodController@show')
+Route::get('/dashboard/periods','App\Http\Controllers\PeriodController@index')
 ->middleware(['auth', 'Encargado Docente']);
 Route::post('/dashboard/enable_period', 'App\Http\Controllers\PeriodController@store')
-->name('dashboard_store')
+->name('periods_store')
 ->middleware(['auth', 'Encargado Docente']);
-Route::post('/dashboard/edit', 'App\Http\Controllers\PeriodController@update')
-->name('dashboard_edit')
+Route::post('/dashboard/periods/edit', 'App\Http\Controllers\PeriodController@update')
+->name('periods_edit')
 ->middleware(['auth', 'Encargado Docente']);
 
 

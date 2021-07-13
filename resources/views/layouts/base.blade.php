@@ -20,15 +20,6 @@
       </div>
 
       <br>
-      <footer >
-        <div class = "container">
-          <div class="text-right">
-            <img src="img/github-logo.png" alt="" width="30">
-            <a href="https://github.com/Lixxxo/SEA-Web" >      SEA_WEB_APP - Rat-Code</a>
-          </div>
-          <br>
-        </div>
-      </footer>
     
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
      @yield('script')

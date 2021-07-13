@@ -7,10 +7,15 @@ use App\Models\Period;
 use DB;
 class PeriodController extends Controller
 {
-    public function show(){
-        $period_list = Period::all();
-
-        return view('User_stories.EncDoc.adm002.period.edit_period', ['period_list' => $period_list]);
+    public function index(){
+        $period_list = DB::select('select * from periods order by (estado) desc');
+        
+        $enabled_period = DB::select('select * from periods where estado = ?', [1])[0];
+        
+        return view('User_stories.EncDoc.adm002.period.periods', 
+        ['period_list' => $period_list, 
+        'has_enabled_period' => $this->has_enabled_period(),
+        'enabled_period'=> $enabled_period]);
     }
 
     public function has_enabled_period(){
