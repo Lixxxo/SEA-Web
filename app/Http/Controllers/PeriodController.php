@@ -9,12 +9,13 @@ class PeriodController extends Controller
 {
     public function index(){
         $period_list = DB::select('select * from periods order by (estado) desc');
-        
-        $enabled_period = DB::select('select * from periods where estado = ?', [1])[0];
-        
+        if ($this->has_enabled_period()) {
+            $enabled_period = DB::select('select * from periods where estado = ?', [1])[0];
+        }else {
+            $enabled_period = "";
+        }
         return view('User_stories.EncDoc.adm002.period.periods', 
         ['period_list' => $period_list, 
-        'has_enabled_period' => $this->has_enabled_period(),
         'enabled_period'=> $enabled_period]);
     }
 
@@ -28,36 +29,14 @@ class PeriodController extends Controller
     }
 
     public function store(Request $request){
-        if ($this->has_enabled_period()){
-            return redirect('/dashboard/periods');
+        
+        $code = $request->get("year").$request->get("period") ;
+        $description = $request->get("description")
+        $period = DB::select('select * from periods where codigo_semestre = ?',[$code]);
+        
+        if (count($period) == 0) {
+            DB::insert('insert into periods (codigo_semestre, descripcion, estado) values (?,?,?)', [$code,$description,1])
         }
-
-
-
-        $code = $request->codigo_semestre;
-        $request->request->add(['estado' => '1']);
-        $period_data = request()->except('_token');
-        $period_code = substr($code, -2);
-        if ($period_code == "10" || $period_code == "20") {
-            $period = Period::where('codigo_semestre',$code)->first();
-            //return response()->json($period);
-            //dd($period);
-            if ($period != null ){
-                if ($period->estado === 0){
-                    //Period::where('codigo_semestre',$code)->first()->update(['estado' => 1,'descripcion' => $request->descripcion]);
-                    DB::update('update periods set estado = ?, descripcion = ? where codigo_semestre = ?', [1, $request->descripcion, $code]);
-                }
-        }
-            else{
-                Period::insert($period_data);
-            }
-        }
-        else{
-            return redirect('/dashboard/periods'); //TODO: Enviar una alerta indicando que no se pudo habilitar el semestre por codigo invalido.
-        }
-
-
-        return redirect('/dashboard/periods');
 
     }
     /**

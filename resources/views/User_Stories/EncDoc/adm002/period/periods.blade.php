@@ -4,8 +4,9 @@
     <a href="/dashboard">Menu principal</a>
 </div>
 <div>
-    @if ($has_enabled_period)
     <div  class="text-center">
+        <h3>Estado de semestre</h3>
+    @if ($enabled_period != "")    
         <h4>
             El semestre habilitado es el {{$enabled_period->codigo_semestre}}
 
@@ -15,17 +16,44 @@
         </h4>
         <h5>
             <form method="POST" action="{{route('periods_edit')}}">
+                @csrf
                 <input class = "code" type="txtNumber" minlength="6" maxlength="6"
                 onchange="validatePeriodCode(this);"
                 onkeypress="return isNumberKey(event);">
                 <input onclick="verification();" type="submit">
             </form>
         </h5>
-    </div>
-    @else
-        // habilitar
-    @endif
 
+    @else
+        <h4>
+            No se encuentra nigún semestre habilitado
+            <br><br>
+
+            <form method="POST" action="{{route('periods_store')}}">
+                @csrf
+                <label for="year">Año</label>
+                <select name="year" id="year">
+                    <option value="{{now()->year -1}}">{{now()->year -1}}</option>
+                    <option selected value="{{now()->year }}">{{now()->year }}</option>
+                    @for ($i = 1; $i < 4; $i++)
+                    <option value="{{now()->year +$i}}">{{now()->year+$i }}</option>
+                    @endfor
+                </select>
+                <input checked type="radio" id="p1" name="period" value="10">
+                <label  for="p1">Primer semestre</label>
+                <input type="radio" id="p2" name="period" value="20">
+                <label for="p2">Segundo semestre</label><br>             
+                <br>
+                {{-- TODO: agregar descipción --}}
+                
+                <input type="text" "">
+                <label for=""></label>
+                <br>
+                <input type="submit">
+            </form>
+        </h4>
+    @endif
+    </div>
     <div  >
         <table class="table table-dark table-striped mt-4">
             <thead>
