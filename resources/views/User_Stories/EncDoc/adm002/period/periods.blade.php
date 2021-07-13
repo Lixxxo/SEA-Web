@@ -6,7 +6,7 @@
 <div>
     <div  class="text-center">
         <h3>Estado de semestre</h3>
-    @if ($enabled_period != "")    
+    @if ($enabled_period != "")
         <h4>
             El semestre habilitado es el {{$enabled_period->codigo_semestre}}
 
@@ -17,7 +17,7 @@
         <h5>
             <form method="POST" action="{{route('periods_edit')}}">
                 @csrf
-                <input class = "code" type="txtNumber" minlength="6" maxlength="6"
+                <input class = "code" type="txtNumber" minlength="6" maxlength="6" id="codigo_semestre" name="codigo_semestre"
                 onchange="validatePeriodCode(this);"
                 onkeypress="return isNumberKey(event);">
                 <input onclick="verification();" type="submit">
@@ -42,11 +42,12 @@
                 <input checked type="radio" id="p1" name="period" value="10">
                 <label  for="p1">Primer semestre</label>
                 <input type="radio" id="p2" name="period" value="20">
-                <label for="p2">Segundo semestre</label><br>             
+                <label for="p2">Segundo semestre</label><br>
                 <br>
                 {{-- TODO: agregar descipción --}}
-                
-                <input type="text" "">
+
+                <label for="description">Descripción</label>
+                <textarea name="description" id="description" cols="30" rows="2"></textarea>
                 <label for=""></label>
                 <br>
                 <input type="submit">
@@ -66,11 +67,11 @@
                     <tbody>
             @foreach ($period_list as $period)
             @if ($period->estado)
-                <tr style="background-color:palegreen;">    
+                <tr style="background-color:palegreen;">
             @else
-                <tr >        
+                <tr >
             @endif
-            
+
                 <td>{{$period->codigo_semestre}}</td>
                 <td>{{$period->descripcion}}</td>
                 <td>
@@ -100,7 +101,7 @@
                 {classname: "error",
                 autoHideDelay: 2000});
             event.preventDefault();
-        }else 
+        }else
         if(!confirm("¿Deshabilitar periodo?")){
             event.preventDefault();
         }
@@ -116,7 +117,7 @@
     }
     function isNumberKey(evt){
           var charCode = (evt.which) ? evt.which : evt.keyCode;
-          if (charCode != 46 && charCode > 31 
+          if (charCode != 46 && charCode > 31
             && (charCode < 48 || charCode > 57))
              return false;
 

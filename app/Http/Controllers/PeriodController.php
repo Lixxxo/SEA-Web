@@ -14,8 +14,8 @@ class PeriodController extends Controller
         }else {
             $enabled_period = "";
         }
-        return view('User_stories.EncDoc.adm002.period.periods', 
-        ['period_list' => $period_list, 
+        return view('User_stories.EncDoc.adm002.period.periods',
+        ['period_list' => $period_list,
         'enabled_period'=> $enabled_period]);
     }
 
@@ -29,15 +29,21 @@ class PeriodController extends Controller
     }
 
     public function store(Request $request){
-        
-        $code = $request->get("year").$request->get("period") ;
-        $description = $request->get("description")
-        $period = DB::select('select * from periods where codigo_semestre = ?',[$code]);
-        
-        if (count($period) == 0) {
-            DB::insert('insert into periods (codigo_semestre, descripcion, estado) values (?,?,?)', [$code,$description,1])
-        }
 
+        $code = $request->get("year").$request->get("period") ;
+        $description = $request->get("description");
+        $period = DB::select('select * from periods where codigo_semestre = ?',[$code]);
+
+        if (count($period) == 0) {
+            DB::insert('insert into periods (codigo_semestre, descripcion, estado) values (?,?,?)', [$code,$description,1]);
+        }
+        else{
+            DB::update('update periods set estado = 1 where codigo_semestre = ?', [$code]);
+            if ($description != ""){
+                DB::update('update periods set descripcion = ? where codigo_semestre = ?', [$description,$code]);
+            }
+        }
+        return redirect('/dashboard/periods');
     }
     /**
      * Update the specified resource in storage.
@@ -48,19 +54,19 @@ class PeriodController extends Controller
      */
     public function update(Request $request){
         $code = $request->codigo_semestre;
-        $period = Period::where(['codigo_semestre' => $code])->first();
-        $period->timestamps = false;
-
-        if ($period != null){
-            if ($period->estado === 1){
-                //$period->estado = 0;
-                $period->update(['estado' => 0]);
+        $period = DB::select('select * from periods where codigo_semestre = ?',[$code]);
+        //dd($period);
+        if ($period == null) {
+            //TODO: Enviar aviso de error de semestre no encontrado.
+            return redirect('/dashboard/periods');
+        }
+        if ($period[0] != null){
+            if ($period[0]->estado == 1){
+                DB::update('update periods set estado = 0 where codigo_semestre = ?', [$code]);
             }
             else{
-                //$period->enabled = 1;
-                //$period->description = $request->description;
+                DB::update('update periods set estado = 1 where codigo_semestre = ?', [$code]);
             }
-            //$period->save();
         }
         return redirect('/dashboard/periods');
     }
