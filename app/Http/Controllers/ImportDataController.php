@@ -40,14 +40,12 @@ class ImportDataController extends Controller
         $query0 = DB::select('select codigo_semestre from Periods where estado = ?', [1]);
         if($query0 != null)
         {
-            $data = DB::table('courses')->orderBy('nrc', 'asc')->get();
+            $data = DB::select('select * from courses c, periods_courses pc where c.id = Coursesid and pc.Periodscodigo_semestre = ?', [$query0[0]->codigo_semestre]);
             return view('User_stories.EncDoc.eaa002.import_data_courses', compact('data'));            
         }
         else
         {
-            //Poner alerta
-            $data = DB::table('courses')->orderBy('nrc', 'asc')->get();
-            return view('User_stories.EncDoc.eaa002.import_data_courses', compact('data'));
+            
         }
     }
 

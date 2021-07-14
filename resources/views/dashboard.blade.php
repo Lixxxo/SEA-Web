@@ -73,7 +73,11 @@
             <a href="/dashboard/surveys">
                 <h3>Crear Encuesta</h3>
             </a>
-
+        </div>
+        <div>
+            <a href="/dashboard/manage_surveys">
+                <h3>Vincular Encuestas</h3>
+            </a>
         </div>
         <hr>
         <div>
@@ -118,6 +122,11 @@
         <div>
             <a href="/dashboard/surveys">
                 <h3>Crear Encuesta</h3>
+            </a>
+        </div>
+        <div>
+            <a href="/dashboard/manage_surveys">
+                <h3>Vincular Encuestas</h3>
             </a>
         </div>
     @elseif (Auth::user()->role == "Ayudante")
