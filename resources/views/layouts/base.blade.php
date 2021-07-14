@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -12,20 +13,25 @@
 
 
   </head>
-    
+
     <body>
       <br>
       <div class="container-fluid">
         @yield('contenido')
+        <style>
+            body{
+                background-color: whitesmoke;
+            }
+        </style>
       </div>
 
       <br>
-    
+
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
      @yield('script')
-    
+
     </body>
-  
+
 
 </html>
 

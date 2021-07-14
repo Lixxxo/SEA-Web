@@ -22,7 +22,9 @@
         width: 10px;
         border-collapse: collapse;
         text-align: center;
-        border: 1px solid darkgrey;
+        border: 2px solid darkgrey;
+        background-color: white;
+
     }
     table.center {
         margin-left: auto;
