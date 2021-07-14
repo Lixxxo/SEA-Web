@@ -18,13 +18,17 @@
         text-align: center;
         box-sizing: border-box;
     }
-    table, th, td {
+    table, th {
         width: 10px;
         border-collapse: collapse;
         text-align: center;
         border: 2px solid darkgrey;
         background-color: white;
 
+    }
+    td{
+        width: 10px;
+        border: 2px solid darkgrey;
     }
     table.center {
         margin-left: auto;
