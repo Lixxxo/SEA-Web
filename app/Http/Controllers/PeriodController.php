@@ -36,11 +36,13 @@ class PeriodController extends Controller
 
         if (count($period) == 0) {
             DB::insert('insert into periods (codigo_semestre, descripcion, estado) values (?,?,?)', [$code,$description,1]);
+            return back()->with('success',"Semestre agregado exitosamente.");
         }
         else{
             DB::update('update periods set estado = 1 where codigo_semestre = ?', [$code]);
             if ($description != ""){
                 DB::update('update periods set descripcion = ? where codigo_semestre = ?', [$description,$code]);
+                return back()->with('success',"Semestre editado exitosamente.");
             }
         }
         // TODO: redireción con error (revisar status de UserController)

@@ -8,26 +8,27 @@
         <h3>Estado de semestre</h3>
     @if ($enabled_period != "")
         <h4>
-            El semestre habilitado es el {{$enabled_period->codigo_semestre}}
+            El código de semestre habilitado es el {{$enabled_period->codigo_semestre}} <br>
 
             Ingrese el código del semestre para deshabilitar: <br>
             (Solo datos numéricos)
             <br>
             <br>
-        </h4>
-        <h5>
             <form method="POST" action="{{route('periods_edit')}}">
                 @csrf
                 <input class = "code" type="txtNumber" minlength="6" maxlength="6" id="codigo_semestre" name="codigo_semestre"
                 onchange="validatePeriodCode(this);"
                 onkeypress="return isNumberKey(event);">
-                <input onclick="verification();" type="submit">
+                <br>
+                <input value="Deshabilitar" onclick="verification();" type="submit">
             </form>
-        </h5>
+        </h4>
+
 
     @else
         <h4>
-            No se encuentra nigún semestre habilitado
+            No se encuentra nigún semestre habilitado <br>
+            seleccione el año y el semestre para habilitarlo
             <br><br>
 
             <form method="POST" action="{{route('periods_store')}}">
@@ -45,13 +46,12 @@
                 <input type="radio" id="p2" name="period" value="20">
                 <label for="p2">Segundo semestre</label><br>
                 <br>
-                {{-- TODO: agregar descipción --}}
 
                 <label for="description">Descripción</label>
                 <textarea name="description" id="description" cols="30" rows="2"></textarea>
-                <label for=""></label>
+                
                 <br>
-                <input type="submit">
+                <input type="submit" value="Habilitar/Editar">
             </form>
         </h4>
     @endif
