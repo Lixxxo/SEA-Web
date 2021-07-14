@@ -3,6 +3,32 @@
 <div>
     <a href="/dashboard">Menu principal</a>
 </div>
+<style>
+    input[type=button], input[type=submit], input[type=reset] {
+        border: none;
+        color: white;
+        padding: 16px 32px;
+        text-decoration: none;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+    input[type=txtNumber] {
+        padding: 12px 20px;
+        margin: 8px 0;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    table, th, td {
+        width: 10px;
+        border-collapse: collapse;
+        text-align: center;
+        border: 1px solid darkgrey;
+    }
+    table.center {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
 <div>
     <div  class="text-center">
         <h3>Estado de semestre</h3>
@@ -20,7 +46,7 @@
                 onchange="validatePeriodCode(this);"
                 onkeypress="return isNumberKey(event);">
                 <br>
-                <input value="Deshabilitar" onclick="verification();" type="submit">
+                <input value="Deshabilitar" onclick="verification();" type="submit" style="background-color: orange">
             </form>
         </h4>
 
@@ -49,15 +75,15 @@
 
                 <label for="description">Descripción</label>
                 <textarea name="description" id="description" cols="30" rows="2"></textarea>
-                
+
                 <br>
-                <input type="submit" value="Habilitar/Editar">
+                <input type="submit" value="Habilitar/Editar" style="background-color: green">
             </form>
         </h4>
     @endif
     </div>
     <div  >
-        <table class="table table-dark table-striped mt-4">
+        <table class="table table-dark table-striped mt-4" style="width: 50%; align-content: center; margin-left: auto; margin-right: auto">
             <thead>
                 <tr>
                     <th>Código</th>
@@ -102,7 +128,7 @@
     if (success){
         $.notify(success, "success")
     }
-    
+
 </script>
 <script>
     var validCode = false;
