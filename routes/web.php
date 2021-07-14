@@ -66,7 +66,7 @@ Route::get('/disabled', function (){
 
 // EAA-001
 Route::get('dashboard/import_data', 'App\Http\Controllers\ImportDataController@indexStudents')
-->middleware(['auth', 'Encargado Docente', 'EnabledPeriod']);
+->middleware(['auth', 'Encargado Docente']);
 Route::post('dashboard/import_data/importStudents', 'App\Http\Controllers\ImportDataController@importStudents')
 ->middleware(['auth', 'Encargado Docente']);
 
