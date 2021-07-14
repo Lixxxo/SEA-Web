@@ -7,6 +7,8 @@ use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\CourseController;
 
+use App\Http\Controllers\PeriodController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -109,5 +111,5 @@ Route::resource('/dashboard/courses', CourseController::class)
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard',['enabled_period' => PeriodController::has_enabled_period()]);
 })->name('dashboard');

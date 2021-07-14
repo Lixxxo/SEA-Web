@@ -19,7 +19,7 @@ class PeriodController extends Controller
         'enabled_period'=> $enabled_period]);
     }
 
-    public function has_enabled_period(){
+    public static function has_enabled_period(){
         foreach (Period::all() as $period){
             if ($period->estado == 1){
                 return true;
