@@ -94,9 +94,15 @@
 @section('script')
 <script src="{{asset("js/notify.min.js")}}"></script>
 <script>
-    function (){
-
+    var success = '{{session("success")}}';
+    var error = '{{session("error")}}';
+    if (error){
+        $.notify(error, "error");
     }
+    if (success){
+        $.notify(success, "success")
+    }
+    
 </script>
 <script>
     var validCode = false;

@@ -57,19 +57,18 @@ class PeriodController extends Controller
     public function update(Request $request){
         $code = $request->codigo_semestre;
         $period = DB::select('select * from periods where codigo_semestre = ?',[$code]);
-        dd($period);
-        if ($period == null) {
+        
+        
+        if (count($period) == 0) {
             //TODO: Enviar aviso de error de semestre no encontrado.
-            return redirect('/dashboard/periods');
+            return back()->with('error', "Semestre no encontrado");
         }
-        if ($period[0] != null){
-            if ($period[0]->estado == 1){
-                DB::update('update periods set estado = 0 where codigo_semestre = ?', [$code]);
-            }
-            else{
-                DB::update('update periods set estado = 1 where codigo_semestre = ?', [$code]);
-            }
+        if ($period[0]->estado == 0) {
+            //TODO: Enviar aviso de error de semestre ya deshabilitado
+            return back()->with('error', "Semestre ya deshabilitado");
         }
-        return redirect('/dashboard/periods');
+        +DB::update('update periods set estado = ? where codigo_semestre = ?', 
+        [0,$code]);
+        return back()->with('success',"Semestre deshabilitado exitosamente.");
     }
 }
