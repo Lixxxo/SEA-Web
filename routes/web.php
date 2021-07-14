@@ -66,21 +66,21 @@ Route::get('/disabled', function (){
 
 // EAA-001
 Route::get('dashboard/import_data', 'App\Http\Controllers\ImportDataController@indexStudents')
-->middleware(['auth', 'Encargado Docente']);
+->middleware(['auth', 'Encargado Docente', 'EnabledPeriod']);
 Route::post('dashboard/import_data/importStudents', 'App\Http\Controllers\ImportDataController@importStudents')
 ->middleware(['auth', 'Encargado Docente']);
 
 // EAA-002
 Route::get('dashboard/import_data_courses', 'App\Http\Controllers\ImportDataController@indexCourses')
-->middleware(['auth', 'Encargado Docente']);
+->middleware(['auth', 'Encargado Docente', 'EnabledPeriod']);
 Route::post('dashboard/import_data_courses/importCourses', 'App\Http\Controllers\ImportDataController@importCourses')
-->middleware(['auth', 'Encargado Docente']);
+->middleware(['auth', 'Encargado Docente', 'EnabledPeriod']);
 
 // EAA-004
 Route::get('dashboard/import_data_assistants', 'App\Http\Controllers\ImportDataController@indexAssistants')
-->middleware(['auth', 'Encargado Docente']);
+->middleware(['auth', 'Encargado Docente', 'EnabledPeriod']);
 Route::post('dashboard/import_data_assistants/importAssistants', 'App\Http\Controllers\ImportDataController@importAssistants')
-->middleware(['auth', 'Encargado Docente']);
+->middleware(['auth', 'Encargado Docente', 'EnabledPeriod']);
 
 //enc 001
 Route::get('/dashboard/surveys', 'App\Http\Controllers\SurveyController@index')
@@ -107,7 +107,7 @@ Route::post('/dashboard/surveys/deleteQuestion', 'App\Http\Controllers\SurveyCon
 
 // eaa 003
 Route::resource('/dashboard/courses', CourseController::class)
-->middleware(['auth','Encargado Docente']);
+->middleware(['auth','Encargado Docente', 'EnabledPeriod']);
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
