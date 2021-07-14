@@ -43,6 +43,8 @@ class PeriodController extends Controller
                 DB::update('update periods set descripcion = ? where codigo_semestre = ?', [$description,$code]);
             }
         }
+        // TODO: redireción con error (revisar status de UserController)
+        
         return redirect('/dashboard/periods');
     }
     /**
@@ -55,7 +57,7 @@ class PeriodController extends Controller
     public function update(Request $request){
         $code = $request->codigo_semestre;
         $period = DB::select('select * from periods where codigo_semestre = ?',[$code]);
-        //dd($period);
+        dd($period);
         if ($period == null) {
             //TODO: Enviar aviso de error de semestre no encontrado.
             return redirect('/dashboard/periods');

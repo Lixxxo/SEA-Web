@@ -10,7 +10,8 @@
         <h4>
             El semestre habilitado es el {{$enabled_period->codigo_semestre}}
 
-            Ingrese el código del semestre para deshabilitar:
+            Ingrese el código del semestre para deshabilitar: <br>
+            (Solo datos numéricos)
             <br>
             <br>
         </h4>
@@ -92,7 +93,11 @@
 @endsection
 @section('script')
 <script src="{{asset("js/notify.min.js")}}"></script>
+<script>
+    function (){
 
+    }
+</script>
 <script>
     var validCode = false;
     function verification() {
