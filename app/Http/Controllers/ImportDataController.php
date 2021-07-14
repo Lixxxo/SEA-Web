@@ -17,20 +17,28 @@ class ImportDataController extends Controller
     public function indexStudents() // Cargar Importar
     {
         //Aca creamos una query para que nos ponga la tabla usuarios en este orden y despues desplegarla en import_data
-        $data = DB::table('users')->where('role','Estudiante')->orderBy('name', 'desc')->get();
+        $data = DB::table('users')->where('role','Estudiante')->orderBy('name', 'asc')->get();
         return view('User_stories.EncDoc.eaa001.import_data', compact('data'));
     }
 
     public function importStudents(Request $request) // Cargamos datos con un excel o otro
     {
-        try
+        $file = $request->select_file;
+        if($file != null)
         {
-           $Students = Excel::import(new UserImport, $request->select_file);
-           return back()->with('success', 'Los alumnos han sido cargados correctamente');
+            try 
+            {
+                $Students = Excel::import(new UserImport, $request->select_file);
+                return back()->with('success', 'Se ha cargado el archivo correctamente');  
+            } 
+            catch (\Throwable $th) 
+            {
+                return back()->with('error', 'Hay alumnos duplicados en el archivo o el excel no tiene el formato correcto');
+            }
         }
-        catch (Throwable $th)
+        else
         {
-            return back()->with('error', 'Los alumnos no han sido cargados correctamente');
+            return back()->with('error', 'No se ha adjuntado ningun archivo!');    
         }
     }
 
@@ -45,44 +53,83 @@ class ImportDataController extends Controller
         }
         else
         {
-            
+            $data = null;
+            return view('User_stories.EncDoc.eaa002.import_data_courses', compact('data'));
         }
     }
 
     public function importCourses(Request $request) // Cargamos datos con un excel o otro
     {
-        $Courses = Excel::import(new CourseImport, $request->select_file);
-        try
+        $query0 = DB::select('select codigo_semestre from Periods where estado = ?', [1]);
+        $file = $request->select_file;
+        if($file != null)
         {
-            //$Courses = Excel::import(new CourseImport, $request->select_file);
-            return back()->with('success', 'Las asignaturas han sido cargadas correctamente');
+            try 
+            {
+                $Courses = Excel::import(new CourseImport, $request->select_file);
+                return back()->with('success', 'Las asignaturas han sido cargadas correctamente');                
+            } 
+            catch (\Throwable $th) 
+            {
+                if ($query0 == null) 
+                {
+                    return back()->with('error', 'No hay semestre habilitado');
+                }
+                else
+                {
+                    return back()->with('error', 'Hay asignaturas duplicadas o el archivo no tiene el formato correcto'); 
+                }
+            }
         }
-        catch(Throwable $error)
+        else
         {
-            return back()->with('error', 'Las asignaturas no han sido cargadas correctamente');
+            return back()->with('error', 'No se ha adjuntado ningun archivo!');
         }
     }
 
     public function indexAssistants() // Cargar Importar
     {
-        //Aca creamos una query para que nos ponga la tabla usuarios en este orden y despues desplegarla en import_data
-        $data = DB:: select('select ac.Usersrut, c.nrc from assistants_courses ac, courses c where ac.Coursesid = c.id');
-        return view('User_stories.EncDoc.eaa004.import_data_assistants', compact('data'));
+        $query0 = DB::select('select codigo_semestre from Periods where estado = ?', [1]);
+        if($query0 != null)
+        {
+            $data = DB:: select('select ac.Usersrut, c.nrc from assistants_courses ac, courses c where ac.Coursesid = c.id');
+            return view('User_stories.EncDoc.eaa004.import_data_assistants', compact('data'));           
+        }
+        else
+        {
+            $data = null;
+            return view('User_stories.EncDoc.eaa004.import_data_assistants', compact('data')); 
+        }
     }
 
     public function importAssistants(Request $request) // Cargamos datos con un excel o otro
     {
-
-        try
+        $query0 = DB::select('select codigo_semestre from Periods where estado = ?', [1]);
+        $file = $request->select_file;
+        if($file != null)
         {
-            $AssistantsCourses = Excel::import(new Assistants_CoursesImport, $request->select_file);
-            return back()->with('success', 'Los ayudantes han sido asignados');
+            try
+            {
+                $AssistantsCourses = Excel::import(new Assistants_CoursesImport, $request->select_file);
+                return back()->with('success', 'Los ayudantes han sido asignados');
+            }
+            catch (\Throwable $th)
+            {
+                if ($query0 == null) 
+                {
+                    return back()->with('error', 'No hay semestre habilitado');
+                }
+                else
+                {
+                    return back()->with('error', 'Hay ayudantes duplicados o el archivo no tiene el formato correcto'); 
+                }
+            }    
         }
-        catch (\Throwable $th)
+        else
         {
-            return back()->with('error', 'Los ayudantes no han sido asignados');
+            return back()->with('error', 'No se ha adjuntado ningun archivo!');
         }
- 
+        
     }
 
     public function indexAssociate() // Cargar Importar

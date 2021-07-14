@@ -53,7 +53,6 @@ class Assistants_CoursesImport implements ToModel,WithHeadingRow,WithChunkReadin
             }
             else
             {
-                //Poner alerta
                 return null;
             }
         }

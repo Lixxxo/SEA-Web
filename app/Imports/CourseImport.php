@@ -4,13 +4,12 @@ namespace App\Imports;
 
 use App\Models\Course;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Throwable;
 
-class CourseImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError
+class CourseImport implements ToModel,WithHeadingRow,WithChunkReading
 {
     /**
     * @param array $row
@@ -52,7 +51,6 @@ class CourseImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnErr
             }
             else
             {
-                //Poner alerta
                 return null;
             }
 
@@ -63,11 +61,6 @@ class CourseImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnErr
     public function chunkSize(): int
     {
         return 1000;
-
-    }
-
-    public function onError(Throwable $e)
-    {
 
     }
 }
