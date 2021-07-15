@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('contenido')
     <div class="text-center" >
-        <img alt="UCN" width="150" src="img/ucn-logo.png" />  
+        <img alt="UCN" width="150" src="img/ucn-logo.png" />
     </div>
 
     <div class="text-right">
@@ -27,6 +27,9 @@
                 @else
                     <form action="{{ route('login') }}">
                         <button>Iniciar Sesion</button>
+                    </form>
+                    <form action="{{ route('register') }}">
+                        <button>Registrarse</button>
                     </form>
                 @endauth
             </div>
