@@ -24,9 +24,9 @@
                 <td>{{$course_list[$i]->nombre_profesor}}</td>
                 <td>{{$course_list[$i]->rut_profesor}}</td>
                 <td>
-                @foreach($assistant_matrix[$i] as $assistant)
-                    <ul>{{$assistant->name}}</ul>
-                @endforeach
+                    @foreach($assistant_matrix[$i] as $assistant)
+                        <ul>{{$assistant->name}}</ul>
+                    @endforeach
                 <td>
                     <a href='/dashboard/courses/{{$course_list[$i]->id}}/edit' class="btn btn-warning">Editar</a>
                     <a href="/dashboard/courses/" class="btn btn-danger">Eliminar</a>

@@ -4,6 +4,7 @@
     <form action="/dashboard/courses/{{$course->id}}" method="POST">
         @csrf
         @method('PUT')
+        <a href="/dashboard/courses" class="btn btn-secondary" tabindex="7">Volver</a>
         <!--NRC-->
 
         <div class="mb-3">
@@ -37,29 +38,67 @@
         </div>
         <br>
 
+        <input type="submit" value="Guardar" class="btn btn-primary" tabindex="8">
+    </form>
+        <hr>
         <!--Nombre ayudantes-->
         <div class="mb-3">
-            <label class="form-label">Ayudantes</label>
+            @if (count($assistant_list) > 0)
+            <label class="form-label">Ayudantes</label><br>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Nombre</td>
+                        <td>Rut</td>
+                        <td>Acción</td>
+                    </tr>
+                </thead>
+                <tbody>
                 @for($i = 0 ; $i < count($assistant_list); $i++)
-                <ul id="rut_ayudante{{$i}}" name="rut_ayudante{{$i}}" type="text"
-                    value="{{$assistant_list[$i]->rut}}" >{{$assistant_list[$i]->name}}<ul>
-
+                    <tr>
+                    <td id="rut_ayudante{{$i}}" name="rut_ayudante{{$i}}" type="text" value="{{$assistant_list[$i]->rut}}" >{{$assistant_list[$i]->name}}</td>
+                    <td>{{$assistant_list[$i]->rut}}</td>
+                    <td>
+                        <input type="image" src="https://img.icons8.com/cotton/2x/delete-sign--v2.png" alt="Eliminar" width="20px" height="20px">
+                    </tr>
                 @endfor
+                </tbody>
+            </table>
+            @else
+                <label class="form-label">No hay ayudantes inscritos</label>
+
+            @endif
         </div>
         <!--Nombre estudiantes-->
         <div class="mb-3">
-            <label class="form-label">Estudiantes</label>
-                @for($i = 0 ; $i < count($student_list); $i++)
-                <ul id="rut_ayudante{{$i}}" name="rut_ayudante{{$i}}" type="text"
-                    value="{{$student_list[$i]->rut}}" >{{$student_list[$i]->name}}<ul>
-
-                @endfor
+            @if (count($student_list) > 0)
+                <label class="form-label">Estudiantes</label>
+                <table>
+                <thead>
+                    <tr>
+                        <td>Nombre</td>
+                        <td>Rut</td>
+                        <td>Acción</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for($i = 0 ; $i < count($student_list); $i++)
+                        <tr>
+                        <td id="rut_estudiante{{$i}}" name="rut_estudiante{{$i}}" type="text" value="{{$student_list[$i]->rut}}" >{{$student_list[$i]->name}}</td>
+                        <td>{{$student_list[$i]->rut}}</td>
+                        <td>
+                        <input type="image" src="https://img.icons8.com/cotton/2x/delete-sign--v2.png" alt="Eliminar" width="20px" height="20px">
+                        </tr>
+                    @endfor
+            @else
+                <label class="form-label">No hay estudiantes inscritos</label>
+            @endif
+                </tbody>
+            </table>
+            <ul>
         </div>
-
         <br>
-        <a href="/dashboard/courses" class="btn btn-secondary" tabindex="7">Cancelar</a>
-        <button type="submit" class="btn btn-primary" tabindex="8">Guardar</button>
-    </form>
+
 
     <script>
         function isNumberKey(evt){
@@ -121,4 +160,18 @@
     }
 </script>
 
+@endsection
+@section('script')
+<script src="{{asset("js/notify.min.js")}}"></script>
+<script>
+    var success = '{{session("success")}}';
+    var error = '{{session("error")}}';
+    if (error){
+        $.notify(error, "error");
+    }
+    if (success){
+        $.notify(success, "success")
+    }
+
+</script>
 @endsection

@@ -22,6 +22,19 @@
             body{
                 background-color: whitesmoke;
             }
+            table, th {
+
+                border-collapse: collapse;
+                text-align: center;
+                border: 2px solid darkgrey;
+                background-color: white;
+
+            }
+            td{
+                width: auto;
+                border: 2px solid darkgrey;
+                padding: 5px;
+            }
         </style>
       </div>
 
