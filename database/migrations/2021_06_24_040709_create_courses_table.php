@@ -19,7 +19,6 @@ class CreateCoursesTable extends Migration
             $table->string('codigo_asignatura')->unique('codigo_asignatura');
             $table->string('rut_profesor')->nullable();
             $table->string('nombre_profesor')->nullable();
-            $table->tinyInteger('estado')->default(1);
             $table->integer('Surveysid')->nullable()->index('FKCourses362920');
 
         });
