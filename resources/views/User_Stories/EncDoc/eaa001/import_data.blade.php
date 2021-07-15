@@ -33,6 +33,20 @@
         </form>
 
         <br/>
+        @if (session("student_list"))
+            <div>
+                <table>
+
+                </table>
+                @foreach (explode(";",session("student_list")) as $rut)
+                    {{$rut}}
+                @endforeach
+                    
+                <br>
+            </div> 
+        @endif
+
+
         <div class = "panel-default">
             <div class = "panel-body">
                 <div class = "table-responsive">
@@ -69,4 +83,5 @@
             $.notify(success, "success")
         }
     </script>
+
 @endsection

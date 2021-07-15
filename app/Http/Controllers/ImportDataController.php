@@ -26,15 +26,20 @@ class ImportDataController extends Controller
         $file = $request->select_file;
         if($file != null)
         {
-            try 
-            {
-                $Students = Excel::import(new UserImport, $request->select_file);
-                return back()->with('success', 'Se ha cargado el archivo correctamente');  
-            } 
-            catch (\Throwable $th) 
-            {
-                return back()->with('error', 'Hay alumnos duplicados en el archivo o el excel no tiene el formato correcto');
+            $students = Excel::toArray(new UserImport, $request->select_file)[0];
+            
+            //VALIDAR
+
+            $student_error = array();
+            foreach ($students as $s) {
+                //validaciones
+                
+                array_push($student_error,$s["rut"]);
             }
+
+            return back()
+            ->with('success', 'Se ha cargado el archivo correctamente')
+            ->with('student_list', implode(";",$student_error));
         }
         else
         {

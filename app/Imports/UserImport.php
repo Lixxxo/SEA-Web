@@ -22,6 +22,8 @@ class UserImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError
     public function model(array $row)
     {
         $student_verify = DB::select('select rut from users where rut = ?', [$row['rut']]);
+        
+        // si no lo encuentra se agrega
         if($student_verify == null)
         {
             return new User([
@@ -32,11 +34,6 @@ class UserImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError
                 'role' => 'Estudiante',
                 'enabled' => 1
             ]);              
-        }
-        else
-        {
-            return back()->with('error');
-            
         }
     }
 
