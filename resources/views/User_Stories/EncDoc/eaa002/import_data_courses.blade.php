@@ -31,6 +31,21 @@
                 </table>
             </div>
         </form>
+        <br>
+        @if (session("courses_list"))
+            <div class = "alert alert-danger">
+                <h3 class = "text-center">Los cursos con los siguientes nrc ya se encuentran dentro del semestre habilitado</h3>
+                <table class = "table table-bordered table-striped">
+                    <tr>
+                        <th>NRC</th>    
+                        @foreach (explode(";",session("courses_list")) as $nrc)
+                            <th>{{$nrc}}</th>
+                        @endforeach
+                    </tr>
+                </table>
+                <br>
+            </div> 
+        @endif
 
         <br/>
         <div class = "panel-default">

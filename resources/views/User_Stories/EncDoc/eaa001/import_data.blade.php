@@ -31,22 +31,21 @@
                 </table>
             </div>
         </form>
-
         <br/>
         @if (session("student_list"))
-            <div>
-                <table>
-
+            <div class = "alert alert-danger">
+                <h3 class = "text-center">Los alumnos con los siguientes rut se encuentran duplicados en el archivo </h3>
+                <table class = "table table-bordered table-striped">
+                    <tr>
+                        <th>Rut</th>    
+                        @foreach (explode(";",session("student_list")) as $rut)
+                            <th>{{$rut}}</th>
+                        @endforeach
+                    </tr>
                 </table>
-                @foreach (explode(";",session("student_list")) as $rut)
-                    {{$rut}}
-                @endforeach
-                    
                 <br>
             </div> 
         @endif
-
-
         <div class = "panel-default">
             <div class = "panel-body">
                 <div class = "table-responsive">
@@ -83,5 +82,4 @@
             $.notify(success, "success")
         }
     </script>
-
 @endsection

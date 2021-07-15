@@ -3,7 +3,6 @@
 namespace App\Imports;
 
 use App\Models\Assistants_Courses;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -19,47 +18,10 @@ class Assistants_CoursesImport implements ToModel,WithHeadingRow,WithChunkReadin
     */
     public function model(array $row)
     {
-        $query0 = DB::select('select rut from users where rut = ? and role = ?', [$row['rut'], 'Ayudante']);
-
-        if($query0 != NULL)
-        {
-            $course_id = DB::select('select id from courses where nrc = ?', [$row['nrc']])[0]->id;
-
-            $query2 = DB::select('select codigo_semestre from periods where estado = 1');
-
-            if($query2 != null)
-            {
-                $query3 = DB::select('select Periodscodigo_semestre from periods_courses where Periodscodigo_semestre = ? and Coursesid = ?', [$query2[0]->codigo_semestre, $course_id]);
-                
-                if($query3 != null)
-                {
-                    $query1 = DB::select('select Usersrut from assistants_courses where Usersrut = ? and Coursesid = ?', [$row['rut'], $course_id]);
-
-                    if($query1 == null)
-                    {
-                        $query4 = DB::insert('insert into assistants_courses (Usersrut, Coursesid) values (?, ?)', [$row['rut'], $course_id]);
-
-                        return null;       
-                    }
-                    else
-                    {
-                        return null;
-                    }                
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
-            }
-        }
-        else
-        {
-            return null;
-        }
+        return new Assistants_Courses([
+            'Usersrut' => $row['rut'],
+            'Coursesid' => $row['nrc']
+        ]);
     }
 
     public function chunkSize(): int

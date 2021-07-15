@@ -31,7 +31,71 @@
                 </table>
             </div>
         </form>
-
+        <br>
+        @if (session("courses_list"))
+            <div class = "alert alert-danger">
+                <h3 class = "text-center">Los cursos con los siguientes nrc no se encuentran dentro del semestre habilitado</h3>
+                <table class = "table table-bordered table-striped">
+                    <tr>
+                        <th>NRC</th>    
+                        @foreach (explode(";",session("courses_list")) as $nrc)
+                            <th>{{$nrc}}</th>
+                        @endforeach
+                    </tr>
+                </table>
+                <br>
+            </div> 
+        @endif
+        @if (session("assistants_list"))
+            <div class = "alert alert-danger">
+                <h3 class = "text-center">Los ayudantes con los siguientes rut no se encuentran dentro del sistema</h3>
+                <table class = "table table-bordered table-striped">
+                    <tr>
+                        <th>Rut</th>    
+                        @foreach (explode(";",session("assistants_list")) as $rut)
+                            <th>{{$rut}}</th>
+                        @endforeach
+                    </tr>
+                </table>
+                <br>
+            </div> 
+        @endif
+        @if (session("assistants_C_list") && session("courses_C_list"))
+            <div class = "alert alert-danger">
+                <h3 class = "text-center">El ayudante con el siguiente rut ya es ayudante del curso con los siguientes nrc</h3>
+                <table class = "table table-bordered table-striped">
+                    <tr>
+                        <th>Rut</th>
+                        <th>NRC</th>
+                        @for ($i = 0; $i < count(explode(";",session("assistants_C_list"))); $i++)
+                            @php
+                                $courses_nrc = explode(";",session("courses_C_list"));
+                                $assistants_rut = explode(";",session("assistants_C_list"));
+                            @endphp
+                            <tr>
+                                <td>{{$assistants_rut[$i]}}</td>
+                                <td>{{$courses_nrc[$i]}}</td>
+                            </tr>
+                        @endfor
+                    </tr>
+                </table>
+                <br>
+            </div> 
+        @endif
+        @if (session("courses_verify"))
+            <div class = "alert alert-danger">
+                <h3 class = "text-center">Los cursos con los siguientes nrc no se encuentran en el sistema</h3>
+                <table class = "table table-bordered table-striped">
+                    <tr>
+                        <th>NRC</th>    
+                        @foreach (explode(";",session("courses_verify")) as $nrc)
+                            <th>{{$nrc}}</th>
+                        @endforeach
+                    </tr>
+                </table>
+                <br>
+            </div> 
+        @endif
         <br/>
         <div class = "panel-default">
             <div class = "panel-body">
