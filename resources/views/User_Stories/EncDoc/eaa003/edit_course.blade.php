@@ -29,6 +29,7 @@
                 @endforeach
                 <td>
                     <a href='/dashboard/courses/{{$course_list[$i]->id}}/edit' class="btn btn-warning">Editar</a>
+                    <a href="/dashboard/courses/" class="btn btn-danger">Eliminar</a>
                 </td>
             </tr>
         @endfor
