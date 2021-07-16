@@ -19,7 +19,7 @@
             <br>
             <form method="POST" action="{{route('periods_edit')}}">
                 @csrf
-                <input class = "code" type="txtNumber" minlength="6" maxlength="6" id="codigo_semestre" name="codigo_semestre"
+                <input class = "form" type="txtNumber" minlength="6" maxlength="6" id="codigo_semestre" name="codigo_semestre"
                 onchange="validatePeriodCode(this);"
                 onkeypress="return isNumberKey(event);">
                 <br>
