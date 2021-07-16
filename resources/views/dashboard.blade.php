@@ -29,7 +29,19 @@
 @else
     <hr>
     @if (Auth::user()->role == "Administrador")
-        
+
+
+        <div class="container">
+            <section>
+                <a href="/dashboard/periods">
+                    <div class="child" style="float: left">
+                        <label for="">Período académico</label>
+                        <input id="academic-period" type="image" src="https://image.flaticon.com/icons/png/512/4743/4743099.png" alt="Período académico" width="64px" height="64px">
+                    </div>
+                </a>
+            </section>
+        </div>
+
         <!--Cosas de Administrador-->
         <div>
             <a href="/dashboard/users">

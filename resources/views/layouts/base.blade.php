@@ -103,6 +103,34 @@
             #restore-password:hover{
                 background-color: rgb(243, 166, 166);
             }
+            .container{
+                max-width: 1200px;
+                margin-top: 10px;
+                margin: 15px;
+            }
+            .child{
+                margin: 5px;
+                text-align: center;
+                text-transform: uppercase;
+                background: #00cccc;
+                border-radius: 10px;
+                padding: 10px;
+                border-collapse: collapse;
+                border: 1px solid #eee;
+                box-shadow: 0px 0px 20px rgba(0,0,0,0.10),
+                            0px 10px 20px rgba(0,0,0,0.05),
+                            0px 20px 20px rgba(0,0,0,0.05),
+                            0px 30px 20px rgba(0,0,0,0.05);
+            }
+            .child input{
+
+            }
+            section div{
+                float: left;
+            }
+            section div label{
+                display: block;
+            }
 
         </style>
       </div>
