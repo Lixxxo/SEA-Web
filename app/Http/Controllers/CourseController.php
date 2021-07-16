@@ -104,14 +104,19 @@ class CourseController extends Controller
 
         }
         */
-        $count = DB::select('select COUNT(*) from courses where nrc = ?', [$nrc])[0];
-
-        if ($count !== 0 && (strval($nrc) != strval($old_nrc))){
+        $nrcs = DB::select('select nrc from courses where nrc = ?', [$nrc]);
+        if (count($nrcs) != 0){
+            if (strval($nrc) == strval($old_nrc)){
+                DB::update('update courses set nrc = ?, codigo_asignatura = ?, rut_profesor = ?,  nombre_profesor = ?  where id = ?', [$nrc, $course_codigo, $professor_rut, $professor_nombre, $course_id]);
+                return back()->with('success',"Asignatura modificada con exito. Mismo NRC");
+            }
             return back()->with('error', "El NRC ingresado ya existe");
         }
-        DB::update('update courses set nrc = ?, codigo_asignatura = ?, rut_profesor = ?,  nombre_profesor = ?  where id = ?', [$nrc, $course_codigo, $professor_rut, $professor_nombre, $course_id]);
+        else{
+            DB::update('update courses set nrc = ?, codigo_asignatura = ?, rut_profesor = ?,  nombre_profesor = ?  where id = ?', [$nrc, $course_codigo, $professor_rut, $professor_nombre, $course_id]);
+            return back()->with('success',"Asignatura modificada con exito. Distinto nrc");
+        }
 
-        return back()->with('success',"Asignatura modificada con exito.");
     }
 
     /**
