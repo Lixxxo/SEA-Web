@@ -6,23 +6,6 @@
     <div class = "container">
         <h3 align = "center">Asociar estudiantes</h3>
         <br>
-        @if ($message = Session::get('error'))
-            <div class = "alert alert-danger">
-                Problema al cargar el archivo, verifique que todo este correcto e intente de nuevo!!<br>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li> {{ $error }} </li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        @if($message = Session::get('success'))
-            <div class = "alert alert-success alert-block">
-                <button type = "button" class = "close" data-dismiss = "alert">x</button>
-                <strong> {{ $message }}</strong>
-            </div>
-        @endif
         <form method = "post" enctype = "multipart/form-data" action = '/dashboard/import_data_associate/importAssociate'>
             {{ csrf_field() }}
             <div class = "form-group">
@@ -48,8 +31,71 @@
                 </table>
             </div>
         </form>
-
-        <br/>
+        @if (session("courses_list"))
+            <div class = "alert alert-danger">
+                <h3 class = "text-center">Los cursos con los siguientes nrc no se encuentran dentro del semestre habilitado</h3>
+                <table class = "table table-bordered table-striped">
+                    <tr>
+                        <th>NRC</th>    
+                        @foreach (explode(";",session("courses_list")) as $nrc)
+                            <th>{{$nrc}}</th>
+                        @endforeach
+                    </tr>
+                </table>
+                <br>
+            </div> 
+        @endif
+        @if (session("students_list"))
+            <div class = "alert alert-danger">
+                <h3 class = "text-center">Los estudiantes con los siguientes rut no se encuentran dentro del sistema</h3>
+                <table class = "table table-bordered table-striped">
+                    <tr>
+                        <th>Rut</th>    
+                        @foreach (explode(";",session("students_list")) as $rut)
+                            <th>{{$rut}}</th>
+                        @endforeach
+                    </tr>
+                </table>
+                <br>
+            </div> 
+        @endif
+        @if (session("students_C_list") && session("courses_C_list"))
+            <div class = "alert alert-danger">
+                <h3 class = "text-center">El estudiante con el siguiente rut ya es estudiante del curso con el siguientes nrc</h3>
+                <table class = "table table-bordered table-striped">
+                    <tr>
+                        <th>Rut</th>
+                        <th>NRC</th>
+                        @for ($i = 0; $i < count(explode(";",session("students_C_list"))); $i++)
+                            @php
+                                $courses_nrc = explode(";",session("courses_C_list"));
+                                $students_rut = explode(";",session("students_C_list"));
+                            @endphp
+                            <tr>
+                                <td>{{$students_rut[$i]}}</td>
+                                <td>{{$courses_nrc[$i]}}</td>
+                            </tr>
+                        @endfor
+                    </tr>
+                </table>
+                <br>
+            </div> 
+        @endif
+        @if (session("courses_verify"))
+            <div class = "alert alert-danger">
+                <h3 class = "text-center">Los cursos con los siguientes nrc no se encuentran en el sistema</h3>
+                <table class = "table table-bordered table-striped">
+                    <tr>
+                        <th>NRC</th>    
+                        @foreach (explode(";",session("courses_verify")) as $nrc)
+                            <th>{{$nrc}}</th>
+                        @endforeach
+                    </tr>
+                </table>
+                <br>
+            </div> 
+        @endif
+    <br/> 
         <div class = "panel-default">
             <div class = "panel-body">
                 <div class = "table-responsive">
@@ -58,15 +104,32 @@
                         <th>NRC</th>
                         <th>Rut del estudiante</th>
                     </tr>
-                    @foreach ($data as $row)
-                        <tr>
-                            <td>{{ $row->nrc }}</td>
-                            <td>{{ $row->Usersrut }}</td>
-                        </tr>
-                    @endforeach
+                    @if ($data == null)
+                    
+                    @else
+                        @foreach ($data as $row)
+                            <tr>
+                                <td>{{ $row->nrc }}</td>
+                                <td>{{ $row->Usersrut }}</td>
+                            </tr>
+                        @endforeach
+                    @endif
                     </table>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script src="{{asset("js/notify.min.js")}}"></script>
+    <script>
+        var success = '{{session("success")}}';
+        var error = '{{session("error")}}';
+        if (error){
+            $.notify(error, "error");
+        }
+        if (success){
+            $.notify(success, "success")
+        }
+    </script>
 @endsection

@@ -28,23 +28,30 @@ class ImportDataController extends Controller
         if($file != null)
         {
             $students = Excel::toArray(new UserImport, $request->select_file)[0];
-            $student_error = array();
-            foreach ($students as $s) {
-                //validaciones
-                $student_verify = DB::select('select rut from users where rut = ?', [$s['rut']]);
-                if($student_verify == null)
-                {
-                    DB::insert('insert into users (rut, name, email, password, role, enabled) values (?, ?, ?, ?, ?, ?)', [$s['rut'], $s['nombre'], $s['correo'], Hash::make(substr($s['rut'], 0, -2)), 'Estudiante', 1]);
+            $file_verify = array_keys($students[0]);
+            if($file_verify[0] == 'rut' && $file_verify[1] == 'nombre' && $file_verify[2] == 'correo')
+            {
+                $student_error = array();
+                foreach ($students as $s) {
+                    $student_verify = DB::select('select rut from users where rut = ?', [$s['rut']]);
+                    if($student_verify == null)
+                    {
+                        DB::insert('insert into users (rut, name, email, password, role, enabled) values (?, ?, ?, ?, ?, ?)', [$s['rut'], $s['nombre'], $s['correo'], Hash::make(substr($s['rut'], 0, -2)), 'Estudiante', 1]);
+                    }
+                    else
+                    {
+                        array_push($student_error,$s["rut"]);   
+                    }
                 }
-                else
-                {
-                    array_push($student_error,$s["rut"]);   
-                }
-            }
 
-            return back()
-            ->with('success', 'Se ha cargado el archivo correctamente')
-            ->with('student_list', implode(";",$student_error));
+                return back()
+                ->with('success', 'Se ha cargado el archivo correctamente')
+                ->with('student_list', implode(";",$student_error));                
+            }
+            else
+            {
+                return back()->with('error', 'Archivo con formato incorrecto');
+            }
         }
         else
         {
@@ -76,45 +83,54 @@ class ImportDataController extends Controller
             if($period_code == null)
             {
                 return back()->with('error', 'No hay semestre habilitado');
-                
+
             }
             else
             {
                 $courses = Excel::toArray(new CourseImport, $request->select_file)[0];
-                $courses_error = array();
-                foreach ($courses as $c) {
-                    if($c['nrc'] == null)
-                    {
-                        //Nada
-                    }
-                    else
-                    {
-                        $course_verify = DB::select('select nrc from courses where nrc = ?', [$c['nrc']]);
-                        if($course_verify == null)
+                $file_verify = array_keys($courses[0]);
+                if($file_verify[0] == 'nrc' && $file_verify[1] == 'codigo_asignatura' && $file_verify[2] == 'nombre_profesor' && $file_verify[3] == 'rut_profesor')
+                {
+                    $courses_error = array();
+                    foreach ($courses as $c) {
+                        if($c['nrc'] == null)
                         {
-                            DB::insert('insert into courses (nrc,	codigo_asignatura, rut_profesor, nombre_profesor) values (?, ?, ?, ?)', [$c['nrc'], $c['codigo_asignatura'], $c['rut_profesor'], $c['nombre_profesor']]);
-                            $course_id = DB::select('select id from courses where nrc = ?', [$c['nrc']]);
-                            DB::insert('insert into periods_courses (Periodscodigo_semestre, Coursesid) values (?, ?)', [$period_code[0]->codigo_semestre, $course_id[0]->id]);
+                            //Nada
                         }
                         else
                         {
-                            $course_id = DB::select('select id from courses where nrc = ?', [$c['nrc']]);
-                            $period_code_semestre = DB::select('select Periodscodigo_semestre from Periods_Courses where Periodscodigo_semestre = ? and Coursesid = ?', [$period_code[0]->codigo_semestre, $course_id[0]->id]);
-                            if($period_code_semestre == null)
+                            $course_verify = DB::select('select nrc from courses where nrc = ?', [$c['nrc']]);
+                            if($course_verify == null)
                             {
+                                DB::insert('insert into courses (nrc,codigo_asignatura, rut_profesor, nombre_profesor) values (?, ?, ?, ?)', [$c['nrc'], $c['codigo_asignatura'], $c['rut_profesor'], $c['nombre_profesor']]);
+                                $course_id = DB::select('select id from courses where nrc = ?', [$c['nrc']]);
                                 DB::insert('insert into periods_courses (Periodscodigo_semestre, Coursesid) values (?, ?)', [$period_code[0]->codigo_semestre, $course_id[0]->id]);
                             }
                             else
                             {
-                                array_push($courses_error,$c["nrc"]);
-                            }
-                        }                    
+                                $course_id = DB::select('select id from courses where nrc = ?', [$c['nrc']]);
+                                $period_code_semestre = DB::select('select Periodscodigo_semestre from Periods_Courses where Periodscodigo_semestre = ? and Coursesid = ?', [$period_code[0]->codigo_semestre, $course_id[0]->id]);
+                                if($period_code_semestre == null)
+                                {
+                                    DB::insert('insert into periods_courses (Periodscodigo_semestre, Coursesid) values (?, ?)', [$period_code[0]->codigo_semestre, $course_id[0]->id]);
+                                }
+                                else
+                                {
+                                    array_push($courses_error,$c["nrc"]);
+                                }
+                            }                    
+                        }
                     }
-                }
 
-                return back()
-                ->with('success', 'Se ha cargado el archivo correctamente')
-                ->with('courses_list', implode(";",$courses_error));                
+                    return back()
+                    ->with('success', 'Se ha cargado el archivo correctamente')
+                    ->with('courses_list', implode(";",$courses_error)); 
+                }
+                else
+                {
+                    return back()->with('error', 'Archivo con formato incorrecto');
+                }
+               
             }
 
         }
@@ -152,67 +168,75 @@ class ImportDataController extends Controller
             else
             {
                 $assistants = Excel::toArray(new Assistants_CoursesImport, $request->select_file)[0];
+                $file_verify = array_keys($assistants[0]);
+                if($file_verify[0] == 'nrc' && $file_verify[1] == 'rut')
+                {
+                    $assistants_error = array();
+                    $courses_error = array();
+                    $assistants_Cverify = array();
+                    $courses_Cverify = array();
+                    $courses_verify = array();
 
-                $assistants_error = array();
-                $courses_error = array();
-                $assistants_Cverify = array();
-                $courses_Cverify = array();
-                $courses_verify = array();
 
 
-
-                foreach ($assistants as $a) {
-                    if($a['nrc'] == null)
-                    {
-                        //Nada
-                    }
-                    else
-                    {
-                        $assistants_verify = DB::select('select rut from users where rut = ? and (role = ? or role = ?)', [$a['rut'], 'Ayudante', 'Estudiante']);
-                        if($assistants_verify != null)
+                    foreach ($assistants as $a) {
+                        if($a['nrc'] == null)
                         {
-                            $course_id = DB::select('select id from courses where nrc = ?', [$a['nrc']]);
-                            if($course_id == null)
-                            {
-                                array_push($courses_verify,$a["nrc"]);
-                            }
-                            else
-                            {
-                                $period_course_verify = DB::select('select Periodscodigo_semestre from periods_courses where Periodscodigo_semestre = ? and Coursesid = ?', [$period_code[0]->codigo_semestre, $course_id[0]->id]);
-                                if($period_course_verify != null)
-                                {
-                                    $assistants_courses = DB::select('select Usersrut from assistants_courses where Usersrut = ? and Coursesid = ?', [$a['rut'], $course_id[0]->id]);
-                                    if($assistants_courses == null)
-                                    {
-                                        DB::insert('insert into assistants_courses (Usersrut, Coursesid) values (?, ?)', [$a['rut'], $course_id[0]->id]);
-
-                                    }
-                                    else
-                                    {
-                                        array_push($assistants_Cverify,$a["rut"]);
-                                        array_push($courses_Cverify,$a["nrc"]);
-                                    }
-                                }
-                                else
-                                {
-                                    array_push($courses_error,$a["nrc"]);  
-                                }                                
-                            }
+                            //Nada
                         }
                         else
                         {
-                            array_push($assistants_error,$a["rut"]);
-                        }           
+                            $assistants_verify = DB::select('select rut from users where rut = ? and (role = ? or role = ?)', [$a['rut'], 'Ayudante', 'Estudiante']);
+                            if($assistants_verify != null)
+                            {
+                                $course_id = DB::select('select id from courses where nrc = ?', [$a['nrc']]);
+                                if($course_id == null)
+                                {
+                                    array_push($courses_verify,$a["nrc"]);
+                                }
+                                else
+                                {
+                                    $period_course_verify = DB::select('select Periodscodigo_semestre from periods_courses where Periodscodigo_semestre = ? and Coursesid = ?', [$period_code[0]->codigo_semestre, $course_id[0]->id]);
+                                    if($period_course_verify == $period_code)
+                                    {
+                                        $assistants_courses = DB::select('select Usersrut from assistants_courses where Usersrut = ? and Coursesid = ?', [$a['rut'], $course_id[0]->id]);
+                                        if($assistants_courses == null)
+                                        {
+                                            DB::insert('insert into assistants_courses (Usersrut, Coursesid) values (?, ?)', [$a['rut'], $course_id[0]->id]);
+
+                                        }
+                                        else
+                                        {
+                                            array_push($assistants_Cverify,$a["rut"]);
+                                            array_push($courses_Cverify,$a["nrc"]);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        array_push($courses_error,$a["nrc"]);  
+                                    }                                
+                                }
+                            }
+                            else
+                            {
+                                array_push($assistants_error,$a["rut"]);
+                            }           
+                        }
                     }
+
+                    return back()
+                    ->with('success', 'Se ha cargado el archivo correctamente')
+                    ->with('courses_list', implode(";",$courses_error)) 
+                    ->with('assistants_list', implode(";",$assistants_error))
+                    ->with('assistants_C_list', implode(";",$assistants_Cverify))
+                    ->with('courses_C_list', implode(";",$courses_Cverify))
+                    ->with('courses_verify', implode(";",$courses_verify));                    
+                }
+                else
+                {
+                    return back()->with('error', 'Archivo con formato incorrecto');
                 }
 
-                return back()
-                ->with('success', 'Se ha cargado el archivo correctamente')
-                ->with('courses_list', implode(";",$courses_error)) 
-                ->with('assistants_list', implode(";",$assistants_error))
-                ->with('assistants_C_list', implode(";",$assistants_Cverify))
-                ->with('courses_C_list', implode(";",$courses_Cverify))
-                ->with('courses_verify', implode(";",$courses_verify));
             }
         }
         else
@@ -223,21 +247,107 @@ class ImportDataController extends Controller
 
     public function indexAssociate() // Cargar Importar
     {
-        //Aca creamos una query para que nos ponga la tabla usuarios en este orden y despues desplegarla en import_data
-        $data = DB::select('select sc.Usersrut, c.nrc from students_courses sc, courses c where sc.Coursesid = c.id');
-        return view('User_stories.EncDoc.eaa005.import_data_associate', compact('data'));
+        $period_verify = DB::select('select codigo_semestre from Periods where estado = ?', [1]);
+        if($period_verify != null)
+        {
+            $data = DB::select('select sc.Usersrut, c.nrc from students_courses sc, courses c where sc.Coursesid = c.id');
+            return view('User_stories.EncDoc.eaa005.import_data_associate', compact('data'));
+        }
+        else
+        {
+            $data = null;
+            return view('User_stories.EncDoc.eaa005.import_data_associate', compact('data'))->with('error', 'No hay semestre habilitado!');
+        }
+        
     }
 
     public function importAssociate(Request $request) // Cargamos datos con un excel o otro
     {
-        try
+        $period_code = DB::select('select codigo_semestre from Periods where estado = ?', [1]);
+        $file = $request->select_file;
+        if($file != null)
         {
-            $StudentsCourses = Excel::import(new Students_CoursesImport, $request->select_file);
-            return back()->with('success', 'Los estudiantes han sido asignados');
+            if($period_code == null)
+            {
+                return back()->with('error', 'No hay semestre habilitado');
+            }
+            else
+            {
+                $associate = Excel::toArray(new Students_CoursesImport, $request->select_file)[0];
+                $file_verify = array_keys($associate[0]);
+                if($file_verify[0] == 'rut' && $file_verify[1] == 'nrc')
+                {
+                    $students_error = array();
+                    $courses_error = array();
+                    $students_Cverify = array();
+                    $courses_Cverify = array();
+                    $courses_verify = array();
+
+
+
+                    foreach ($associate as $a) {
+                        if($a['nrc'] == null)
+                        {
+                            //Nada
+                        }
+                        else
+                        {
+                            $students_verify = DB::select('select rut from users where rut = ? and role = ?', [$a['rut'], 'Estudiante']);
+                            if($students_verify != null)
+                            {
+                                $course_id = DB::select('select id from courses where nrc = ?', [$a['nrc']]);
+                                if($course_id == null)
+                                {
+                                    array_push($courses_verify,$a["nrc"]);
+                                }
+                                else
+                                {
+                                    $period_course_verify = DB::select('select Periodscodigo_semestre from periods_courses where Periodscodigo_semestre = ? and Coursesid = ?', [$period_code[0]->codigo_semestre, $course_id[0]->id]);
+                                    if($period_course_verify == $period_code)
+                                    {
+                                        $students_courses = DB::select('select Usersrut from students_courses where Usersrut = ? and Coursesid = ?', [$a['rut'], $course_id[0]->id]);
+                                        if($students_courses == null)
+                                        {
+                                            DB::insert('insert into students_courses (Usersrut, Coursesid) values (?, ?)', [$a['rut'], $course_id[0]->id]);
+
+                                        }
+                                        else
+                                        {
+                                            array_push($students_Cverify,$a["rut"]);
+                                            array_push($courses_Cverify,$a["nrc"]);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        array_push($courses_error,$a["nrc"]);  
+                                    }                                
+                                }
+                            }
+                            else
+                            {
+                                array_push($students_error,$a["rut"]);
+                            }           
+                        }
+                    }
+
+                    return back()
+                    ->with('success', 'Se ha cargado el archivo correctamente')
+                    ->with('courses_list', implode(";",$courses_error)) 
+                    ->with('students_list', implode(";",$students_error))
+                    ->with('students_C_list', implode(";",$students_Cverify))
+                    ->with('courses_C_list', implode(";",$courses_Cverify))
+                    ->with('courses_verify', implode(";",$courses_verify));
+                }
+                else
+                {
+                    return back()->with('error', 'Archivo con formato incorrecto');
+                }
+                
+            }
         }
-        catch (Throwable $th)
+        else
         {
-            return back()->with('error', 'Los estudiantes no han sido asignados');
+            return back()->with('error', 'No se ha adjuntado ningun archivo!');
         }
     }
 }
