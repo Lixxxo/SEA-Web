@@ -20,6 +20,7 @@ class CreateCoursesTable extends Migration
             $table->string('rut_profesor')->nullable();
             $table->string('nombre_profesor')->nullable();
             $table->integer('Surveysid')->nullable()->index('FKCourses362920');
+
         });
     }
 

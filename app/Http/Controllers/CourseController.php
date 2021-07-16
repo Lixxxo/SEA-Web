@@ -88,8 +88,6 @@ class CourseController extends Controller
      */
     public function update(Request $request)
     {
-
-
         $course_id = $request->get('id');
         $old_nrc = $request->get('nrc_antiguo');
         $nrc  = $request->get('nrc');
@@ -98,15 +96,22 @@ class CourseController extends Controller
         $professor_nombre  = $request->get('nombre_profesor');
         $assistant_rut_list  = request()->except('_token', '_method', 'nrc','codigo_asignatura', 'rut_profesor', 'nombre_profesor');
 
-
+        /*
         if(strval($nrc) != strval($old_nrc)){
 
 
             DB::update('update courses set nrc = ? where id = ?', [$nrc, $course_id]);
 
         }
+        */
+        $count = DB::select('select COUNT(*) from courses where nrc = ?', [$nrc])[0];
 
-        return redirect('/dashboard/courses');
+        if ($count !== 0 && (strval($nrc) != strval($old_nrc))){
+            return back()->with('error', "El NRC ingresado ya existe");
+        }
+        DB::update('update courses set nrc = ?, codigo_asignatura = ?, rut_profesor = ?,  nombre_profesor = ?  where id = ?', [$nrc, $course_codigo, $professor_rut, $professor_nombre, $course_id]);
+
+        return back()->with('success',"Asignatura modificada con exito.");
     }
 
     /**

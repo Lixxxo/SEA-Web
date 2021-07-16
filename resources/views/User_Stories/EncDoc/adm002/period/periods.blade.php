@@ -4,36 +4,7 @@
     <a href="/dashboard">Menu principal</a>
 </div>
 <style>
-    input[type=button], input[type=submit], input[type=reset] {
-        border: none;
-        color: white;
-        padding: 16px 32px;
-        text-decoration: none;
-        margin: 4px 2px;
-        cursor: pointer;
-    }
-    input[type=txtNumber] {
-        padding: 12px 20px;
-        margin: 8px 0;
-        text-align: center;
-        box-sizing: border-box;
-    }
-    table, th {
-        width: 10px;
-        border-collapse: collapse;
-        text-align: center;
-        border: 2px solid darkgrey;
-        background-color: white;
 
-    }
-    td{
-        width: 10px;
-        border: 2px solid darkgrey;
-    }
-    table.center {
-        margin-left: auto;
-        margin-right: auto;
-    }
 </style>
 <div>
     <div  class="text-center">
@@ -88,39 +59,42 @@
         </h4>
     @endif
     </div>
-    <div  >
-        <table class="table table-dark table-striped mt-4" style="width: 50%; align-content: center; margin-left: auto; margin-right: auto">
-            <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Descripción</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-                    <tbody>
-            @foreach ($period_list as $period)
-            @if ($period->estado)
-                <tr style="background-color:palegreen;">
-            @else
-                <tr >
-            @endif
+    @if (count($period_list) > 0)
+        <div >
+            <table  >
+                <thead>
+                    <tr>
+                        <th id="header">Código</th>
+                        <th id="header">Descripción</th>
+                        <th id="header">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($period_list as $period)
+                        @if ($period->estado)
+                            <tr style="background-color:palegreen;">
+                        @else
+                            <tr >
+                        @endif
 
-                <td>{{$period->codigo_semestre}}</td>
-                <td>{{$period->descripcion}}</td>
-                <td>
-                    @if ($period->estado)
-                        Habilitado
-                    @else
-                        Deshabilitado
-                    @endif
+                        <td>{{$period->codigo_semestre}}</td>
+                        <td>{{$period->descripcion}}</td>
+                        <td>
+                        @if ($period->estado)
+                            Habilitado
+                        @else
+                            Deshabilitado
+                        @endif
 
-                </td>
-            </tr>
+                        </td>
+                        </tr>
 
-            @endforeach
-        </tbody>
-        </table>
-    </div>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
+
 </div>
 @endsection
 @section('script')
