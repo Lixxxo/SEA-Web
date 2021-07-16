@@ -14,6 +14,7 @@
 
   </head>
 
+
     <body>
       <br>
       <div class="container-fluid">
@@ -29,7 +30,7 @@
                 text-decoration: none;
                 margin: 4px 2px;
                 cursor: pointer;
-                border-radius: 25px;
+                border-radius: 10px;
             }
             input[type=txtNumber] {
                 padding: 12px 20px;
@@ -37,6 +38,7 @@
                 text-align: center;
                 box-sizing: border-box;
             }
+            /* -- Tablas -- */
             table{
                 font-family: 'Arial';
                 margin: 25px auto;
@@ -69,9 +71,39 @@
             table th.last{
                 border-right: none;
             }
-            #header{
+            /* -- FIN Tablas -- */
 
+            /* -- Direccionamiento URL "a" -- */
+            /*
+            a:link, a:visited{
+                background-color: #00cccc;
+                padding: 14px 25px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-family: Arial, Helvetica, sans-serif;
+                text-transform: uppercase;
             }
+            a:hover, a:active{
+                background-color: #50dbdb
+            }
+            */
+            #edit{
+
+                background-color: lightsalmon;
+                text-transform: uppercase;
+            }
+            #edit:hover{
+                background-color: rgb(252, 192, 168);
+            }
+            #restore-password{
+                background-color: lightcoral;
+                text-transform: uppercase;
+            }
+            #restore-password:hover{
+                background-color: rgb(243, 166, 166);
+            }
+
         </style>
       </div>
 

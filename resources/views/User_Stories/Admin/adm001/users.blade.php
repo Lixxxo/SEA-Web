@@ -8,7 +8,7 @@
     <br>
     <a href="users/create" class="btn btn-success" href="dashboard/users/create">Crear usuario</a>
     <br>
-    <table class="table table-dark table-striped mt-4">
+    <table>
         <thead>
             <tr>
                 <th scope="col">Rut</th>
@@ -28,18 +28,20 @@
                     <td>{{$user->email}}</td>
                     <td>{{$user->role}}</td>
                     @if ($user->enabled === 1)
-                        <td>Habilitado</td>
+                        <td style="color: green">Habilitado</td>
                     @else
-                        <td>Deshabilitado</td>
+                        <td style ="color: red">Deshabilitado</td>
                     @endif
-                    
+
                     <td>
-                        <a href='/dashboard/users/{{$user->id}}/edit' class="btn btn-warning">Editar</a>
+                        <a href='/dashboard/users/{{$user->id}}/edit'>
+                            <input type="button" id="edit" value="Editar">
+                        </a>
+
                         <form action="{{route ('reset_password') }}" method="POST">
                             @csrf
-                            <input  id="user_id" name="user_id" hidden value="{{$user->id}}">
-                            <button type="submit"  
-                                class="btn btn-info">Reestablecer contraseña</button>
+                            <input id="user_id" name="user_id" hidden value="{{$user->id}}">
+                            <input id="restore-password" type="submit" value="Restablecer contraseña">
                         </form>
                     </td>
                 </tr>
@@ -59,5 +61,5 @@
             $.notify(status, "success");
         }
     </script>
-    
+
 @endsection
