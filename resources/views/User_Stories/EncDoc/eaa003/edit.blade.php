@@ -41,6 +41,33 @@
         <input type="submit" value="Guardar" class="btn btn-primary" tabindex="8">
     </form>
         <hr>
+
+        <body>
+            <form action="">
+                <div class="form-parent">
+                    <div class="form">
+                        <input type="text" name="assistant_rut" autocomplete="off" required>
+                        <label for="assistant_rut" class="label-data">
+                            <span class="content-data">RUT Ayudante</span>
+                        </label>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Agregar">
+                </div>
+            </form>
+            <br>
+            <form action="">
+                <div class="form-parent">
+                    <div class="form">
+                        <input type="text" name="student_rut" autocomplete="off" required>
+                        <label for="student_rut" class="label-data">
+                            <span class="content-data">RUT Estudiante</span>
+                        </label>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Agregar">
+                </div>
+            </form>
+        </body>
+        <hr>
         <!--Nombre ayudantes-->
         <div class="mb-3">
             @if (count($assistant_list) > 0)

@@ -26,14 +26,15 @@
             input[type=button], input[type=submit], input[type=reset] {
                 border: none;
                 color: white;
-                padding: 16px 32px;
+                padding: 10px 10px;
                 text-decoration: none;
                 margin: 4px 2px;
                 cursor: pointer;
                 border-radius: 10px;
+                background-color: #00cccc;
             }
             input[type=txtNumber] {
-                padding: 12px 20px;
+                padding: 8px 12px;
                 margin: 8px 0;
                 text-align: center;
                 box-sizing: border-box;
@@ -132,6 +133,73 @@
                 display: block;
             }
 
+            input[type="text"]{
+                padding: 5px;
+
+            }
+            body{
+                height: 60vh;
+                display: flex;
+
+                align-items: center;
+                flex-direction: column;
+                font-family: sans-serif;
+            }
+            .form{
+                width: 50%;
+                position: relative;
+                height: 50px;
+                overflow: hidden;
+
+            }
+            .form input{
+                width: 100%;
+                height: 100%;
+                color: #595f6e;
+                padding-top: 20px;
+                border: none;
+                background-color: transparent;
+                outline: none;
+            }
+            .form label{
+                position: absolute;
+                bottom: 0px;
+                left: 0%;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                border-bottom: 1px solid black;
+            }
+            .form label::after{
+                content: "";
+                position: absolute;
+                left: 0px;
+                bottom: -1px;
+                height: 100%;
+                width: 100%;
+                border-bottom: 3px solid #5fa8d3;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .content-data{
+                position: absolute;
+                bottom: 5px;
+                left: 0px;
+                transition: all 0.3s ease;
+            }
+            .form input:focus + .label-data .content-data, .form input:valid + .label-data .content-data{
+                transform: translateY(-100%);
+            }
+            .form input:focus + .label-data::after, .form input:valid + .label-data::after{
+                transform: translateX(0%);
+            }
+
+            .submit-data{
+                background-color: green;
+                width: 100px;
+                height: 10px;
+                align-items: center;
+            }
         </style>
       </div>
 
