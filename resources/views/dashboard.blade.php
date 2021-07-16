@@ -31,7 +31,7 @@
     @if (Auth::user()->role == "Administrador")
 
 
-        <div class="container">
+        <div class="container_1">
             <section>
                 <a href="/dashboard/periods">
                     <div class="child" style="float: left">

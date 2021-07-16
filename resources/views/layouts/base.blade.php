@@ -103,7 +103,7 @@
             #restore-password:hover{
                 background-color: rgb(243, 166, 166);
             }
-            .container{
+            .container_1{
                 max-width: 1200px;
                 margin-top: 10px;
                 margin: 15px;
