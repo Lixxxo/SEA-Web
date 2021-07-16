@@ -60,13 +60,13 @@
     @endif
     </div>
     @if (count($period_list) > 0)
-        <div >
-            <table  >
+        <div>
+            <table>
                 <thead>
                     <tr>
-                        <th id="header">Código</th>
-                        <th id="header">Descripción</th>
-                        <th id="header">Estado</th>
+                        <th>Código</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,17 +74,17 @@
                         @if ($period->estado)
                             <tr style="background-color:palegreen;">
                         @else
-                            <tr >
+                            <tr>
                         @endif
 
                         <td>{{$period->codigo_semestre}}</td>
                         <td>{{$period->descripcion}}</td>
                         <td>
-                        @if ($period->estado)
-                            Habilitado
-                        @else
-                            Deshabilitado
-                        @endif
+                            @if ($period->estado)
+                                Habilitado
+                            @else
+                                Deshabilitado
+                            @endif
 
                         </td>
                         </tr>
