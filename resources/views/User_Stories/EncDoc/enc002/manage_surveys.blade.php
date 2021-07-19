@@ -31,8 +31,10 @@
                     @endif
     
                     <td>
-                        <a href='/dashboard/manage' class="btn btn-primary">Vincular</a>
-    
+                        <form action="{{ route('manage_survey') }}">
+                            <input name = "survey_id" type="text" value = "{{ $survey_list[$i]->id }}" hidden>
+                            <input type="submit" value="Vincular">
+                        </form>
                     </td>
                 </tr>
             @endfor

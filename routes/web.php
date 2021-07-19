@@ -113,7 +113,8 @@ Route::post('/dashboard/surveys/deleteQuestion', 'App\Http\Controllers\SurveyCon
 Route::get('dashboard/manage_surveys', 'App\Http\Controllers\SurveyController@indexSurveys')
 ->middleware(['auth', 'Encargado Docente']);
 Route::get('dashboard/manage', 'App\Http\Controllers\SurveyController@returnSurveys')
-->middleware(['auth', 'Encargado Docente']);
+->middleware(['auth', 'Encargado Docente'])
+->name('manage_survey');
 Route::post('dashboard/manage/accept', 'App\Http\Controllers\SurveyController@ManageSurveys')
 ->middleware(['auth', 'Encargado Docente'])
 ->name("link_survey");

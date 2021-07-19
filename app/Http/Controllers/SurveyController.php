@@ -107,26 +107,49 @@ class SurveyController extends Controller
 
     public function returnSurveys(Request $request)
     {
+        $survey_id = $request->get('survey_id');
+
         $period_enabled = DB::select('select codigo_semestre from periods where estado = ?', [1]);
-        $query1 = DB::select('select nrc, codigo_asignatura, Surveysid from courses c, periods_courses pc where c.id = Coursesid and pc.Periodscodigo_semestre = ?', [$period_enabled[0]->codigo_semestre]);
-        return view("User_Stories.EncDoc.enc002.manage", ['data' => $query1]);
+        
+        
+        if($period_enabled != null)
+        {
+            $query1 = DB::select('select nrc, codigo_asignatura, Surveysid from courses c, periods_courses pc where c.id = Coursesid and pc.Periodscodigo_semestre = ?', [$period_enabled[0]->codigo_semestre]);
+            return view("User_Stories.EncDoc.enc002.manage", ['data' => $query1, 'survey_id' => $survey_id]);    
+        }
+        else
+        {
+            return view("User_Stories.EncDoc.enc002.manage", ['data' => null, 'survey_id' => $survey_id]);
+        }
     }
 
     public function ManageSurveys(Request $request)
     {
         $period_enabled = DB::select('select codigo_semestre from periods where estado = ?', [1]);
-        $query1 = DB::select('select nrc, codigo_asignatura, Surveysid from courses c, periods_courses pc where c.id = Coursesid and pc.Periodscodigo_semestre = ?', [$period_enabled[0]->codigo_semestre]);
+        
+        $survey_id = $request->get('survey_associate');
+        $check_boxes = array_keys($request->except('_token', 'survey_associate'));
 
-        if($request->check != null)
+        if($period_enabled != null)
         {
-            for($i = 0; $i < count($request->all()); $i++)
+            if($check_boxes != null)
             {
-                
-            }            
+                foreach ($check_boxes as $check) 
+                {
+                    DB::update('update courses set surveysid = ? where nrc = ?', [$survey_id, substr($check, 5)]);
+                }
+                return back()->with('sucess', 'Se han vinculado las encuestas');
+
+            }
+            else
+            {
+                return back()->with('error', 'No se selecciono ningun curso');
+            }              
         }
         else
         {
-            return back()->with('error', 'No se selecciono ningun curso');
-        }        
+            return back()->with('error', 'No hay semestre habilitado');
+        }
+      
     }
 }
