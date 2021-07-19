@@ -105,6 +105,12 @@ Route::post('/dashboard/surveys/deleteQuestion', 'App\Http\Controllers\SurveyCon
 ->middleware(['auth', 'Encargado Docente'])
 ->name("deleteQuestion");
 
+// ENC-004
+
+Route::get('/dashboard/review_surveys', 'App\Http\Controllers\ResultsController@index')
+->middleware(['auth', 'Ayudante'])
+->name("reviewSurvey");
+
 // eaa 003
 Route::resource('/dashboard/courses', CourseController::class)
 ->middleware(['auth','Encargado Docente', 'EnabledPeriod']);
