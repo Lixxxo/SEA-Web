@@ -18,7 +18,7 @@ class SurveyChart extends BaseChart
     public function handler(Request $request): Chartisan
     {
         return Chartisan::build()
-            ->labels(['First', 'Second', 'Guetti'])
-            ->dataset('Sample', [1, 2, 5]);
+            ->labels(['Lixo', 'Joelo', 'Guetti', 'Noah', 'Pipe'])
+            ->dataset('EL NIÑO MAS BONITO', [1, 2, 17, 4.6, 15]);
     }
 }
