@@ -2,9 +2,9 @@
 
 @section('contenido')
     <div>
-        <a href="/dashboard">Dashboard</a>
+        <a href="/dashboard">Menú principal</a>
     </div>
-    <h3 align="center">Listado de Asignaturas</h3>
+    <h4>Listado de Asignaturas</h4>
 
     <table>
         <thead>
