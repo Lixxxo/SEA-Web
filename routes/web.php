@@ -150,10 +150,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 // ENC 003
 Route::get('/dashboard/answer_survey','App\Http\Controllers\AnswerController@index');
 Route::get('/dashboard/answer_survey/answer', 'App\Http\Controllers\AnswerController@edit')
-->middleware(['auth'])
+->middleware(['auth', 'Estudiante'])
 ->name("openSurvey");
 
 Route::post('/dashboard/answer_survey', 'App\Http\Controllers\AnswerController@answerSurvey')
-->middleware(['auth'])
+->middleware(['auth', 'Estudiante'])
 ->name("answerSurvey");
 
