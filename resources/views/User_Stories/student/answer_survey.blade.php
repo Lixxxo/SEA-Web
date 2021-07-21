@@ -24,17 +24,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($student_course_list as $course)
+                    @for ($i = 0; $i < count($student_course_list); $i++)
                         <tr>
-                            <td>{{ $course->nrc }}</td>
-                            <td>{{ $course->codigo_asignatura }}</td>
-                            <td>{{ $course->rut_profesor }}</td>
-                            <td>{{ $course->nombre_profesor }}</td>
+                            <td>{{ $student_course_list[$i]->nrc }}</td>
+                            <td>{{ $student_course_list[$i]->codigo_asignatura }}</td>
+                            <td>{{ $student_course_list[$i]->rut_profesor }}</td>
+                            <td>{{ $student_course_list[$i]->nombre_profesor }}</td>
                             <td>
-                                <form action="">
-                                    @if ($course->Surveysid != null)
-                                        <input type="button" value="Responder encuesta">
-                                        <input type="text" name="surveyId" hidden value={{ $course->Surveysid }}>
+                                <form action="{{ route('openSurvey') }}" method="GET">
+                                    @if ($student_course_list[$i]->Surveysid != null)
+                                        @if ($students_courses_table[$i]->isAnswered == 0)
+                                            <input type="submit" name="" id="" value="Responder">
+                                            <input type="text" name="surveysid" hidden
+                                                value="{{ $student_course_list[$i]->Surveysid }}">
+                                            <input type="text" name="coursesid" hidden
+                                                value="{{ $student_course_list[$i]->id }}">
+                                        @else
+                                            <p>Ya has respondido esta encuesta</p>
+                                        @endif
+
+
                                     @else
                                         <p>Sin encuesta asociada</p>
                                     @endif
@@ -42,7 +51,7 @@
                             </td>
                         </tr>
 
-                    @endforeach
+                    @endfor
                 </tbody>
             </table>
         @endif
@@ -52,5 +61,7 @@
 @endsection
 
 @section('script')
+
+
 
 @endsection
