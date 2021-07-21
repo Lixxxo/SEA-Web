@@ -50,10 +50,11 @@ class AnswerController extends Controller
     }
 
     public function answerSurvey(request $request){
+        $course_id = $request->get('courseid');
         for ($i=0; $i < $request->questions_number; $i++) {
             $answer = $request->get('answer'.$i);
             $questionid = $request->get('question'.$i);
-            DB::insert('insert into Answers (respuesta, Questionsid) values (?, ?)', [$answer, $questionid]);
+            DB::insert('insert into Answers (respuesta, Questionsid, Coursesid) values (?, ?, ?)', [$answer, $questionid, $course_id]);
         }
         DB::update('update Students_Courses set isAnswered = 1 where Usersrut = ? and Coursesid = ?', [$request->rut,$request->courseid]);
         return redirect('/dashboard/answer_survey')->with('success',"Has respondido esta encuesta");
