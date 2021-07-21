@@ -38,6 +38,14 @@ class CourseController extends Controller
         dd($request);
     }
 
+    public function addAssistant(request $request){
+        dd($request);
+    }
+
+    public function addStudent(request $request){
+        dd($request);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
