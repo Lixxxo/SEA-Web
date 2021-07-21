@@ -47,7 +47,9 @@ class CourseController extends Controller
     }
 
     public function deleteCourse(request $request){
-        dd($request);
+        //dd($request);
+        DB::delete('delete from courses where nrc = ?', [$request->get('nrc')]);
+        return back()->with("success", "Se ha eliminado la asignatura");
     }
 
     /**
