@@ -46,7 +46,8 @@
             @csrf
             <div class="form-parent">
                 <div class="form">
-                    <input type="text" name="assistantRut" autocomplete="off" required>
+                    <input type="text" placeholder = "11111111-1" oninput="checkRut(this);"
+                    name="assistantRut" autocomplete="off" required>
                     <input type="text" name="nrc" hidden value="{{ $course->nrc }}">
                     <label for="assistant_rut" class="label-data">
                         <span class="content-data">RUT Ayudante</span>
@@ -60,7 +61,8 @@
             @csrf
             <div class="form-parent">
                 <div class="form">
-                    <input type="text" name="studentRut" autocomplete="off" required>
+                    <input type="text" placeholder = "11111111-1" oninput="checkRut(this);"
+                     name="studentRut" autocomplete="off" required>
                     <input type="text" name="nrc" hidden value="{{ $course->nrc }}">
                     <label for="student_rut" class="label-data">
                         <span class="content-data">RUT Estudiante</span>
@@ -151,7 +153,23 @@
     </fieldset>
     <br>
 
-
+@endsection
+@section('script')
+    <script src="{{ asset('js/notify.min.js') }}"></script>
+    <script>
+        var success = '{{ session('success') }}';
+        var error = '{{ session('error') }}';
+        var info = '{{ session('info') }}';
+        if (error) {
+            $.notify(error, "error");
+        }
+        if (success) {
+            $.notify(success, "success")
+        }
+        if (info) {
+            $.notify(info, "info")
+        }
+    </script>
     <script>
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : evt.keyCode
@@ -219,20 +237,6 @@
 
             // Si todo sale bien, eliminar errores (decretar que es válido)
             rut.setCustomValidity('');
-        }
-    </script>
-
-@endsection
-@section('script')
-    <script src="{{ asset('js/notify.min.js') }}"></script>
-    <script>
-        var success = '{{ session('success') }}';
-        var error = '{{ session('error') }}';
-        if (error) {
-            $.notify(error, "error");
-        }
-        if (success) {
-            $.notify(success, "success")
         }
     </script>
 @endsection
