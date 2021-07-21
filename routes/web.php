@@ -9,6 +9,8 @@ use App\Http\Controllers\CourseController;
 
 use App\Http\Controllers\PeriodController;
 
+use App\Http\Controllers\AnswerController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -133,3 +135,6 @@ Route::post('/delete_course', 'App\Http\Controllers\CourseController@deleteCours
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard',['enabled_period' => PeriodController::has_enabled_period()]);
 })->name('dashboard');
+
+// ENC 003
+Route::resource('/dashboard/answer_survey', AnswerController::class);
