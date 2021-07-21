@@ -83,10 +83,11 @@
                     <tbody>
                         @for ($i = 0; $i < count($assistant_list); $i++)
                             <tr>
-                                <form action="{{route('deleteAssistant')}}" method="POST">
+                                <form action="{{ route('deleteAssistant') }}" method="POST">
                                     @csrf
+                                    <input type="text" name="assistantRut" hidden value="{{ $assistant_list[$i]->rut }}">
                                     <td id="rut_ayudante{{ $i }}" name="rut_ayudante{{ $i }}"
-                                        type="text" value="{{ $assistant_list[$i]->rut }}">
+                                        type="text" value="{{ $assistant_list[$i]->rut }}" >
                                         {{ $assistant_list[$i]->name }}</td>
                                     <td>{{ $assistant_list[$i]->rut }}</td>
                                     <td>
@@ -121,13 +122,17 @@
                     <tbody>
                         @for ($i = 0; $i < count($student_list); $i++)
                             <tr>
-                                <td id="rut_estudiante{{ $i }}" name="rut_estudiante{{ $i }}"
-                                    type="text" value="{{ $student_list[$i]->rut }}">{{ $student_list[$i]->name }}
-                                </td>
-                                <td>{{ $student_list[$i]->rut }}</td>
-                                <td>
-                                    <input type="image" src="https://img.icons8.com/cotton/2x/delete-sign--v2.png"
-                                        alt="Eliminar" width="20px" height="20px">
+                                <form action="{{ route('deleteStudent') }}" method="POST">
+                                    @csrf
+                                    <input type="text" name="studentRut" hidden value="{{ $student_list[$i]->rut }}">
+                                    <td id="rut_estudiante{{ $i }}" name="rut_estudiante{{ $i }}"
+                                        type="text" value="{{ $student_list[$i]->rut }}">{{ $student_list[$i]->name }}
+                                    </td>
+                                    <td>{{ $student_list[$i]->rut }}</td>
+                                    <td>
+                                        <input type="image" src="https://img.icons8.com/cotton/2x/delete-sign--v2.png"
+                                            alt="Eliminar" width="20px" height="20px">
+                                </form>
                             </tr>
                         @endfor
                     @else
