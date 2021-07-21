@@ -66,7 +66,7 @@ class CourseController extends Controller
         }
 
         $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0]->id;
-        $search = DB::select('select * from assistants_courses where Coursesid = ?', [$course_id]);
+        $search = DB::select('select * from assistants_courses where Coursesid = ? and Usersrut = ?', [$course_id, $rut]);
         if ($search != null){
             return back()->with("info", "Ayudante ya se encuentra en este curso.");
         }
@@ -88,7 +88,7 @@ class CourseController extends Controller
         }
 
         $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0]->id;
-        $search = DB::select('select * from students_courses where Coursesid = ?', [$course_id]);
+        $search = DB::select('select * from students_courses where Coursesid = ? and Usersrut = ?', [$course_id, $rut]);
         if ($search != null){
             return back()->with("info", "Estudiante ya se encuentra en este curso.");
         }

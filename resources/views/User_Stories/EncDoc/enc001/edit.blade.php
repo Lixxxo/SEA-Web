@@ -18,7 +18,7 @@
             <label for="habilitado"> Habilitado</label>
             @if ($survey->estado)
                 <input class="form-check-input" type="checkbox" id="enabled" name="enabled" checked>
-            @else1
+            @else
                 <input class="form-check-input" type="checkbox" id="enabled" name="enabled">
             @endif
 
