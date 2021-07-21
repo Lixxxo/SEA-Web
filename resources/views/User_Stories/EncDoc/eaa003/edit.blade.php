@@ -42,7 +42,7 @@
     <hr>
 
     <div>
-        <form action="{{route('addAssistant')}}" method="POST">
+        <form action="{{ route('addAssistant') }}" method="POST">
             @csrf
             <div class="form-parent">
                 <div class="form">
@@ -55,7 +55,7 @@
             </div>
         </form>
         <br>
-        <form action="{{route('addStudent')}}" method="POST">
+        <form action="{{ route('addStudent') }}" method="POST">
             @csrf
             <div class="form-parent">
                 <div class="form">
@@ -88,8 +88,9 @@
                                 <form action="{{ route('deleteAssistant') }}" method="POST">
                                     @csrf
                                     <input type="text" name="assistantRut" hidden value="{{ $assistant_list[$i]->rut }}">
+                                    <input type="text" name="nrc" hidden value="{{ $course->nrc }}">
                                     <td id="rut_ayudante{{ $i }}" name="rut_ayudante{{ $i }}"
-                                        type="text" value="{{ $assistant_list[$i]->rut }}" >
+                                        type="text" value="{{ $assistant_list[$i]->rut }}">
                                         {{ $assistant_list[$i]->name }}</td>
                                     <td>{{ $assistant_list[$i]->rut }}</td>
                                     <td>
@@ -127,6 +128,7 @@
                                 <form action="{{ route('deleteStudent') }}" method="POST">
                                     @csrf
                                     <input type="text" name="studentRut" hidden value="{{ $student_list[$i]->rut }}">
+                                    <input type="text" name="nrc" hidden value="{{ $course->nrc }}">
                                     <td id="rut_estudiante{{ $i }}" name="rut_estudiante{{ $i }}"
                                         type="text" value="{{ $student_list[$i]->rut }}">{{ $student_list[$i]->name }}
                                     </td>
