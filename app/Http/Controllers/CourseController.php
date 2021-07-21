@@ -17,7 +17,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $course_list = Course::all();
+        //$course_list = Course::all();
+        $course_list = DB::select('select * from courses where id in (select Coursesid from periods_courses where periodscodigo_semestre in (select codigo_semestre from Periods where estado = ?))', [1]);
         //$assistant_list = DB::table('users')->where('rut', DB::table('assistants_courses')->first())->first();
         $assistant_matrix = array();
         foreach ($course_list as $course) {
@@ -27,6 +28,80 @@ class CourseController extends Controller
 
         //return response()->json($assistant_list);
         return view('User_Stories.EncDoc.eaa003.edit_course', ['course_list' => $course_list], ['assistant_matrix' => $assistant_matrix]);
+    }
+
+    public function deleteAssistant(request $request){
+        //dd($request);
+
+        $rut = $request->get("assistantRut");
+        $nrc = $request->get("nrc");
+        $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0]->id;
+
+        $result = DB::delete('delete from assistants_courses where Usersrut = ? and Coursesid = ?', [$rut, $course_id]);
+
+        return back()->with("success", "Ayudante desvinculado del curso.");
+
+    }
+
+    public function deleteStudent(request $request){
+        //dd($request);
+        $rut = $request->get("studentRut");
+        $nrc = $request->get("nrc");
+        $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0]->id;
+
+        $result = DB::delete('delete from students_courses where Usersrut = ? and Coursesid = ?', [$rut, $course_id]);
+
+        return back()->with("success", "Estudiante desvinculado del curso.");
+
+    }
+
+    public function addAssistant(request $request){
+
+        $rut = $request->get("assistantRut");
+        $nrc = $request->get("nrc");
+
+        $search = DB::select('select id from users where rut = ?', [$rut]);
+        if ($search == null){
+            return back()->with("error", "Estudiante no encontrado en el sistema.");
+        }
+
+        $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0]->id;
+        $search = DB::select('select * from assistants_courses where Coursesid = ?', [$course_id]);
+        if ($search != null){
+            return back()->with("info", "Ayudante ya se encuentra en este curso.");
+        }
+
+        $result = DB::insert('insert into assistants_courses (Usersrut, Coursesid) values (?, ?)', [$rut, $course_id]);
+        return back()->with("success", "Ayudante añadido del curso.");
+
+    }
+
+    public function addStudent(request $request){
+        //dd($request);
+
+        $rut = $request->get("studentRut");
+        $nrc = $request->get("nrc");
+
+        $search = DB::select('select id from users where rut = ?', [$rut]);
+        if ($search == null){
+            return back()->with("error", "Estudiante no encontrado en el sistema.");
+        }
+
+        $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0]->id;
+        $search = DB::select('select * from students_courses where Coursesid = ?', [$course_id]);
+        if ($search != null){
+            return back()->with("info", "Estudiante ya se encuentra en este curso.");
+        }
+
+        $result = DB::insert('insert into students_courses (Usersrut, Coursesid) values (?, ?)', [$rut, $course_id]);
+        return back()->with("success", "Estudiante añadido del curso.");
+
+    }
+
+    public function deleteCourse(request $request){
+        //dd($request);
+        DB::delete('delete from courses where nrc = ?', [$request->get('nrc')]);
+        return back()->with("success", "Se ha eliminado la asignatura");
     }
 
     /**
@@ -93,24 +168,20 @@ class CourseController extends Controller
         $course_codigo = $request->get('codigo_asignatura');
         $professor_rut  = $request->get('rut_profesor');
         $professor_nombre  = $request->get('nombre_profesor');
-        $assistant_rut_list  = request()->except('_token', '_method', 'nrc', 'codigo_asignatura', 'rut_profesor', 'nombre_profesor');
 
-        /*
-        if(strval($nrc) != strval($old_nrc)){
-
-
-            DB::update('update courses set nrc = ? where id = ?', [$nrc, $course_id]);
-
-        }
-        */
-        $count = DB::select('select COUNT(*) from courses where nrc = ?', [$nrc])[0];
-
-        if ($count !== 0 && (strval($nrc) != strval($old_nrc))) {
+        $assistant_rut_list  = request()->except('_token', '_method', 'nrc','codigo_asignatura', 'rut_profesor', 'nombre_profesor');
+        $nrcs = DB::select('select nrc from courses where nrc = ?', [$nrc]);
+        if (count($nrcs) != 0){
+            if (strval($nrc) == strval($old_nrc)){
+                DB::update('update courses set nrc = ?, codigo_asignatura = ?, rut_profesor = ?,  nombre_profesor = ?  where id = ?', [$nrc, $course_codigo, $professor_rut, $professor_nombre, $course_id]);
+                return back()->with('success',"Asignatura modificada con exito.");
+            }
             return back()->with('error', "El NRC ingresado ya existe");
         }
-        DB::update('update courses set nrc = ?, codigo_asignatura = ?, rut_profesor = ?,  nombre_profesor = ?  where id = ?', [$nrc, $course_codigo, $professor_rut, $professor_nombre, $course_id]);
-
-        return back()->with('success', "Asignatura modificada con exito.");
+        else{
+            DB::update('update courses set nrc = ?, codigo_asignatura = ?, rut_profesor = ?,  nombre_profesor = ?  where id = ?', [$nrc, $course_codigo, $professor_rut, $professor_nombre, $course_id]);
+            return back()->with('success',"Asignatura modificada con exito.");
+        }
     }
 
     /**
