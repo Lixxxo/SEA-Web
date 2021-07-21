@@ -13,7 +13,7 @@
                 <th id="header" scope="col">Código de Asignatura</th>
                 <th id="header" scope="col">Profesor</th>
                 <th id="header" scope="col">Rut</th>
-                <th id="header" scope="col">Rut Ayudantes</th>
+                <th id="header" scope="col">Ayudantes</th>
                 <th id="header" scope="col">Acción</th>
             </tr>
         </thead>

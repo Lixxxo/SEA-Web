@@ -20,13 +20,13 @@ class CourseController extends Controller
         $course_list = Course::all();
         //$assistant_list = DB::table('users')->where('rut', DB::table('assistants_courses')->first())->first();
         $assistant_matrix = array();
-        foreach($course_list as $course){
+        foreach ($course_list as $course) {
             $assistant_list = DB::select('select * from users where rut in (select Usersrut from assistants_courses where Coursesid = ?);', [$course->id]);
             array_push($assistant_matrix, $assistant_list);
         }
 
         //return response()->json($assistant_list);
-        return view('User_Stories.EncDoc.eaa003.edit_course',['course_list' => $course_list],['assistant_matrix' => $assistant_matrix]);
+        return view('User_Stories.EncDoc.eaa003.edit_course', ['course_list' => $course_list], ['assistant_matrix' => $assistant_matrix]);
     }
 
     /**
@@ -58,7 +58,6 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-
     }
 
     /**
@@ -76,7 +75,7 @@ class CourseController extends Controller
         $student_list = DB::select('select * from users where rut in (select Usersrut from students_courses where Coursesid = ?);', [$id]);
 
         //return response()->json($course);
-        return view('User_stories.EncDoc.eaa003.edit',['course' => $course, 'assistant_list' => $assistant_list, 'student_list'=>$student_list ]);
+        return view('User_stories.EncDoc.eaa003.edit', ['course' => $course, 'assistant_list' => $assistant_list, 'student_list' => $student_list]);
     }
 
     /**
@@ -94,7 +93,7 @@ class CourseController extends Controller
         $course_codigo = $request->get('codigo_asignatura');
         $professor_rut  = $request->get('rut_profesor');
         $professor_nombre  = $request->get('nombre_profesor');
-        $assistant_rut_list  = request()->except('_token', '_method', 'nrc','codigo_asignatura', 'rut_profesor', 'nombre_profesor');
+        $assistant_rut_list  = request()->except('_token', '_method', 'nrc', 'codigo_asignatura', 'rut_profesor', 'nombre_profesor');
 
         /*
         if(strval($nrc) != strval($old_nrc)){
@@ -106,12 +105,12 @@ class CourseController extends Controller
         */
         $count = DB::select('select COUNT(*) from courses where nrc = ?', [$nrc])[0];
 
-        if ($count !== 0 && (strval($nrc) != strval($old_nrc))){
+        if ($count !== 0 && (strval($nrc) != strval($old_nrc))) {
             return back()->with('error', "El NRC ingresado ya existe");
         }
         DB::update('update courses set nrc = ?, codigo_asignatura = ?, rut_profesor = ?,  nombre_profesor = ?  where id = ?', [$nrc, $course_codigo, $professor_rut, $professor_nombre, $course_id]);
 
-        return back()->with('success',"Asignatura modificada con exito.");
+        return back()->with('success', "Asignatura modificada con exito.");
     }
 
     /**

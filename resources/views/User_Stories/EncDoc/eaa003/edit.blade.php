@@ -104,9 +104,9 @@
             <table>
                 <thead>
                     <tr>
-                        <td>Nombre</td>
-                        <td>Rut</td>
-                        <td>Acción</td>
+                        <th>Nombre</th>
+                        <th>Rut</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>

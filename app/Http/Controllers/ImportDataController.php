@@ -15,19 +15,16 @@ class ImportDataController extends Controller
     public function indexStudents() // Cargar Importar
     {
         //Aca creamos una query para que nos ponga la tabla usuarios en este orden y despues desplegarla en import_data
-        $data = DB::table('users')->where('role','Estudiante')->orderBy('name', 'desc')->get();
+        $data = DB::table('users')->where('role', 'Estudiante')->orderBy('name', 'desc')->get();
         return view('User_stories.EncDoc.eaa001.import_data', compact('data'));
     }
 
     public function importStudents(Request $request) // Cargamos datos con un excel o otro
     {
-        try
-        {
-           $Students = Excel::import(new UserImport, $request->select_file);
-           return back()->with('success', 'Los alumnos han sido cargados correctamente');
-        }
-        catch (Throwable $th)
-        {
+        try {
+            $Students = Excel::import(new UserImport, $request->select_file);
+            return back()->with('success', 'Los alumnos han sido cargados correctamente');
+        } catch (Throwable $th) {
             return back()->with('error', 'Los alumnos no han sido cargados correctamente');
         }
     }
@@ -42,13 +39,10 @@ class ImportDataController extends Controller
     public function importCourses(Request $request) // Cargamos datos con un excel o otro
     {
         $Courses = Excel::import(new CourseImport, $request->select_file);
-        try
-        {
+        try {
             //$Courses = Excel::import(new CourseImport, $request->select_file);
             return back()->with('success', 'Las asignaturas han sido cargadas correctamente');
-        }
-        catch(Throwable $error)
-        {
+        } catch (Throwable $error) {
             return back()->with('error', 'Las asignaturas no han sido cargadas correctamente');
         }
     }
@@ -56,23 +50,18 @@ class ImportDataController extends Controller
     public function indexAssistants() // Cargar Importar
     {
         //Aca creamos una query para que nos ponga la tabla usuarios en este orden y despues desplegarla en import_data
-        $data = DB:: select('select ac.Usersrut, c.nrc from assistants_courses ac, courses c where ac.Coursesid = c.id');
+        $data = DB::select('select ac.Usersrut, c.nrc from assistants_courses ac, courses c where ac.Coursesid = c.id');
         return view('User_stories.EncDoc.eaa004.import_data_assistants', compact('data'));
     }
 
     public function importAssistants(Request $request) // Cargamos datos con un excel o otro
     {
 
-        try
-        {
+        try {
             $AssistantsCourses = Excel::import(new Assistants_CoursesImport, $request->select_file);
             return back()->with('success', 'Los ayudantes han sido asignados');
-        }
-        catch (\Throwable $th)
-        {
+        } catch (\Throwable $th) {
             return back()->with('error', 'Los ayudantes no han sido asignados');
         }
- 
     }
-
 }
