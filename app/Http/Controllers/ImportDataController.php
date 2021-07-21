@@ -18,12 +18,15 @@ class ImportDataController extends Controller
 {
     public function indexStudents()
     {
+
         $data = DB::table('users')->where('role','Estudiante')->orderBy('name', 'asc')->get();
+
         return view('User_stories.EncDoc.eaa001.import_data', compact('data'));
     }
 
     public function importStudents(Request $request)
     {
+
         $file = $request->select_file;
         if($file != null)
         {
@@ -56,6 +59,7 @@ class ImportDataController extends Controller
         else
         {
             return back()->with('error', 'No se ha adjuntado ningun archivo!');    
+
         }
     }
 
@@ -137,11 +141,13 @@ class ImportDataController extends Controller
         else
         {
             return back()->with('error', 'No se ha adjuntado ningun archivo!');
+
         }
     }
 
     public function indexAssistants() // Cargar Importar
     {
+
         $query0 = DB::select('select codigo_semestre from Periods where estado = ?', [1]);
         if($query0 != null)
         {
@@ -153,6 +159,7 @@ class ImportDataController extends Controller
             $data = null;
             return view('User_stories.EncDoc.eaa004.import_data_assistants', compact('data'))->with('error', 'No hay semestre habilitado'); 
         }
+
     }
 
     public function importAssistants(Request $request) // Cargamos datos con un excel o otro
@@ -223,6 +230,7 @@ class ImportDataController extends Controller
                             }           
                         }
                     }
+
 
                     return back()
                     ->with('success', 'Se ha cargado el archivo correctamente')
@@ -350,4 +358,5 @@ class ImportDataController extends Controller
             return back()->with('error', 'No se ha adjuntado ningun archivo!');
         }
     }
+
 }

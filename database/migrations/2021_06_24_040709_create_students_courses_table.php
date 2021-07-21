@@ -17,6 +17,7 @@ class CreateStudentsCoursesTable extends Migration
             $table->string('Usersrut');
             $table->integer('Coursesid')->index('FKStudents_C394876');
             $table->primary(['Usersrut', 'Coursesid']);
+            $table->tinyInteger('isAnswered')->default(0);
         });
     }
 
