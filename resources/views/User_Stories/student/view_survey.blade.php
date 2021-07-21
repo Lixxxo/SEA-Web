@@ -19,44 +19,48 @@
 
                     <div class="radio-answer">
 
-                        <input type="radio" name="answer{{ $i }}" value="4" required>
+                        <input type="radio" name="answer{{ $i }}" value="5" required>
                         <input type="text" name="question{{ $i }}" hidden value="{{ $question_list[$i]->id }}">
                         <label for="answer{{ $i }}">Totalmente de acuerdo</label>
                         <br>
 
-                        <input type="radio" name="answer{{ $i }}" value="3" required>
+                        <input type="radio" name="answer{{ $i }}" value="4" required>
                         <input type="text" name="question{{ $i }}" hidden value="{{ $question_list[$i]->id }}">
                         <label for="answer{{ $i }}">De acuerdo</label>
                         <br>
 
-                        <input type="radio" name="answer{{ $i }}" value="2" required>
+                        <input type="radio" name="answer{{ $i }}" value="3" required>
                         <input type="text" name="question{{ $i }}" hidden value="{{ $question_list[$i]->id }}">
                         <label for="answer{{ $i }}">Ni de acuerdo ni en desacuerdo</label>
                         <br>
 
-                        <input type="radio" name="answer{{ $i }}" value="1" required>
+                        <input type="radio" name="answer{{ $i }}" value="2" required>
                         <input type="text" name="question{{ $i }}" hidden value="{{ $question_list[$i]->id }}">
                         <label for="answer{{ $i }}">En desacuerdo</label>
                         <br>
 
-                        <input type="radio" name="answer{{ $i }}" value="0" required>
+                        <input type="radio" name="answer{{ $i }}" value="1" required>
                         <input type="text" name="question{{ $i }}" hidden value="{{ $question_list[$i]->id }}">
                         <label for="answer{{ $i }}">Totalmente en desacuerdo</label>
                         <br>
-                    </div>
+
                 @else
                     <div class="radio-answer">
-                        <input type="radio" name="answer{{ $i }}" value="1" required>
+                        <input type="radio" name="answer{{ $i }}" value="2" required>
                         <input type="text" name="question{{ $i }}" hidden value="{{ $question_list[$i]->id }}">
                         <label for="answer{{ $i }}">Si</label>
                         <br>
 
-                        <input type="radio" name="answer{{ $i }}" value="0" required>
+                        <input type="radio" name="answer{{ $i }}" value="1" required>
                         <input type="text" name="question{{ $i }}" hidden value="{{ $question_list[$i]->id }}">
                         <label for="answer{{ $i }}">No</label>
                         <br>
-                    </div>
+
                 @endif
+                <input type="radio" name="answer{{ $i }}" value="0" required>
+                <input type="text" name="question{{ $i }}" hidden value="{{ $question_list[$i]->id }}">
+                <label for="answer{{ $i }}">No aplica</label>
+                </div>
             </div>
         @endfor
         <input type="submit" value="Responder" onclick="return verification()">
