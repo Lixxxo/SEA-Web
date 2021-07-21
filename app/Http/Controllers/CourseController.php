@@ -35,8 +35,9 @@ class CourseController extends Controller
 
         $rut = $request->get("assistantRut");
         $nrc = $request->get("nrc");
-        $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0];
-        $result = DB::delete('delete from assistants_courses where Usersrut = ? and Coursesid', [$rut, $course_id]);
+        $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0]->id;
+
+        $result = DB::delete('delete from assistants_courses where Usersrut = ? and Coursesid = ?', [$rut, (int)$course_id]);
         
         return back()->with("success", "Ayudante desvinculado del curso.");
 
