@@ -183,7 +183,7 @@ class ImportDataController extends Controller
                 $assistants = Excel::toArray(new Assistants_CoursesImport, $request->select_file)[0];
                 $file_verify = array_keys($assistants[0]);
                 //dd($file_verify);
-                if($file_verify[0] == 'rut' && $file_verify[1] == 'nrc')
+                if($file_verify[0] == 'nrc' && $file_verify[1] == 'rut')
                 {
                     $assistants_error = array();
                     $courses_error = array();
@@ -207,13 +207,13 @@ class ImportDataController extends Controller
                             if($assistants_verify != null)
                             {
                                 $course_id = DB::select('select id from courses where nrc = ?', [$a['nrc']]);
-                                //dd($course_id);
                                 if($course_id == null)
                                 {
-                                    array_push($courses_verify,$a["nrc"]);
+                                    array_push($courses_verify, $a["nrc"]);
                                 }
                                 else
-                                {
+                                {                                
+                                    //dd($course_id, $a['nrc']);
                                     $period_course_verify = DB::select('select Periodscodigo_semestre from periods_courses where Periodscodigo_semestre = ? and Coursesid = ?', [$period_code[0]->codigo_semestre, $course_id[0]->id]);
                                     //dd($period_course_verify, $period_code);
                                     if($period_course_verify[0]->Periodscodigo_semestre == $period_code[0]->codigo_semestre)
@@ -325,7 +325,7 @@ class ImportDataController extends Controller
                                 else
                                 {
                                     $period_course_verify = DB::select('select Periodscodigo_semestre from periods_courses where Periodscodigo_semestre = ? and Coursesid = ?', [$period_code[0]->codigo_semestre, $course_id[0]->id]);
-                                    if($period_course_verify == $period_code)
+                                    if($period_course_verify[0]->Periodscodigo_semestre == $period_code[0]->codigo_semestre)
                                     {
                                         $students_courses = DB::select('select Usersrut from students_courses where Usersrut = ? and Coursesid = ?', [$a['rut'], $course_id[0]->id]);
                                         if($students_courses == null)
