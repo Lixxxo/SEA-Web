@@ -40,4 +40,8 @@ class AnswerController extends Controller
         return view('User_stories.student.view_survey',
         ['question_list' => $question_list]);
     }
+
+    public function answerSurvey(request $request){
+        dd($request);
+    }
 }
