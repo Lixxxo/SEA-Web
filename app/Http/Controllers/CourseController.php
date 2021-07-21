@@ -32,6 +32,13 @@ class CourseController extends Controller
 
     public function deleteAssistant(request $request){
         dd($request);
+
+        $rut = $request->get("assistantRut");
+
+        $result = DB::delete('delete assistant_courses where Usersrut = ?', [$rut]);
+        dd($result);
+
+
     }
 
     /**
