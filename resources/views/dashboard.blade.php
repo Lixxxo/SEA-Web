@@ -26,6 +26,7 @@
         <br>
 
     @else
+
         <hr>
         @if (Auth::user()->role == 'Administrador')
 
@@ -72,7 +73,6 @@
                 </div>
             @endif
             <hr>
-
             <div>
                 <a href="/dashboard/surveys">
                     <h4>Crear encuesta</h4>

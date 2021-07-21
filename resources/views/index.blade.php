@@ -22,11 +22,11 @@
             <div class="">
                 @auth
                     <form action="{{ url('/dashboard') }}">
-                        <button>Menu Principal</button>
+                        <button class = "btn btn-primary">Menu Principal</button>
                     </form>
                 @else
                     <form action="{{ route('login') }}">
-                        <button>Iniciar Sesion</button>
+                        <button class = "btn btn-primary">Iniciar Sesion</button>
                     </form>
                     <form action="{{ route('register') }}">
                         <button>Registrarse</button>

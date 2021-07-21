@@ -27,7 +27,7 @@ class UserImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError
             'password' => Hash::make(substr($row['rut'], 0, -2)),
             'role' => 'Estudiante',
             'enabled' => 1
-        ]);            
+        ]);              
     }
 
     public function chunkSize(): int

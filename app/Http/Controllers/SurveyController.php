@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
+use Illuminate\Support\Facades\DB as FacadesDB;
+
+
 class SurveyController extends Controller
 {
 
@@ -92,5 +95,65 @@ class SurveyController extends Controller
         }
         DB::delete('delete from questions where id = ?', [$question_id]);
         return redirect("/dashboard/surveys/" . $survey_id);
+    }
+
+    public function indexSurveys()
+    {
+        $survey_list = DB::select('select * from surveys');
+
+        $question_qtty_list = array();
+        foreach ($survey_list as $survey){
+            $question_qtty = DB::select("select count(*) as cantidadPreguntas from questions where Surveysid = ?;",[$survey->id]);
+            array_push($question_qtty_list, $question_qtty);
+        }
+        return view("User_Stories.EncDoc.enc002.manage_surveys", ['survey_list' => $survey_list, 'question_qtty_list'=>$question_qtty_list]);
+    }
+
+    public function returnSurveys(Request $request)
+    {
+        $survey_id = $request->get('survey_id');
+
+        $period_enabled = DB::select('select codigo_semestre from periods where estado = ?', [1]);
+        
+        
+        if($period_enabled != null)
+        {
+            $query1 = DB::select('select nrc, codigo_asignatura, Surveysid from courses c, periods_courses pc where c.id = Coursesid and pc.Periodscodigo_semestre = ?', [$period_enabled[0]->codigo_semestre]);
+            return view("User_Stories.EncDoc.enc002.manage", ['data' => $query1, 'survey_id' => $survey_id]);    
+        }
+        else
+        {
+            return view("User_Stories.EncDoc.enc002.manage", ['data' => null, 'survey_id' => $survey_id]);
+        }
+    }
+
+    public function ManageSurveys(Request $request)
+    {
+        $period_enabled = DB::select('select codigo_semestre from periods where estado = ?', [1]);
+        
+        $survey_id = $request->get('survey_associate');
+        $check_boxes = array_keys($request->except('_token', 'survey_associate'));
+
+        if($period_enabled != null)
+        {
+            if($check_boxes != null)
+            {
+                foreach ($check_boxes as $check) 
+                {
+                    DB::update('update courses set surveysid = ? where nrc = ?', [$survey_id, substr($check, 5)]);
+                }
+                return back()->with('sucess', 'Se han vinculado las encuestas');
+
+            }
+            else
+            {
+                return back()->with('error', 'No se selecciono ningun curso');
+            }              
+        }
+        else
+        {
+            return back()->with('error', 'No hay semestre habilitado');
+        }
+      
     }
 }

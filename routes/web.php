@@ -84,6 +84,12 @@ Route::get('dashboard/import_data_assistants', 'App\Http\Controllers\ImportDataC
 Route::post('dashboard/import_data_assistants/importAssistants', 'App\Http\Controllers\ImportDataController@importAssistants')
 ->middleware(['auth', 'Encargado Docente', 'EnabledPeriod']);
 
+//EAA-005
+Route::get('dashboard/import_data_associate', 'App\Http\Controllers\ImportDataController@indexAssociate')
+->middleware(['auth', 'Encargado Docente']);
+Route::post('dashboard/import_data_associate/importAssociate', 'App\Http\Controllers\ImportDataController@importAssociate')
+->middleware(['auth', 'Encargado Docente']);
+
 //enc 001
 Route::get('/dashboard/surveys', 'App\Http\Controllers\SurveyController@index')
 ->middleware(['auth', 'Encargado Docente']);
@@ -106,6 +112,16 @@ Route::post('/dashboard/surveys/updateQuestion', 'App\Http\Controllers\SurveyCon
 Route::post('/dashboard/surveys/deleteQuestion', 'App\Http\Controllers\SurveyController@deleteQuestion')
 ->middleware(['auth', 'Encargado Docente'])
 ->name("deleteQuestion");
+
+//ENC-002
+Route::get('dashboard/manage_surveys', 'App\Http\Controllers\SurveyController@indexSurveys')
+->middleware(['auth', 'Encargado Docente']);
+Route::get('dashboard/manage', 'App\Http\Controllers\SurveyController@returnSurveys')
+->middleware(['auth', 'Encargado Docente'])
+->name('manage_survey');
+Route::post('dashboard/manage/accept', 'App\Http\Controllers\SurveyController@ManageSurveys')
+->middleware(['auth', 'Encargado Docente'])
+->name("link_survey");
 
 // eaa 003
 Route::resource('/dashboard/courses', CourseController::class)

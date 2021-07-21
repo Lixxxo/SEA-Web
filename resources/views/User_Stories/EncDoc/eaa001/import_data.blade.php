@@ -6,23 +6,6 @@
     <div class = "container">
         <h3  align = "center">Cargar estudiantes</h3>
         <br>
-        @if ($message = Session::get('error'))
-            <div class = "alert alert-danger">
-                Problema al cargar el archivo, verifique que todo este correcto e intente de nuevo!!<br>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li> {{ $error }} </li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        @if($message = Session::get('success'))
-            <div class = "alert alert-success alert-block">
-                <button type = "button" class = "close" data-dismiss = "alert">x</button>
-                <strong> {{ $message }}</strong>
-            </div>
-        @endif
         <form method = "post" enctype = "multipart/form-data" action = '/dashboard/import_data/importStudents'>
             {{ csrf_field() }}
             <div class = "form-group">
@@ -48,8 +31,21 @@
                 </table>
             </div>
         </form>
-
         <br/>
+        @if (session("student_list"))
+            <div class = "alert alert-danger">
+                <h3 class = "text-center">Los alumnos con los siguientes rut se encuentran duplicados en el archivo </h3>
+                <table class = "table table-bordered table-striped">
+                    <tr>
+                        <th>Rut</th>    
+                        @foreach (explode(";",session("student_list")) as $rut)
+                            <th>{{$rut}}</th>
+                        @endforeach
+                    </tr>
+                </table>
+                <br>
+            </div> 
+        @endif
         <div class = "panel-default">
             <div class = "panel-body">
                 <div class = "table-responsive">
@@ -73,4 +69,17 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script src="{{asset("js/notify.min.js")}}"></script>
+    <script>
+        var success = '{{session("success")}}';
+        var error = '{{session("error")}}';
+        if (error){
+            $.notify(error, "error");
+        }
+        if (success){
+            $.notify(success, "success")
+        }
+    </script>
 @endsection
