@@ -117,6 +117,14 @@ Route::post('/delete_student', 'App\Http\Controllers\CourseController@deleteStud
 ->middleware(['auth', 'Encargado Docente'])
 ->name("deleteStudent");
 
+Route::post('/add_student', 'App\Http\Controllers\CourseController@addStudent')
+->middleware(['auth', 'Encargado Docente'])
+->name("addStudent");
+
+Route::post('/add_assistant', 'App\Http\Controllers\CourseController@addAssistant')
+->middleware(['auth', 'Encargado Docente'])
+->name("addAssistant");
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard',['enabled_period' => PeriodController::has_enabled_period()]);

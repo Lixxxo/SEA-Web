@@ -42,7 +42,8 @@
     <hr>
 
     <div>
-        <form action="">
+        <form action="{{route('addAssistant')}}" method="POST">
+            @csrf
             <div class="form-parent">
                 <div class="form">
                     <input type="text" name="assistant_rut" autocomplete="off" required>
@@ -54,7 +55,8 @@
             </div>
         </form>
         <br>
-        <form action="">
+        <form action="{{route('addStudent')}}" method="POST">
+            @csrf
             <div class="form-parent">
                 <div class="form">
                     <input type="text" name="student_rut" autocomplete="off" required>
