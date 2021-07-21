@@ -7,7 +7,7 @@ namespace App\Charts;
 use Chartisan\PHP\Chartisan;
 use ConsoleTVs\Charts\BaseChart;
 use Illuminate\Http\Request;
-
+use DB;
 class SurveyChart extends BaseChart
 {
     /**
@@ -17,8 +17,18 @@ class SurveyChart extends BaseChart
      */
     public function handler(Request $request): Chartisan
     {
+        $labels = [];
+        $nrcs = [];
+        $assistants = DB::table('assistants_courses')->get();
+        foreach ($assistants as $ass){
+            array_push($labels,$ass->Usersrut);
+        }
+        foreach ($assistants as $ass){
+            array_push($nrcs,$ass->Coursesid);
+        }
         return Chartisan::build()
-            ->labels(['Lixo', 'Joelo', 'Guetti', 'Noah', 'Pipe'])
-            ->dataset('EL NIÑO MAS BONITO', [1, 2, 17, 4.6, 15]);
+            ->labels($labels)
+            ->dataset('Prueba tabla', $nrcs);
+ 
     }
 }

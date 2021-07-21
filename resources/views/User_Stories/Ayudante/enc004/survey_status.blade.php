@@ -2,6 +2,12 @@
 @section('contenido')
 <!-- Chart's container -->
 <label for="chart"> GRAFICO EL NIÑO MAS BONITO </label>
+<br>
+<label for="Courses"> Cursos : </label>
+<form action=""> 
+    
+</form>
+
 <div id="chart" style="height: 300px;"></div>    
 @endsection
 
@@ -21,6 +27,9 @@
             .axis(false)
             .tooltip()
     });
+</script>
+<script>
+
 </script>
 @endsection
 

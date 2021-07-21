@@ -111,6 +111,10 @@ Route::get('/dashboard/review_surveys', 'App\Http\Controllers\ResultsController@
 ->middleware(['auth', 'Ayudante'])
 ->name("reviewSurvey");
 
+Route::get('/dashboard/select_courses', 'App\Http\Controllers\ResultsController@indexCourses')
+->middleware(['auth', 'Ayudante'])
+->name("selectCourses");
+
 // eaa 003
 Route::resource('/dashboard/courses', CourseController::class)
 ->middleware(['auth','Encargado Docente', 'EnabledPeriod']);

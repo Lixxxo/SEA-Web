@@ -158,7 +158,7 @@
         <!--Cosas de Ayudante-->
         <div>
             <h3>
-                <a href="/dashboard/review_surveys">
+                <a href="/dashboard/select_courses">
                     <h3>Revisar encuestas</h3>
                 </a>
             </h3>
