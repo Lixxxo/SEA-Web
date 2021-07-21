@@ -73,10 +73,19 @@ class CourseController extends Controller
 
     public function addStudent(request $request){
         //dd($request);
+
         $rut = $request->get("studentRut");
         $nrc = $request->get("nrc");
-        $course_id = DB::insert('insert into assistants_courses (id, name) values (?, ?)', [1, 'Dayle']);
-
+        
+        $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0]->id;
+        
+        $search = DB::select('select id from users where rut = ?', [$rut]);
+        if ($search == null){
+            return back()->with("error", "Estudiante no encontrado en el sistema.");    
+        }
+        $result = DB::insert('insert into students_courses (Usersrut, Coursesid) values (?, ?)', [$rut, $course_id]);
+        return back()->with("success", "Estudiante añadido del curso.");
+        
     }
 
     /**
