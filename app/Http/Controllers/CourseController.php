@@ -37,22 +37,41 @@ class CourseController extends Controller
         $nrc = $request->get("nrc");
         $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0]->id;
 
-        $result = DB::delete('delete from assistants_courses where Usersrut = ? and Coursesid = ?', [$rut, (int)$course_id]);
+        $result = DB::delete('delete from assistants_courses where Usersrut = ? and Coursesid = ?', [$rut, $course_id]);
         
         return back()->with("success", "Ayudante desvinculado del curso.");
 
     }
 
     public function deleteStudent(request $request){
-        dd($request);
+        //dd($request);
+        $rut = $request->get("studentRut");
+        $nrc = $request->get("nrc");
+        $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0]->id;
+
+        $result = DB::delete('delete from students_courses where Usersrut = ? and Coursesid = ?', [$rut, $course_id]);
+        
+        return back()->with("success", "Estudiante desvinculado del curso.");
+
     }
 
     public function addAssistant(request $request){
         dd($request);
+        $rut = $request->get("assistantRut");
+        $nrc = $request->get("nrc");
+        $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0]->id;
+
+        $result = DB::insert('insert into users (Usersrut, Coursesid) values (?, ?)', [$rut, $course_id]);
+        dd($result);
+        
     }
 
     public function addStudent(request $request){
-        dd($request);
+        //dd($request);
+        $rut = $request->get("studentRut");
+        $nrc = $request->get("nrc");
+        $course_id = DB::insert('insert into assistants_courses (id, name) values (?, ?)', [1, 'Dayle']);
+
     }
 
     /**
