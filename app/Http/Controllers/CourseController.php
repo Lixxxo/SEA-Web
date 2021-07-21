@@ -31,13 +31,14 @@ class CourseController extends Controller
     }
 
     public function deleteAssistant(request $request){
-        dd($request);
+        //dd($request);
 
         $rut = $request->get("assistantRut");
-
-        $result = DB::delete('delete assistant_courses where Usersrut = ?', [$rut]);
-        dd($result);
-
+        $nrc = $request->get("nrc");
+        $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0];
+        $result = DB::delete('delete from assistants_courses where Usersrut = ? and Coursesid', [$rut, $course_id]);
+        
+        return back()->with("success", "Ayudante desvinculado del curso.");
 
     }
 
