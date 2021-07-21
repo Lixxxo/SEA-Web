@@ -80,7 +80,7 @@
 
             </div>
             <div>
-                <a href="/dashboard/link_survey">
+                <a href="/dashboard/import_data_associate">
                     <h4>Asociar encuesta</h4>
                 </a>
 
