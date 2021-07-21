@@ -46,7 +46,7 @@
             @csrf
             <div class="form-parent">
                 <div class="form">
-                    <input type="text" name="assistant_rut" autocomplete="off" required>
+                    <input type="text" name="assistantRut" autocomplete="off" required>
                     <input type="text" name="nrc" hidden value="{{ $course->nrc }}">
                     <label for="assistant_rut" class="label-data">
                         <span class="content-data">RUT Ayudante</span>
@@ -60,7 +60,7 @@
             @csrf
             <div class="form-parent">
                 <div class="form">
-                    <input type="text" name="student_rut" autocomplete="off" required>
+                    <input type="text" name="studentRut" autocomplete="off" required>
                     <input type="text" name="nrc" hidden value="{{ $course->nrc }}">
                     <label for="student_rut" class="label-data">
                         <span class="content-data">RUT Estudiante</span>
