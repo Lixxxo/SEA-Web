@@ -56,13 +56,18 @@ class CourseController extends Controller
     }
 
     public function addAssistant(request $request){
-        dd($request);
+
         $rut = $request->get("assistantRut");
         $nrc = $request->get("nrc");
+        
         $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0]->id;
-
-        $result = DB::insert('insert into users (Usersrut, Coursesid) values (?, ?)', [$rut, $course_id]);
-        dd($result);
+        
+        $search = DB::select('select id from users where rut = ?', [$rut]);
+        if ($search == null){
+            return back()->with("error", "Estudiante no encontrado en el sistema.");    
+        }
+        $result = DB::insert('insert into assistants_courses (Usersrut, Coursesid) values (?, ?)', [$rut, $course_id]);
+        return back()->with("success", "Ayudante añadido del curso.");
         
     }
 
