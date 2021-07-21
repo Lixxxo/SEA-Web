@@ -182,7 +182,7 @@ class ImportDataController extends Controller
             {
                 $assistants = Excel::toArray(new Assistants_CoursesImport, $request->select_file)[0];
                 $file_verify = array_keys($assistants[0]);
-                //dd($file_verify);
+
                 if($file_verify[0] == 'nrc' && $file_verify[1] == 'rut')
                 {
                     $assistants_error = array();
@@ -191,8 +191,6 @@ class ImportDataController extends Controller
                     $courses_Cverify = array();
                     $courses_verify = array();
 
-
-                    //dd($assistants);
                     foreach ($assistants as $a) {
 
                         if($a['nrc'] == null)
