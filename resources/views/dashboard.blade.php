@@ -61,7 +61,7 @@
                     </a>
                 </div>
                 <div>
-                    <a href="/dashboard/link_students">
+                    <a href="/dashboard/import_data_associate">
                         <h4> Asociar estudiantes en asignaturas</h4>
                     </a>
                 </div>
@@ -80,7 +80,7 @@
 
             </div>
             <div>
-                <a href="/dashboard/import_data_associate">
+                <a href="/dashboard/manage_surveys">
                     <h4>Asociar encuesta</h4>
                 </a>
 
@@ -127,7 +127,7 @@
                     </a>
                 </div>
                 <div>
-                    <a href="/dashboard/link_students">
+                    <a href="/dashboard/import_data_associate">
                         <h3>Asociar estudiantes en asignaturas</h3>
                     </a>
                 </div>
@@ -147,7 +147,7 @@
 
             </div>
             <div>
-                <a href="/dashboard/link_survey">
+                <a href="/dashboard/manage_surveys">
                     <h3>Asociar encuesta</h3>
                 </a>
 
@@ -164,7 +164,7 @@
             </div>
             <div>
                 <h3>
-                    <a href="/dashboard/answer">
+                    <a href="/dashboard/answer_survey">
                         <h3>Responder encuestas</h3>
                     </a>
                 </h3>
@@ -173,7 +173,7 @@
             <!--Cosas de Estudiante-->
             <div>
                 <h3>
-                    <a href="/dashboard/answer">
+                    <a href="/dashboard/answer_survey">
                         <h3>Responder encuestas</h3>
                     </a>
                 </h3>
@@ -181,6 +181,6 @@
         @endif
     @endif
 
-    {{-- TODO: hacer responsivo con grid boostrap --}}
+
 
 @endsection
