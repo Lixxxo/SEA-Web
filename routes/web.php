@@ -157,3 +157,6 @@ Route::post('/dashboard/answer_survey', 'App\Http\Controllers\AnswerController@a
 ->middleware(['auth', 'Estudiante'])
 ->name("answerSurvey");
 
+Route::get('/dashboard/review_global', 'App\Http\Controllers\GlobalController@index')
+->middleware(['auth', 'Encargado Docente'])
+->name("reviewGlobal");
