@@ -1,9 +1,8 @@
 @extends('layouts.base')
 @section('contenido')
 <!-- Chart's container -->
-<label for="chart"> GRAFICO EL NIÑO MAS BONITO </label>
-<br>
-<label for="Courses"> Cursos : </label>
+<label for="chart"> Graficos por pregunta </label>
+    <br>
 <form action=""> 
     
 </form>
@@ -27,9 +26,6 @@
             .axis(false)
             .tooltip()
     });
-</script>
-<script>
-
 </script>
 @endsection
 

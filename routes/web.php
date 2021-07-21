@@ -107,11 +107,11 @@ Route::post('/dashboard/surveys/deleteQuestion', 'App\Http\Controllers\SurveyCon
 
 // ENC-004
 
-Route::get('/dashboard/review_surveys', 'App\Http\Controllers\ResultsController@index')
+Route::get('/dashboard/review_surveys', 'App\Http\Controllers\ResultsController@indexSurveys')
 ->middleware(['auth', 'Ayudante'])
 ->name("reviewSurvey");
 
-Route::get('/dashboard/select_courses', 'App\Http\Controllers\ResultsController@indexCourses')
+Route::get('/dashboard/select_courses', 'App\Http\Controllers\ResultsController@index')
 ->middleware(['auth', 'Ayudante'])
 ->name("selectCourses");
 
