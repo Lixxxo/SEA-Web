@@ -17,7 +17,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $course_list = Course::all();
+        //$course_list = Course::all();
+        $course_list = DB::select('select * from courses where id in (select Coursesid from periods_courses where periodscodigo_semestre in (select codigo_semestre from Periods where estado = ?))', [1]);
         //$assistant_list = DB::table('users')->where('rut', DB::table('assistants_courses')->first())->first();
         $assistant_matrix = array();
         foreach($course_list as $course){

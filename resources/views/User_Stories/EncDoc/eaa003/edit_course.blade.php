@@ -5,7 +5,9 @@
         <a href="/dashboard">Menú principal</a>
     </div>
     <h4>Listado de Asignaturas</h4>
-
+    @if (count($course_list) == 0)
+        <p>No hay asignaturas para el presente período</p>
+    @else
     <table>
         <thead>
             <tr>
@@ -18,6 +20,9 @@
             </tr>
         </thead>
         <tbody>
+
+
+
             @for ($i = 0; $i < count($course_list); $i++)
                 <tr>
                     <td>{{ $course_list[$i]->nrc }}</td>
@@ -35,9 +40,10 @@
                 </tr>
             @endfor
 
+
         </tbody>
 
     </table>
-
+    @endif
 
 @endsection

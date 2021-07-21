@@ -46,7 +46,7 @@ class PeriodController extends Controller
             }
         }
         // TODO: redireción con error (revisar status de UserController)
-        
+
         return redirect('/dashboard/periods');
     }
     /**
@@ -59,8 +59,8 @@ class PeriodController extends Controller
     public function update(Request $request){
         $code = $request->codigo_semestre;
         $period = DB::select('select * from periods where codigo_semestre = ?',[$code]);
-        
-        
+
+
         if (count($period) == 0) {
             //TODO: Enviar aviso de error de semestre no encontrado.
             return back()->with('error', "Semestre no encontrado");
@@ -69,7 +69,7 @@ class PeriodController extends Controller
             //TODO: Enviar aviso de error de semestre ya deshabilitado
             return back()->with('error', "Semestre ya deshabilitado");
         }
-        +DB::update('update periods set estado = ? where codigo_semestre = ?', 
+        +DB::update('update periods set estado = ? where codigo_semestre = ?',
         [0,$code]);
         return back()->with('success',"Semestre deshabilitado exitosamente.");
     }
