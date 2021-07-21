@@ -138,3 +138,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 // ENC 003
 Route::resource('/dashboard/answer_survey', AnswerController::class);
+Route::get('/dashboard/answer_survey/{id}/answer', 'App\Http\Controllers\AnswerController@edit');

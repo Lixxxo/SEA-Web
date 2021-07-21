@@ -32,4 +32,12 @@ class AnswerController extends Controller
             ]
         );
     }
+
+    public function edit($id){
+        //dd($id);
+        $question_list = DB::select('select * from Questions where Surveysid = ?', [$id]);
+        //dd($question_list);
+        return view('User_stories.student.view_survey',
+        ['question_list' => $question_list]);
+    }
 }

@@ -24,17 +24,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($student_course_list as $course)
+                    <a href="/dashboard/">aaa</a>
+                    @for ($i = 0; $i < count($student_course_list); $i++)
                         <tr>
-                            <td>{{ $course->nrc }}</td>
-                            <td>{{ $course->codigo_asignatura }}</td>
-                            <td>{{ $course->rut_profesor }}</td>
-                            <td>{{ $course->nombre_profesor }}</td>
+                            <td>{{ $student_course_list[$i]->nrc }}</td>
+                            <td>{{ $student_course_list[$i]->codigo_asignatura }}</td>
+                            <td>{{ $student_course_list[$i]->rut_profesor }}</td>
+                            <td>{{ $student_course_list[$i]->nombre_profesor }}</td>
                             <td>
                                 <form action="">
-                                    @if ($course->Surveysid != null)
-                                        <input type="button" value="Responder encuesta">
-                                        <input type="text" name="surveyId" hidden value={{ $course->Surveysid }}>
+                                    @if ($student_course_list[$i]->Surveysid != null)
+                                        <a href='/dashboard/answer_survey/{{ $student_course_list[$i]->Surveysid }}/answer'
+                                            class="btn btn-warning">
+                                            Responder
+                                        </a>
                                     @else
                                         <p>Sin encuesta asociada</p>
                                     @endif
@@ -42,7 +45,7 @@
                             </td>
                         </tr>
 
-                    @endforeach
+                    @endfor
                 </tbody>
             </table>
         @endif
