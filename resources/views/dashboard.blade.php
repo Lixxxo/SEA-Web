@@ -1,5 +1,11 @@
 @extends('layouts.base')
 @section('contenido')
+    <br>
+    <div>
+        <img alt="UCN" width="100" src="img/ucn-logo.png" />
+        <h1>Bienvenido</h1>    
+    </div>
+    
     <div>
         <form method="POST" action="{{ route('logout') }}">
             @csrf
@@ -180,7 +186,5 @@
             </div>
         @endif
     @endif
-
-
-
+    <br>
 @endsection
