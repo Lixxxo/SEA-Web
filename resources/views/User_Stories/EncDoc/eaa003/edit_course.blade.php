@@ -39,8 +39,8 @@
                             <form action="{{route('deleteCourse')}}" method="POST">
                                 @csrf
                                 <input type="text" name="nrc" hidden value={{ $course_list[$i]->nrc }}>
-                                <input type="submit" class="btn btn-danger" name="" value="Eliminar" style="background-color: darkred">
-                                
+                                <input type="submit" class="btn btn-danger" name="" value="Eliminar" style="background-color: darkred" disabled>
+
                             </form>
                         </td>
                     </tr>
