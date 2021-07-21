@@ -1,13 +1,18 @@
 @extends('layouts.base')
 @section('contenido')
 <!-- Chart's container -->
-<label for="chart"> Graficos por pregunta </label>
+    <div>
+        <a href="/dashboard">Menu Principal</a>
+    </div>
+    @for ($i = 0; $i < count($questions); $i++)
+        <a> {{$questions[$i]->frase }} </a>
+    @endfor
     <br>
-<form action=""> 
-    
-</form>
-
-<div id="chart" style="height: 300px;"></div>    
+    <label for="chart"> Graficos por pregunta </label>
+        <br> 
+        
+        <br>
+    <div id="chart" style="height: 300px;"></div> 
 @endsection
 
 @section('script')
