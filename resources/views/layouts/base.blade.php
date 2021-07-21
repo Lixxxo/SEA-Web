@@ -15,11 +15,11 @@
 </head>
 
 
-<body>
+<body class="dark">
     <br>
     <div class="container-fluid">
         @yield('contenido')
-        
+
     </div>
 
     <br>

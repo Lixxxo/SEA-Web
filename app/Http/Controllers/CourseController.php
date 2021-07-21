@@ -30,6 +30,10 @@ class CourseController extends Controller
         return view('User_Stories.EncDoc.eaa003.edit_course',['course_list' => $course_list],['assistant_matrix' => $assistant_matrix]);
     }
 
+    public function deleteAssistant(request $request){
+        dd($request);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

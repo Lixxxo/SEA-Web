@@ -109,6 +109,10 @@ Route::post('/dashboard/surveys/deleteQuestion', 'App\Http\Controllers\SurveyCon
 Route::resource('/dashboard/courses', CourseController::class)
 ->middleware(['auth','Encargado Docente', 'EnabledPeriod']);
 
+Route::post('/delete_assistant', 'App\Http\Controllers\CourseController@deleteAssistant')
+->middleware(['auth', 'Encargado Docente'])
+->name("deleteAssistant");
+
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard',['enabled_period' => PeriodController::has_enabled_period()]);

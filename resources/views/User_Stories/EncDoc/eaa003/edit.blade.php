@@ -68,65 +68,76 @@
     </div>
     <hr>
     <!--Nombre ayudantes-->
-    <div class="mb-3">
-        @if (count($assistant_list) > 0)
-            <label class="form-label">Ayudantes</label><br>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Rut</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for ($i = 0; $i < count($assistant_list); $i++)
+    <fieldset>
+        <legend>Ayudantes</legend>
+        <div class="mb-3">
+            @if (count($assistant_list) > 0)
+                <table>
+                    <thead>
                         <tr>
-                            <td id="rut_ayudante{{ $i }}" name="rut_ayudante{{ $i }}" type="text"
-                                value="{{ $assistant_list[$i]->rut }}">{{ $assistant_list[$i]->name }}</td>
-                            <td>{{ $assistant_list[$i]->rut }}</td>
-                            <td>
-                                <input type="image" src="https://img.icons8.com/cotton/2x/delete-sign--v2.png"
-                                    alt="Eliminar" width="20px" height="20px">
+                            <th>Nombre</th>
+                            <th>Rut</th>
+                            <th>Acción</th>
                         </tr>
-                    @endfor
-                </tbody>
-            </table>
-        @else
-            <label class="form-label">No hay ayudantes inscritos</label>
+                    </thead>
+                    <tbody>
+                        @for ($i = 0; $i < count($assistant_list); $i++)
+                            <tr>
+                                <form action="{{route('deleteAssistant')}}" method="POST">
+                                    @csrf
+                                    <td id="rut_ayudante{{ $i }}" name="rut_ayudante{{ $i }}"
+                                        type="text" value="{{ $assistant_list[$i]->rut }}">
+                                        {{ $assistant_list[$i]->name }}</td>
+                                    <td>{{ $assistant_list[$i]->rut }}</td>
+                                    <td>
 
-        @endif
-    </div>
-    <!--Nombre estudiantes-->
-    <div class="mb-3">
-        @if (count($student_list) > 0)
-            <label class="form-label">Estudiantes</label>
-            <table>
-                <thead>
-                    <tr>
-                        <td>Nombre</td>
-                        <td>Rut</td>
-                        <td>Acción</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for ($i = 0; $i < count($student_list); $i++)
+                                        <input type="image" class="form-delete"
+                                            src="https://img.icons8.com/cotton/2x/delete-sign--v2.png" alt="Eliminar"
+                                            width="20px" height="20px">
+                                </form>
+                            </tr>
+                        @endfor
+                    </tbody>
+                </table>
+            @else
+                <label class="form-label">No hay ayudantes inscritos</label>
+
+            @endif
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>Estudiantes</legend>
+        <!--Nombre estudiantes-->
+        <div class="mb-3">
+            @if (count($student_list) > 0)
+                <table>
+                    <thead>
                         <tr>
-                            <td id="rut_estudiante{{ $i }}" name="rut_estudiante{{ $i }}"
-                                type="text" value="{{ $student_list[$i]->rut }}">{{ $student_list[$i]->name }}</td>
-                            <td>{{ $student_list[$i]->rut }}</td>
-                            <td>
-                                <input type="image" src="https://img.icons8.com/cotton/2x/delete-sign--v2.png"
-                                    alt="Eliminar" width="20px" height="20px">
+                            <td>Nombre</td>
+                            <td>Rut</td>
+                            <td>Acción</td>
                         </tr>
-                    @endfor
-                @else
-                    <label class="form-label">No hay estudiantes inscritos</label>
-        @endif
-        </tbody>
-        </table>
-        <ul>
-    </div>
+                    </thead>
+                    <tbody>
+                        @for ($i = 0; $i < count($student_list); $i++)
+                            <tr>
+                                <td id="rut_estudiante{{ $i }}" name="rut_estudiante{{ $i }}"
+                                    type="text" value="{{ $student_list[$i]->rut }}">{{ $student_list[$i]->name }}
+                                </td>
+                                <td>{{ $student_list[$i]->rut }}</td>
+                                <td>
+                                    <input type="image" src="https://img.icons8.com/cotton/2x/delete-sign--v2.png"
+                                        alt="Eliminar" width="20px" height="20px">
+                            </tr>
+                        @endfor
+                    @else
+                        <label class="form-label">No hay estudiantes inscritos</label>
+            @endif
+            </tbody>
+            </table>
+            <ul>
+        </div>
+    </fieldset>
     <br>
 
 
