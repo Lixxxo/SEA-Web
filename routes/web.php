@@ -148,4 +148,12 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 // ENC 003
-Route::resource('/dashboard/answer_survey', AnswerController::class);
+Route::get('/dashboard/answer_survey','App\Http\Controllers\AnswerController@index');
+Route::get('/dashboard/answer_survey/answer', 'App\Http\Controllers\AnswerController@edit')
+->middleware(['auth'])
+->name("openSurvey");
+
+Route::post('/dashboard/answer_survey', 'App\Http\Controllers\AnswerController@answerSurvey')
+->middleware(['auth'])
+->name("answerSurvey");
+
