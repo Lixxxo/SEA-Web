@@ -60,12 +60,17 @@ class CourseController extends Controller
         $rut = $request->get("assistantRut");
         $nrc = $request->get("nrc");
         
-        $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0]->id;
-        
         $search = DB::select('select id from users where rut = ?', [$rut]);
         if ($search == null){
             return back()->with("error", "Estudiante no encontrado en el sistema.");    
         }
+        
+        $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0]->id;
+        $search = DB::select('select * from assistants_courses where Coursesid = ?', [$course_id]);
+        if ($search != null){
+            return back()->with("info", "Ayudante ya se encuentra en este curso.");
+        }
+        
         $result = DB::insert('insert into assistants_courses (Usersrut, Coursesid) values (?, ?)', [$rut, $course_id]);
         return back()->with("success", "Ayudante añadido del curso.");
         
@@ -77,12 +82,17 @@ class CourseController extends Controller
         $rut = $request->get("studentRut");
         $nrc = $request->get("nrc");
         
-        $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0]->id;
-        
         $search = DB::select('select id from users where rut = ?', [$rut]);
         if ($search == null){
             return back()->with("error", "Estudiante no encontrado en el sistema.");    
         }
+        
+        $course_id = DB::select('select id from courses where nrc = ?', [$nrc])[0]->id;
+        $search = DB::select('select * from students_courses where Coursesid = ?', [$course_id]);
+        if ($search != null){
+            return back()->with("info", "Estudiante ya se encuentra en este curso.");
+        }
+        
         $result = DB::insert('insert into students_courses (Usersrut, Coursesid) values (?, ?)', [$rut, $course_id]);
         return back()->with("success", "Estudiante añadido del curso.");
         
