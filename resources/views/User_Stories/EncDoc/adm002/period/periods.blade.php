@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('contenido')
     <div>
-        <a href="/dashboard">Menu principal</a>
+        <a href="/dashboard">Menú principal</a>
     </div>
     <style>
 
@@ -10,54 +10,57 @@
         <div class="text-center">
             <h3>Estado de semestre</h3>
             @if ($enabled_period != '')
-                <h4>
+                <p>
                     El código de semestre habilitado es el {{ $enabled_period->codigo_semestre }} <br>
 
                     Ingrese el código del semestre para deshabilitar: <br>
                     (Solo datos numéricos)
+                </p>
+                <br>
+                <br>
+                <form method="POST" action="{{ route('periods_edit') }}">
+                    @csrf
+                    <input class="form" type="txtNumber" minlength="6" maxlength="6" id="codigo_semestre"
+                        name="codigo_semestre" onchange="validatePeriodCode(this);" autocomplete="off"
+                        onkeypress="return isNumberKey(event);">
                     <br>
-                    <br>
-                    <form method="POST" action="{{ route('periods_edit') }}">
-                        @csrf
-                        <input class="form" type="txtNumber" minlength="6" maxlength="6" id="codigo_semestre"
-                            name="codigo_semestre" onchange="validatePeriodCode(this);" autocomplete="off"
-                            onkeypress="return isNumberKey(event);">
-                        <br>
-                        <input value="Deshabilitar" onclick="verification();" type="submit"
-                            style="background-color: orange">
-                    </form>
-                </h4>
+                    <input value="Deshabilitar" onclick="verification();" type="submit" style="background-color: orange">
+                </form>
+
 
 
             @else
-                <h4>
-                    No se encuentra nigún semestre habilitado <br>
-                    seleccione el año y el semestre para habilitarlo
-                    <br><br>
+                <div class="warning-box">
+                    <p>
+                        No se encuentra nigún semestre habilitado <br>
+                        seleccione el año y el semestre para habilitarlo
 
-                    <form method="POST" action="{{ route('periods_store') }}">
-                        @csrf
-                        <label for="year">Año</label>
-                        <select name="year" id="year">
-                            <option value="{{ now()->year - 1 }}">{{ now()->year - 1 }}</option>
-                            <option selected value="{{ now()->year }}">{{ now()->year }}</option>
-                            @for ($i = 1; $i < 4; $i++)
-                                <option value="{{ now()->year + $i }}">{{ now()->year + $i }}</option>
-                            @endfor
-                        </select>
-                        <input checked type="radio" id="p1" name="period" value="10">
-                        <label for="p1">Primer semestre</label>
-                        <input type="radio" id="p2" name="period" value="20">
-                        <label for="p2">Segundo semestre</label><br>
-                        <br>
+                    </p>
+                </div>
+                <br><br>
+                <form method="POST" action="{{ route('periods_store') }}">
+                    @csrf
+                    <label for="year">Año</label>
+                    <select name="year" id="year">
+                        <option value="{{ now()->year - 1 }}">{{ now()->year - 1 }}</option>
+                        <option selected value="{{ now()->year }}">{{ now()->year }}</option>
+                        @for ($i = 1; $i < 4; $i++)
+                            <option value="{{ now()->year + $i }}">{{ now()->year + $i }}</option>
+                        @endfor
+                    </select>
+                    <input checked type="radio" id="p1" name="period" value="10">
+                    <label for="p1">Primer semestre</label>
+                    <input type="radio" id="p2" name="period" value="20">
+                    <label for="p2">Segundo semestre</label><br>
+                    <br>
 
-                        <label for="description">Descripción</label>
-                        <textarea name="description" id="description" cols="30" rows="2" style="resize: none"></textarea>
+                    <label for="description">Descripción</label>
+                    <textarea name="description" id="description" cols="30" rows="2" style="resize: none"></textarea>
 
-                        <br>
-                        <input type="submit" value="Habilitar/Editar" style="background-color: green">
-                    </form>
-                </h4>
+                    <br>
+                    <input type="submit" value="Habilitar/Editar" style="background-color: green">
+                </form>
+
             @endif
         </div>
         @if (count($period_list) > 0)
