@@ -36,9 +36,11 @@
                         <td>
                             <a href='/dashboard/courses/{{ $course_list[$i]->id }}/edit'
                                 class="btn btn-warning">Editar</a>
-                            <form action="">
-                                <input type="text" name="nrc" value={{ $course_list[$i]->nrc }}>
-                                <a href="/dashboard/courses/" class="btn btn-danger">Eliminar</a>
+                            <form action="{{route('deleteCourse')}}" method="POST">
+                                @csrf
+                                <input type="text" name="nrc" hidden value={{ $course_list[$i]->nrc }}>
+                                <input type="submit" class="btn btn-danger" name="" value="Eliminar" style="background-color: darkred">
+                                
                             </form>
                         </td>
                     </tr>
