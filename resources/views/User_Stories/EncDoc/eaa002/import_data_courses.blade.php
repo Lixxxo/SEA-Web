@@ -46,6 +46,21 @@
                 <br>
             </div> 
         @endif
+        <br>
+        @if (session("courses_duplicate"))
+            <div class = "alert alert-danger">
+                <h3 class = "text-center">Los siguientes codigos de asignatura ya se encuentran dentro del sistema</h3>
+                <table class = "table table-bordered table-striped">
+                    <tr>
+                        <th>Codigo de asignatura</th>    
+                        @foreach (explode(";",session("courses_duplicate")) as $ca)
+                            <th>{{$ca}}</th>
+                        @endforeach
+                    </tr>
+                </table>
+                <br>
+            </div> 
+        @endif
 
         <br/>
         <div class = "panel-default">
