@@ -11,16 +11,20 @@
     </fieldset>
     <div class="row">
         <div class="col-sm-3">
-            <p>Encuestas respondidas</p>
-            <progress id="progress_all" value="32" max="100">   </progress>
-            <label for="progress_all">32%</label>
-            <p>Encuestas respondidas</p>
-            <progress id="progress_some" value="32" max="100">   </progress>
-            <label for="progress_some">32%</label>
-            <p>Encuestas respondidas</p>
-            <progress id="progress_none" value="32" max="100">   </progress>
-            <label for="progress_none">32%</label>
 
+            @if ($total_students == 0)
+            <p>No hay estudiantes inscritos este período</p>
+            @else
+            <p>Estudiantes que respondieron todas las encuestas</p>
+            <progress id="progress_all" value="{{$answered_all}}" max="{{$total_students}}">   </progress>
+            <label for="progress_all">{{($answered_all * 100) / $total_students}}%</label>
+            <p>Estudiantes que respondieron algunas encuestas</p>
+            <progress id="progress_some" value="{{$answered_some}}"" max=>"{{$total_students}}"   </progress>
+            <label for="progress_some">{{($answered_some * 100) / $total_students}}%</label>
+            <p>Estudiantes que no respondieron ninguna encuesta</p>
+            <progress id="progress_none" value="{{$answered_none}}" max="{{$total_students}}">   </progress>
+            <label for="progress_none">{{($answered_none * 100) / $total_students}}%</label>
+            @endif
 
         </div>
         <div class="col-sm-3">
