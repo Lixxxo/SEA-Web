@@ -34,6 +34,14 @@
                     <th class="header">nrc</th>
                     <th class="header">código</th>
                 </thead>
+                <tbody>
+                @foreach ($courses_without_surveys as $item)
+                    <tr>
+                        <td>{{$item->nrc}}</td>
+                        <td>{{$item->codigo_asignatura}}</td>
+                    </tr>
+                @endforeach
+                </tbody>
             </table>
             <p>Asignaturas con encuestas activas sin respuestas</p>
             <table>
@@ -41,6 +49,14 @@
                     <th class="header">nrc</th>
                     <th class="header">código</th>
                 </thead>
+                <tbody>
+                    @foreach ($courses_with_surveys_without_answers as $item)
+                        <tr>
+                            <td>{{$item->nrc}}</td>
+                            <td>{{$item->codigo_asignatura}}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
             </table>
         </div>
         <div class="col-sm-3">

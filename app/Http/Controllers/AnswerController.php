@@ -57,6 +57,8 @@ class AnswerController extends Controller
             DB::insert('insert into Answers (respuesta, Questionsid, Coursesid) values (?, ?, ?)', [$answer, $questionid, $course_id]);
         }
         DB::update('update Students_Courses set isAnswered = 1 where Usersrut = ? and Coursesid = ?', [$request->rut,$request->courseid]);
+        //DB::update('update Questions set cantRespuesta = cantRespuesta + 1 where id = ?', [$questionid]);
+        DB::update('update Surveys set totalRespuestas = totalRespuestas + 1 where id = ?', [$course_id]);
         return redirect('/dashboard/answer_survey')->with('success',"Has respondido esta encuesta");
     }
 }
