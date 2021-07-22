@@ -2,7 +2,7 @@
 @section('contenido')
     <br>
     <div>
-        <img alt="UCN" width="100" src="img/ucn-logo.png" />
+        <img alt="UCN" width="100" src="{{asset('img/ucn-logo.png')}}" />
         <h1>Bienvenido {{Auth::user()->name}}</h1>    
     </div>
     
@@ -95,13 +95,6 @@
             <!--Cosas de Ayudante-->
             <div>
                 <h4>
-                    <a href="/dashboard/review_surveys">
-                        <h4>Revisar encuestas</h4>
-                    </a>
-                </h4>
-            </div>
-            <div>
-                <h4>
                     <a href="/dashboard/review_global">
                         <h4>Revisar indicadores globales</h4>
                     </a>
@@ -111,13 +104,6 @@
 
     </div>
     <hr>
-    @elseif (Auth::user()->role == "Ayudante")
-        <!--Cosas de Ayudante-->
-        <div>
-            <h3>
-                <a href="/dashboard/select_courses">
-                    <h3>Revisar encuestas</h3>
-
         @elseif (Auth::user()->role == "Encargado Docente")
             <!--Cosas de Encargado Docente-->
             <div>
@@ -174,7 +160,7 @@
             <!--Cosas de Ayudante-->
             <div>
                 <h3>
-                    <a href="/dashboard/review_surveys">
+                    <a href="{{route('selectCourses');}}"
                         <h3>Revisar encuestas</h3>
                     </a>
                 </h3>

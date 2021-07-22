@@ -18,7 +18,7 @@ class Ayudante
     {
         // if role is not in the array
         // https://www.php.net/manual/es/function.in-array.php
-        if (!in_array(auth()->user()->role, array('Administrador','Ayudante'))){
+        if (!in_array(auth()->user()->role, array('Ayudante'))){
             return redirect('/404');
         }
 
