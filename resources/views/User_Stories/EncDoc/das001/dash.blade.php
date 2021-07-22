@@ -19,7 +19,7 @@
             <progress id="progress_all" value="{{$answered_all}}" max="{{$total_students}}">   </progress>
             <label for="progress_all">{{($answered_all * 100) / $total_students}}%</label>
             <p>Estudiantes que respondieron algunas encuestas</p>
-            <progress id="progress_some" value="{{$answered_some}}"" max=>"{{$total_students}}"   </progress>
+            <progress id="progress_some" value="{{$answered_some}}" max=>"{{$total_students}}"   </progress>
             <label for="progress_some">{{($answered_some * 100) / $total_students}}%</label>
             <p>Estudiantes que no respondieron ninguna encuesta</p>
             <progress id="progress_none" value="{{$answered_none}}" max="{{$total_students}}">   </progress>
