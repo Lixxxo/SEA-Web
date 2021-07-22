@@ -113,6 +113,17 @@ Route::post('/dashboard/surveys/deleteQuestion', 'App\Http\Controllers\SurveyCon
 ->middleware(['auth', 'Encargado Docente'])
 ->name("deleteQuestion");
 
+
+// ENC-004
+
+Route::get('/dashboard/review_surveys', 'App\Http\Controllers\ResultsController@indexSurveys')
+->middleware(['auth', 'Ayudante'])
+->name("reviewSurvey");
+
+Route::get('/dashboard/select_courses', 'App\Http\Controllers\ResultsController@index')
+->middleware(['auth', 'Ayudante'])
+->name("selectCourses");
+
 //ENC-002
 Route::get('dashboard/manage_surveys', 'App\Http\Controllers\SurveyController@indexSurveys')
 ->middleware(['auth', 'Encargado Docente']);
@@ -122,6 +133,7 @@ Route::get('dashboard/manage', 'App\Http\Controllers\SurveyController@returnSurv
 Route::post('dashboard/manage/accept', 'App\Http\Controllers\SurveyController@ManageSurveys')
 ->middleware(['auth', 'Encargado Docente'])
 ->name("link_survey");
+
 
 // eaa 003
 Route::resource('/dashboard/courses', CourseController::class)

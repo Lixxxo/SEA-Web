@@ -108,11 +108,22 @@
                 </h4>
             </div>
 
+
+    </div>
+    <hr>
+    @elseif (Auth::user()->role == "Ayudante")
+        <!--Cosas de Ayudante-->
+        <div>
+            <h3>
+                <a href="/dashboard/select_courses">
+                    <h3>Revisar encuestas</h3>
+
         @elseif (Auth::user()->role == "Encargado Docente")
             <!--Cosas de Encargado Docente-->
             <div>
                 <a href="/dashboard/periods">
                     <h3> Administrar período </h3>
+
                 </a>
             </div>
             <hr>
