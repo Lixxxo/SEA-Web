@@ -11,19 +11,40 @@
     </fieldset>
     <div class="row">
         <div class="col-sm-3">
-
+            <h3>Porcentajes encuestas</>
+                <hr>
             @if ($total_students == 0)
             <p>No hay estudiantes inscritos este período</p>
             @else
             <p>Estudiantes que respondieron todas las encuestas</p>
-            <progress id="progress_all" value="{{$answered_all}}" max="{{$total_students}}">   </progress>
-            <label for="progress_all">{{($answered_all * 100) / $total_students}}%</label>
+            
+            <div class="progress" style="height: 24px; background: green ">
+                <div class="progress-bar bg-success" role="progressbar" 
+                style="width: {{round(($answered_all * 100) / $total_students, 0)+ 2}}%;"
+                >
+                <p style="color: black"> {{round(($answered_all * 100) / $total_students, 1)}}% </p>
+                </div>
+            </div>
+            <label for="progress_all"></label>
             <p>Estudiantes que respondieron algunas encuestas</p>
-            <progress id="progress_some" value="{{$answered_some}}" max=>"{{$total_students}}"   </progress>
-            <label for="progress_some">{{($answered_some * 100) / $total_students}}%</label>
+
+            <div class="progress" style="height: 24x; background:gold">
+                <div class="progress-bar bg-success" role="progressbar" 
+                style="width: {{round(($answered_some * 100) / $total_students, 0) + 2}}%;"
+                >
+               <p style="color: black"> {{round(($answered_some * 100) / $total_students, 1)}}%</p>
+                </div>
+            </div>
             <p>Estudiantes que no respondieron ninguna encuesta</p>
-            <progress id="progress_none" value="{{$answered_none}}" max="{{$total_students}}">   </progress>
-            <label for="progress_none">{{($answered_none * 100) / $total_students}}%</label>
+           
+            <div class="progress" style="height: 24px; background:rgb(228, 52, 52)">
+                <div class="progress-bar bg-success" role="progressbar" 
+                style="width: {{round(($answered_none * 100) / $total_students, 0) + 2}}%;"
+                >
+                <p style="color: black"> {{round(($answered_none * 100) / $total_students, 1) }}% </p>
+                </div>
+            </div>
+
             @endif
 
         </div>
