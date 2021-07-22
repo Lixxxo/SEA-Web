@@ -98,6 +98,7 @@ class ImportDataController extends Controller
                 if($file_verify[0] == 'nrc' && $file_verify[1] == 'codigo_asignatura' && $file_verify[3] == 'nombre_profesor' && $file_verify[2] == 'rut_profesor')
                 {
                     $courses_error = array();
+                    $courses_duplicate = array();
                     foreach ($courses as $c) {
                         if($c['nrc'] == null)
                         {
@@ -108,9 +109,19 @@ class ImportDataController extends Controller
                             $course_verify = DB::select('select nrc from courses where nrc = ?', [$c['nrc']]);
                             if($course_verify == null)
                             {
-                                DB::insert('insert into courses (nrc,codigo_asignatura, rut_profesor, nombre_profesor) values (?, ?, ?, ?)', [$c['nrc'], $c['codigo_asignatura'], $c['rut_profesor'], $c['nombre_profesor']]);
-                                $course_id = DB::select('select id from courses where nrc = ?', [$c['nrc']]);
-                                DB::insert('insert into periods_courses (Periodscodigo_semestre, Coursesid) values (?, ?)', [$period_code[0]->codigo_semestre, $course_id[0]->id]);
+                                $coursesVerify = DB::select('select nrc from courses where codigo_asignatura = ?', [$c['codigo_asignatura']]);
+
+                                if($coursesVerify == null)
+                                {
+                                    DB::insert('insert into courses (nrc,codigo_asignatura, rut_profesor, nombre_profesor) values (?, ?, ?, ?)', [$c['nrc'], $c['codigo_asignatura'], $c['rut_profesor'], $c['nombre_profesor']]);
+                                    $course_id = DB::select('select id from courses where nrc = ?', [$c['nrc']]);
+                                    DB::insert('insert into periods_courses (Periodscodigo_semestre, Coursesid) values (?, ?)', [$period_code[0]->codigo_semestre, $course_id[0]->id]);                                    
+                                }
+                                else
+                                {
+                                    array_push($courses_duplicate, $c['codigo_asignatura']);
+                                }
+
                             }
                             else
                             {
@@ -130,7 +141,8 @@ class ImportDataController extends Controller
 
                     return back()
                     ->with('success', 'Se ha cargado el archivo correctamente')
-                    ->with('courses_list', implode(";",$courses_error)); 
+                    ->with('courses_list', implode(";",$courses_error))
+                    ->with('courses_duplicate', implode(";",$courses_duplicate)); 
                 }
                 else
                 {

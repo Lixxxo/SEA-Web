@@ -51,6 +51,15 @@ class AnswerController extends Controller
 
     public function answerSurvey(request $request){
         $course_id = $request->get('courseid');
+        $rut = $request->get('rut');
+        
+        $check_answered = DB::select('select isAnswered from Students_Courses 
+                                    where Usersrut = ?
+                                    and Coursesid = ?', [$rut, $course_id])[0]->isAnswered;
+        
+        if($check_answered == 1){
+            return redirect('/dashboard/answer_survey')->with('success',"Has respondido esta encuesta");
+        }
         for ($i=0; $i < $request->questions_number; $i++) {
             $answer = $request->get('answer'.$i);
             $questionid = $request->get('question'.$i);

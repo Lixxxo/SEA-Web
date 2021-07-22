@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user_list = User::all();
+        $user_list = DB::select('select * from users where role != ?',['Administrador']);
         return view('User_stories.Admin.adm001.users', ['user_list' => $user_list]);
     }
 
