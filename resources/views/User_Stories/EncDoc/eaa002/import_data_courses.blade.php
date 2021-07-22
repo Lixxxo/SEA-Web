@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('contenido')
     <div>
-        <a href="/dashboard">Menu principal</a>
+        <a href="/dashboard">Menú principal</a>
     </div>
     <div class = "container">
         <h3  align = "center">Cargar asignaturas</h3>
@@ -37,14 +37,14 @@
                 <h3 class = "text-center">Los cursos con los siguientes nrc ya se encuentran dentro del semestre habilitado</h3>
                 <table class = "table table-bordered table-striped">
                     <tr>
-                        <th>NRC</th>    
+                        <th>NRC</th>
                         @foreach (explode(";",session("courses_list")) as $nrc)
                             <th>{{$nrc}}</th>
                         @endforeach
                     </tr>
                 </table>
                 <br>
-            </div> 
+            </div>
         @endif
         <br>
         @if (session("courses_duplicate"))
@@ -52,14 +52,14 @@
                 <h3 class = "text-center">Los siguientes codigos de asignatura ya se encuentran dentro del sistema</h3>
                 <table class = "table table-bordered table-striped">
                     <tr>
-                        <th>Codigo de asignatura</th>    
+                        <th>Codigo de asignatura</th>
                         @foreach (explode(";",session("courses_duplicate")) as $ca)
                             <th>{{$ca}}</th>
                         @endforeach
                     </tr>
                 </table>
                 <br>
-            </div> 
+            </div>
         @endif
 
         <br/>
@@ -74,7 +74,7 @@
                         <th>Nombre del profesor</th>
                     </tr>
                     @if ($data == null)
-                        
+
                     @else
                         @foreach ($data as $row)
                             <tr>
@@ -83,7 +83,7 @@
                                 <td>{{ $row->rut_profesor }}</td>
                                 <td>{{ $row->nombre_profesor }}</td>
                             </tr>
-                        @endforeach                        
+                        @endforeach
                     @endif
                     </table>
                 </div>

@@ -28,9 +28,6 @@
                     <form action="{{ route('login') }}">
                         <button class = "btn btn-primary">Iniciar Sesion</button>
                     </form>
-                    <form action="{{ route('register') }}">
-                        <button>Registrarse</button>
-                    </form>
                 @endauth
             </div>
         @endif

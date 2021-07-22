@@ -2,7 +2,7 @@
 @section('contenido')
 
     <div>
-        <a href="/dashboard">Menu principal</a>
+        <a href="/dashboard">Menú principal</a>
         <br>
         <a href="/dashboard/surveys">Encuestas</a>
     </div>

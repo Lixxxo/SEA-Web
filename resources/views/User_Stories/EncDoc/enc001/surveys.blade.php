@@ -3,7 +3,7 @@
 
 <div>
 
-    <a href="/dashboard">Menu principal</a>
+    <a href="/dashboard">Menú principal</a>
 
 </div>
 <h4>Listado de Encuestas</h4>
