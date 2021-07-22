@@ -4,13 +4,13 @@
     <div>
         <a href="/dashboard">Menu Principal</a>
     </div>
-    @for ($i = 0; $i < count($questions); $i++)
-        <a> {{$questions[$i]->frase }} </a>
-    @endfor
+
     <br>
     <label for="chart"> Graficos por pregunta </label>
         <br> 
-        
+        @for ($i = 0; $i < count($questions); $i++)
+            <label> {{$questions[$i]->frase }} </label>
+        @endfor        
         <br>
     <div id="chart" style="height: 300px;"></div> 
 @endsection
