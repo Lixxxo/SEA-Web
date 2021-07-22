@@ -6,7 +6,7 @@
     <a href="/dashboard">Menu principal</a>
 
 </div>
-<h3 align = "center">Listado de Encuestas</h3>
+<h4>Listado de Encuestas</h4>
 <div>
     <h4>
         Crear Encuesta

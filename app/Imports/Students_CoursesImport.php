@@ -2,14 +2,15 @@
 
 namespace App\Imports;
 
-use App\Models\Assistants_Courses;
-use Maatwebsite\Excel\Concerns\SkipsOnError;
+use App\Models\Students_Courses;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\SkipsOnError;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Throwable;
 
-class Assistants_CoursesImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError
+
+class Students_CoursesImport implements ToModel,WithHeadingRow,WithChunkReading,SkipsOnError
 {
     /**
     * @param array $row
@@ -18,21 +19,21 @@ class Assistants_CoursesImport implements ToModel,WithHeadingRow,WithChunkReadin
     */
     public function model(array $row)
     {
-        return new Assistants_Courses([
+        return new students_courses([
             'Usersrut' => $row['rut'],
             'Coursesid' => $row['nrc']
         ]);
     }
+
 
     public function chunkSize(): int
     {
         return 1000;
 
     }
-    
-    public function onError(Throwable $e)
+
+    public function onError(Throwable $th)
     {
         
     }
-    
 }

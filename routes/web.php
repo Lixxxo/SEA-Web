@@ -9,6 +9,8 @@ use App\Http\Controllers\CourseController;
 
 use App\Http\Controllers\PeriodController;
 
+use App\Http\Controllers\AnswerController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -82,6 +84,12 @@ Route::get('dashboard/import_data_assistants', 'App\Http\Controllers\ImportDataC
 Route::post('dashboard/import_data_assistants/importAssistants', 'App\Http\Controllers\ImportDataController@importAssistants')
 ->middleware(['auth', 'Encargado Docente', 'EnabledPeriod']);
 
+//EAA-005
+Route::get('dashboard/import_data_associate', 'App\Http\Controllers\ImportDataController@indexAssociate')
+->middleware(['auth', 'Encargado Docente']);
+Route::post('dashboard/import_data_associate/importAssociate', 'App\Http\Controllers\ImportDataController@importAssociate')
+->middleware(['auth', 'Encargado Docente']);
+
 //enc 001
 Route::get('/dashboard/surveys', 'App\Http\Controllers\SurveyController@index')
 ->middleware(['auth', 'Encargado Docente']);
@@ -105,6 +113,7 @@ Route::post('/dashboard/surveys/deleteQuestion', 'App\Http\Controllers\SurveyCon
 ->middleware(['auth', 'Encargado Docente'])
 ->name("deleteQuestion");
 
+
 // ENC-004
 
 Route::get('/dashboard/review_surveys', 'App\Http\Controllers\ResultsController@indexSurveys')
@@ -115,11 +124,51 @@ Route::get('/dashboard/select_courses', 'App\Http\Controllers\ResultsController@
 ->middleware(['auth', 'Ayudante'])
 ->name("selectCourses");
 
+//ENC-002
+Route::get('dashboard/manage_surveys', 'App\Http\Controllers\SurveyController@indexSurveys')
+->middleware(['auth', 'Encargado Docente']);
+Route::get('dashboard/manage', 'App\Http\Controllers\SurveyController@returnSurveys')
+->middleware(['auth', 'Encargado Docente'])
+->name('manage_survey');
+Route::post('dashboard/manage/accept', 'App\Http\Controllers\SurveyController@ManageSurveys')
+->middleware(['auth', 'Encargado Docente'])
+->name("link_survey");
+
+
 // eaa 003
 Route::resource('/dashboard/courses', CourseController::class)
 ->middleware(['auth','Encargado Docente', 'EnabledPeriod']);
+Route::post('/delete_assistant', 'App\Http\Controllers\CourseController@deleteAssistant')
+->middleware(['auth', 'Encargado Docente'])
+->name("deleteAssistant");
+Route::post('/delete_student', 'App\Http\Controllers\CourseController@deleteStudent')
+->middleware(['auth', 'Encargado Docente'])
+->name("deleteStudent");
+Route::post('/add_student', 'App\Http\Controllers\CourseController@addStudent')
+->middleware(['auth', 'Encargado Docente'])
+->name("addStudent");
+Route::post('/add_assistant', 'App\Http\Controllers\CourseController@addAssistant')
+->middleware(['auth', 'Encargado Docente'])
+->name("addAssistant");
+Route::post('/delete_course', 'App\Http\Controllers\CourseController@deleteCourse')
+->middleware(['auth', 'Encargado Docente'])
+->name("deleteCourse");
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard',['enabled_period' => PeriodController::has_enabled_period()]);
 })->name('dashboard');
+
+// ENC 003
+Route::get('/dashboard/answer_survey','App\Http\Controllers\AnswerController@index');
+Route::get('/dashboard/answer_survey/answer', 'App\Http\Controllers\AnswerController@edit')
+->middleware(['auth', 'Estudiante'])
+->name("openSurvey");
+
+Route::post('/dashboard/answer_survey', 'App\Http\Controllers\AnswerController@answerSurvey')
+->middleware(['auth', 'Estudiante'])
+->name("answerSurvey");
+
+Route::get('/dashboard/review_global', 'App\Http\Controllers\GlobalController@index')
+->middleware(['auth', 'Encargado Docente'])
+->name("reviewGlobal");
