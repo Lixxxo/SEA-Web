@@ -102,7 +102,7 @@
             </div>
             <div>
                 <h4>
-                    <a href="/dashboard/review__global">
+                    <a href="/dashboard/review_global">
                         <h4>Revisar indicadores globales</h4>
                     </a>
                 </h4>

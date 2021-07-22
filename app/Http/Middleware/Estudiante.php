@@ -16,7 +16,8 @@ class Estudiante
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->role !== 'Estudiante'){
+        if (!in_array(auth()->user()->role, array('Estudiante','Ayudante'))){
+
             return redirect('/404');
         }
 
