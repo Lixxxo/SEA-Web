@@ -49,8 +49,11 @@ class GlobalController extends Controller
 
             
         }
-        dd($answered_all, $answered_some, $answered_none);
-        //dd($rut_list, $x);
-        return view('User_Stories.EncDoc.das001.dash');
+
+        return view('User_Stories.EncDoc.das001.dash', 
+                   ['total_students'=>$total_students,
+                    'answered_all'=>$answered_all,
+                    'answered_some'=>$answered_some,
+                    'answered_none'=>$answered_none]);
     }
 }
