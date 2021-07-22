@@ -18,7 +18,7 @@
             @else
             <p>Estudiantes que respondieron todas las encuestas</p>
             
-            <div class="progress" style="height: 24px; background: green ">
+            <div class="progress" style="height: 24px; background: rgb(79, 128, 0) ">
                 <div class="progress-bar bg-success" role="progressbar" 
                 style="width: {{round(($answered_all * 100) / $total_students, 0)+ 2}}%;"
                 >
@@ -37,7 +37,7 @@
             </div>
             <p>Estudiantes que no respondieron ninguna encuesta</p>
            
-            <div class="progress" style="height: 24px; background:rgb(228, 52, 52)">
+            <div class="progress" style="height: 24px; background:rgb(245, 163, 163)">
                 <div class="progress-bar bg-success" role="progressbar" 
                 style="width: {{round(($answered_none * 100) / $total_students, 0) + 2}}%;"
                 >

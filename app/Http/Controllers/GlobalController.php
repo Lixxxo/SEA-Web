@@ -11,7 +11,7 @@ class GlobalController extends Controller
     {
         $courses_without_surveys = DB::select('select * from courses where Surveysid is null');
         //dd($courses_without_surveys);
-        $courses_with_surveys_withthout_answers = DB::select('select * from courses where Surveysid = (select id from Surveys where totalRespuestas = 0)');
+        $courses_with_surveys_withthout_answers = DB::select('select * from courses where Surveysid in (select id from Surveys where totalRespuestas = 0)');
         //dd($courses_with_surveys_withthout_answers);
 
         $rut_list = DB::select('select distinct Usersrut
@@ -43,11 +43,11 @@ class GlobalController extends Controller
                 }
             }
 
-            if ($actual_answers == $actual_surveys) {
+            if ($actual_answers == $actual_surveys and $actual_answers > 0) {
                 $answered_all = $answered_all + 1;
             }elseif($actual_answers == 0 and $actual_answers < $actual_surveys){
                 $answered_none = $answered_none + 1;
-            }elseif($actual_answers < $actual_surveys){
+            }elseif($actual_answers < $actual_surveys ){
                 $answered_some = $answered_some + 1;
             }
 
